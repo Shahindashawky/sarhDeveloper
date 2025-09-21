@@ -5,6 +5,8 @@ import { Home } from './pages/home/home';
 import { Projects } from './pages/projects/projects';
 import { Contact } from './pages/contact/contact';
 import { Login } from './admin-pages/login/login';
+import { AdminHome } from './admin-pages/admin-home/admin-home';
+import { ChangePassword } from './admin-pages/change-password/change-password';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -13,6 +15,9 @@ const routes: Routes = [
   { path: 'contact', component: Contact },
   //admin-pages
   { path: 'admin-login', component: Login },
+   { path: 'admin-home', component: AdminHome },
+      { path: 'resetPassword', component: ChangePassword },
+
   { path: '**', redirectTo: '' }
 ];
 

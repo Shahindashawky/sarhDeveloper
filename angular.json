@@ -36,12 +36,13 @@
                 "input": "public"
               }
             ],
-            "styles": [
-            "node_modules/primeicons/primeicons.css",
-            "node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-            "src/styles.scss"
-            ],
+          "styles": [
+  "node_modules/primeicons/primeicons.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+  "src/styles.scss"
+],
+
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {

@@ -2,7 +2,9 @@ import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { ApiService } from '../../services/api-service';
 // import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './login.scss'
 })
 export class Login {
+
   loginForm!: FormGroup;
   email = new FormControl('', [
     Validators.required,
@@ -24,64 +27,40 @@ export class Login {
     @Inject(PLATFORM_ID) private platformId: Object,
     private fb: FormBuilder,
     private router: Router,
-    // private messageService: MessageService
+    private api: ApiService
   ) {}
 
-  users: any[] = [];
 
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}')]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+    email: this.email,
+    password: this.password
+      });
 
-    // this.AutoLogin();
   }
 // Message(message:any){
 //   this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
 // }
 
-  onSubmit() {
-  //   let email = this.loginForm.controls.email.value;
-  //   let password = this.loginForm.controls.password.value;
-  //   this.api.login(email, password).then((userCredential) => {
-  //   const user = this.users.find((user: any) => user.email === userCredential.user?.email );
-
-  //  if(user){
-     
-  //    this.api.setAuth(true);
-  //    userCredential.user?.getIdToken().then(t=>
-  //    localStorage.setItem('token', t))
-  //         localStorage.setItem('email',user.email)
-  //        if(this.rememberMe) {
-  //         localStorage.setItem('rememberMe', 'yes')
-  //       }
-  //       if(user?.role == 'Administration'){
-  //         this.router.navigateByUrl('viewPermissionmanagment');
+ onSubmit() {
+    this.api.login(this.loginForm.value).subscribe((i: any) => {
+      localStorage.setItem('token', i.token);
+      this.api.token = i.token;
+      this.api.httpOption.Authorization = i.token;
       
-  //       }
-  //       else{
-  //         this.router.navigateByUrl('user-home');
-         
-  //       }
-  //  }
-  //  else {
-  //   this.Message('Login failed: invalid credentials')
-  // }
- 
+      if (i.token) {
+        this.api.auth = true;
+        this.router.navigateByUrl('admin-home').then(() => {
+          // window.location.reload();
+        });
+      }
+    }),
+      (err: HttpErrorResponse) => {
+        console.log(err.error.message);
+      };
+  }
 
-  //   }).catch(err=> this.Message('Login failed: invalid credentials'))
 
-}
-AutoLogin(){
-//   if (isPlatformBrowser(this.platformId)) {
-//   const accessTokenObj = localStorage.getItem("token");
-//   const rememberMe = localStorage.getItem('rememberMe');
-//   if (accessTokenObj && rememberMe == 'yes') {
-//     this.router.navigateByUrl('user-home');
-//   } 
-//  }
-}
 }

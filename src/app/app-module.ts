@@ -4,8 +4,7 @@ import { ReactiveFormsModule ,FormsModule} from '@angular/forms';
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-
-import { AppRoutingModule } from './app-routing-module';
+import { provideHttpClient } from '@angular/common/http';import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './components/header/header';
 import { Home } from './pages/home/home';
@@ -14,6 +13,8 @@ import { Projects } from './pages/projects/projects';
 import { Contact } from './pages/contact/contact';
 import { Footer } from './components/footer/footer';
 import { Login } from './admin-pages/login/login';
+import { AdminHome } from './admin-pages/admin-home/admin-home';
+import { ChangePassword } from './admin-pages/change-password/change-password';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { Login } from './admin-pages/login/login';
     Projects,
     Contact,
     Footer,
-    Login
+    Login,
+    AdminHome,
+    ChangePassword
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { Login } from './admin-pages/login/login';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideHttpClient()
   ],
   bootstrap: [App]
 })
