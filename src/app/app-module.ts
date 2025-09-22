@@ -1,3 +1,4 @@
+import { DrawerModule } from 'primeng/drawer';
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { ReactiveFormsModule ,FormsModule} from '@angular/forms';
@@ -15,6 +16,13 @@ import { Footer } from './components/footer/footer';
 import { Login } from './admin-pages/login/login';
 import { AdminHome } from './admin-pages/admin-home/admin-home';
 import { ChangePassword } from './admin-pages/change-password/change-password';
+import { Drawerside } from './components/drawer/drawer';
+import { Ripple } from 'primeng/ripple';
+import { StyleClass } from 'primeng/styleclass';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura';
 
 @NgModule({
   declarations: [
@@ -27,7 +35,8 @@ import { ChangePassword } from './admin-pages/change-password/change-password';
     Footer,
     Login,
     AdminHome,
-    ChangePassword
+    ChangePassword,
+    Drawerside
   ],
   imports: [
     BrowserModule,
@@ -35,12 +44,22 @@ import { ChangePassword } from './admin-pages/change-password/change-password';
     ButtonModule,
     CardModule,
     FormsModule,        
-    ReactiveFormsModule 
+    ReactiveFormsModule ,
+    DrawerModule,
+    Ripple ,
+    StyleClass,
+    BrowserAnimationsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
-    provideHttpClient()
+    provideHttpClient(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura
+      }
+    })
   ],
   bootstrap: [App]
 })

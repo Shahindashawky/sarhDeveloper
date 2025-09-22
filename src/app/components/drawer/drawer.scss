@@ -1,0 +1,37 @@
+li a{
+    color: white;
+}
+//    .main{
+//         background-color: var(--first-color);
+//         color: white;
+//         border-radius: 15px;
+//     }
+
+::ng-deep {
+     .card {
+    --bs-card-border-width: 0px;
+  }
+    .sidebar-btn .p-button{
+        height: 40px;
+        padding: 0;
+        color: white;
+        background: var(--first-color);
+
+        .pi{
+          color: white;
+        }
+    }
+
+    .p-button{
+        border: 1px solid var(--first-color);
+    }
+.p-button-outlined {
+  color: var(--first-color) ;
+}
+ .p-button.p-button-outlined:not(:disabled):hover {
+    background: var(--first-color);
+    color:white ;
+    border: 1px solid var(--first-color);
+
+  }
+}
