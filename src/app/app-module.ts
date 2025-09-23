@@ -23,7 +23,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-
+import { CreateRegions } from './admin-pages/create-regions/create-regions';
+import { CreateFeatures } from './admin-pages/create-features/create-features';
+import { CreateProject } from './admin-pages/create-project/create-project';
+import { CreateUnits } from './admin-pages/create-units/create-units';
+import { EditorModule } from 'primeng/editor';
 @NgModule({
   declarations: [
     App,
@@ -36,7 +40,11 @@ import Aura from '@primeuix/themes/aura';
     Login,
     AdminHome,
     ChangePassword,
-    Drawerside
+    Drawerside,
+    CreateRegions,
+    CreateFeatures,
+    CreateProject,
+    CreateUnits
   ],
   imports: [
     BrowserModule,
@@ -48,7 +56,8 @@ import Aura from '@primeuix/themes/aura';
     DrawerModule,
     Ripple ,
     StyleClass,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EditorModule 
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

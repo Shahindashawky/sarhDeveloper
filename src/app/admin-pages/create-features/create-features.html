@@ -1,0 +1,37 @@
+<div class="container mb-2 fc">
+
+  <h2 class="row fw-bold">Create-feature</h2>
+
+  <form enctype="multipart/form-data" class="row create-feature-form" [formGroup]="featureForm"
+    (ngSubmit)="onSubmit()">
+
+        <div class="row mb-4">
+      <label class="form-label ps-0">English name<span class="text-danger fw-bold">*</span></label>
+      <input class="form-control" type="text" placeholder="English name" aria-label="English-name" #Enname formControlName="Enname">
+    </div>
+    <div class="row mb-4">
+        <label class="form-label ps-0">Arabic name<span class="text-danger fw-bold">*</span></label>
+        <input class="form-control" type="text" placeholder="Arabic name" aria-label="Arabic-name" #Arname formControlName="Arname">
+    </div>
+    <div class="row mb-4">
+      <label for="formFile" class="form-label ps-0">Image</label>
+      <div class="input-group mb-3 px-0">
+        <div class="input-group file-input-group" data-controller="file-input">
+          <input class="form-control" type="text" [placeholder]="imageName" readonly data-target="file-input.value">
+          <input type="file" class="form-control" id="customFile" data-target="file-input.input"
+            data-action="file-input#display" #image formControlName="image" (change)="onFileChange($event)"
+            accept="image/*">
+          <div class="input-group-append">
+            <label class="btn mb-0" for="customFile">Upload</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <button class="btn create-btn" type="submit" >
+        <span >Create</span>
+      </button>
+    </div>
+  </form>
+</div>

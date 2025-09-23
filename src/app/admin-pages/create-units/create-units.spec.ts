@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Drawerside } from './drawer';
+import { CreateUnits } from './create-units';
 
-describe('Drawer', () => {
-  let component: Drawerside;
-  let fixture: ComponentFixture<Drawerside>;
+describe('CreateUnits', () => {
+  let component: CreateUnits;
+  let fixture: ComponentFixture<CreateUnits>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Drawerside]
+      declarations: [CreateUnits]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Drawerside);
+    fixture = TestBed.createComponent(CreateUnits);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

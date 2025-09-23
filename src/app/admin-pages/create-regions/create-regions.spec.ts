@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Drawerside } from './drawer';
+import { CreateRegions } from './create-regions';
 
-describe('Drawer', () => {
-  let component: Drawerside;
-  let fixture: ComponentFixture<Drawerside>;
+describe('CreateRegions', () => {
+  let component: CreateRegions;
+  let fixture: ComponentFixture<CreateRegions>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Drawerside]
+      declarations: [CreateRegions]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Drawerside);
+    fixture = TestBed.createComponent(CreateRegions);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

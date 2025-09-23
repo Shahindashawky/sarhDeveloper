@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Drawerside } from './drawer';
+import { CreateFeatures } from './create-features';
 
-describe('Drawer', () => {
-  let component: Drawerside;
-  let fixture: ComponentFixture<Drawerside>;
+describe('CreateFeatures', () => {
+  let component: CreateFeatures;
+  let fixture: ComponentFixture<CreateFeatures>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Drawerside]
+      declarations: [CreateFeatures]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Drawerside);
+    fixture = TestBed.createComponent(CreateFeatures);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

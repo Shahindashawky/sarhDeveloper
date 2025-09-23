@@ -7,12 +7,22 @@ import { Contact } from './pages/contact/contact';
 import { Login } from './admin-pages/login/login';
 import { AdminHome } from './admin-pages/admin-home/admin-home';
 import { ChangePassword } from './admin-pages/change-password/change-password';
+import { CreateRegions } from './admin-pages/create-regions/create-regions';
+import { CreateFeatures } from './admin-pages/create-features/create-features';
+import { CreateProject } from './admin-pages/create-project/create-project';
+import { CreateUnits } from './admin-pages/create-units/create-units';
 
 const routes: Routes = [
   { path: '', component: Home },
   { path: 'about', component: About },
   { path: 'projects', component: Projects },
   { path: 'contact', component: Contact },
+    { path: 'create-region', component: CreateRegions },
+        { path: 'create-feature', component: CreateFeatures },
+    { path: 'create-project', component: CreateProject },
+    { path: 'create-unit', component: CreateUnits },
+
+
   //admin-pages
   { path: 'admin-login', component: Login },
    { path: 'admin-home', component: AdminHome },
