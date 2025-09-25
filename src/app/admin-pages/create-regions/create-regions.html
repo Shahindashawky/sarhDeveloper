@@ -7,11 +7,11 @@
 
         <div class="row mb-4">
       <label class="form-label ps-0">English name<span class="text-danger fw-bold">*</span></label>
-      <input class="form-control" type="text" placeholder="English name" aria-label="English-name" #Enname formControlName="Enname">
+      <input class="form-control" type="text" placeholder="English name" aria-label="Enname" #Enname formControlName="Enname">
     </div>
     <div class="row mb-4">
         <label class="form-label ps-0">Arabic name<span class="text-danger fw-bold">*</span></label>
-        <input class="form-control" type="text" placeholder="Arabic name" aria-label="Arabic-name" #Arname formControlName="Arname">
+        <input class="form-control" type="text" placeholder="Arabic name" aria-label="Arname" #Arname formControlName="Arname">
     </div>
     <div class="row mb-4">
       <label for="formFile" class="form-label ps-0">Image</label>
@@ -31,7 +31,7 @@
      <div class="row mb-4">
       <label for="conference" class="form-label ps-0">Select parent region</label>
       <select 
-        class="form-control" formControlName="parentregionId" id="parentregion">
+        class="form-control" (change)="onSelected(selectedparentregion)" formControlName="parentregionId" id="parentregion">
         <option value="" disabled selected>Select parent region</option>
         <option  >
         

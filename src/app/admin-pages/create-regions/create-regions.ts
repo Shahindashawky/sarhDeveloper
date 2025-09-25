@@ -13,8 +13,8 @@ import { ApiService } from '../../services/api-service';
   styleUrl: './create-regions.scss'
 })
 export class CreateRegions {
-regionForm!: FormGroup;
-  selectedconf = '';
+  regionForm!: FormGroup;
+  selectedparentregion = '';
   imageName: string = 'choose file to upload 270*216 px';
   image!: File;
   isLoading: boolean = false;
@@ -24,12 +24,6 @@ regionForm!: FormGroup;
   ) {}
 
   ngOnInit(): void {
-
-  }
-  onSelected(value: string): void {
-    this.selectedconf = value;
-  }
-  initializeForm(): void {
     this.regionForm = this.fb.group({
       parentregionId: [null, Validators.required],
       Enname: ['', Validators.required],
@@ -38,14 +32,18 @@ regionForm!: FormGroup;
 
     });
   }
+  onSelected(value: string): void {
+    this.selectedparentregion = value;
+  }
+ 
 
   onSubmit(): void {
     if (this.regionForm.valid) {
       this.isLoading = true;
       let newspeaker: any = {
-        conferenceId: this.selectedconf,
-        name: this.regionForm.value.name,
-        title: this.regionForm.value.title,
+        parentregionId: this.selectedparentregion,
+        Enname: this.regionForm.value.name,
+        Arname: this.regionForm.value.title,
         image: this.image,
       };
       let formData: any = new FormData();

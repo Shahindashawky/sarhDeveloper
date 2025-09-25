@@ -1,23 +1,19 @@
-<!-- <header class="main-header">
-  <div class="container">
+
+<header class="main-header ">
+  <div class="container flex align-items-center justify-content-between navheader">
+        <!-- Logo -->
     <div class="logo">
-      <img src="assets/logo.png" alt="Logo" />
+      <img src="/images/logo.png" alt="Logo" style="height: 50px" />
+    </div>
+    <!-- Links (PrimeNG Menubar) -->
+    <p-menubar [model]="items" class="menu"></p-menubar>
+        <!-- Actions -->
+    <div class="actions flex align-items-center gap-2">
+      <button pButton label="En" class="p-button-text langbtn">
+        <i class="pi pi-globe" ></i>
+      </button>
+      <button pButton label="تواصل معنا" class="p-button-rounded contactbtn"></button>
     </div>
 
-  
-    <nav class="nav-links">
-      <a routerLink="/">الرئيسية</a>
-      <a routerLink="/about">من نحن</a>
-      <a routerLink="/projects">المشروعات</a>
-      <a routerLink="/business">سابقة الأعمال</a>
-      <a routerLink="/followup">متابعة الإنشاءات</a>
-      <a routerLink="/delivery">مواصفات التسليم</a>
-    </nav>
-
- 
-    <div class="actions">
-      <button class="lang">En</button>
-      <button class="cta">تواصل معنا</button>
-    </div>
   </div>
-</header> -->
+</header>

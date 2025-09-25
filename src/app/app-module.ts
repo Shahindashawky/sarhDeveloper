@@ -33,6 +33,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { Business } from './pages/business/business';
 import { Followup } from './pages/followup/followup';
 import { Delivery } from './pages/delivery/delivery';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { Delivery } from './pages/delivery/delivery';
     BrowserAnimationsModule,
     EditorModule ,
     TextareaModule,
-    DatePickerModule 
+    DatePickerModule ,
+    MenubarModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
