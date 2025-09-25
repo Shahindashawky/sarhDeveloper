@@ -28,6 +28,12 @@ import { CreateFeatures } from './admin-pages/create-features/create-features';
 import { CreateProject } from './admin-pages/create-project/create-project';
 import { CreateUnits } from './admin-pages/create-units/create-units';
 import { EditorModule } from 'primeng/editor';
+import { TextareaModule } from 'primeng/textarea';
+import { DatePickerModule } from 'primeng/datepicker';
+import { Business } from './pages/business/business';
+import { Followup } from './pages/followup/followup';
+import { Delivery } from './pages/delivery/delivery';
+
 @NgModule({
   declarations: [
     App,
@@ -44,7 +50,10 @@ import { EditorModule } from 'primeng/editor';
     CreateRegions,
     CreateFeatures,
     CreateProject,
-    CreateUnits
+    CreateUnits,
+    Business,
+    Followup,
+    Delivery
   ],
   imports: [
     BrowserModule,
@@ -57,7 +66,9 @@ import { EditorModule } from 'primeng/editor';
     Ripple ,
     StyleClass,
     BrowserAnimationsModule,
-    EditorModule 
+    EditorModule ,
+    TextareaModule,
+    DatePickerModule 
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

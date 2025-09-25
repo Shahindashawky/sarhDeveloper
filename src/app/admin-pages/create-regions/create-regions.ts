@@ -31,9 +31,9 @@ regionForm!: FormGroup;
   }
   initializeForm(): void {
     this.regionForm = this.fb.group({
-      conferenceId: [null, Validators.required],
-      name: ['', Validators.required],
-      title: ['', Validators.required],
+      parentregionId: [null, Validators.required],
+      Enname: ['', Validators.required],
+      Arname: ['', Validators.required],
       image: [null],
 
     });

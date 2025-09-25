@@ -15,6 +15,7 @@ import { ApiService } from '../../services/api-service';
 })
 export class CreateProject {
 projectForm: FormGroup;
+  selectedregion = '';
   selectedtype = '';
   selectedstatus = '';
   selectedfeatures = '';
@@ -31,29 +32,27 @@ projectForm: FormGroup;
     private fb: FormBuilder,
   ) {
     this.projectForm = this.fb.group({
-      // enname: ['', Validators.required],
-      // arname: ['', Validators.required],
-      // typeid: this.selectedtype,
-      // statusid: this.selectedstatus,
-      // featuresid: this.selectedfeatures,
+      enname: ['', Validators.required],
+      arname: ['', Validators.required],
+      mainimage: [null],
+      regionid: this.selectedregion,
+      typeid: this.selectedtype,
+      statusid: this.selectedstatus,
+      featureid: this.selectedfeatures,
+      detarabic: [''],
+      detenglish: [''],
+      areafrom: ['', Validators.required],
+      areato: ['', Validators.required],
+      pricefrom: ['', Validators.required],
+      priceto: ['', Validators.required],
+      Constructionrate: ['', Validators.required],
+      mapurl: ['', Validators.required],
+      mapdetenglish: [''],
+      mapdetarabic: [''],
+      otherimage: [null],
+      selectedDate: [[], Validators.required],
+      pdf: [null],
 
-      // detarabic: ['', Validators.required],
-      // detenglish: [''],
-      // banner_title: [''],
-      // banner: [null],
-      // partners: [null],
-      // programme_dates: [[], Validators.required],
-      // pdf: [null],
-      // highlight: [
-      //   '',
-      //   [
-      //     Validators.pattern(
-      //       '^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?'
-      //     ),
-      //   ],
-      // ],
-      // material_accesscode: [''],
-      // about: ['', Validators.required],
     });
   }
   ngOnInit() {

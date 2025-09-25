@@ -28,8 +28,8 @@ featureForm!: FormGroup;
 
   initializeForm(): void {
     this.featureForm = this.fb.group({
-      name: ['', Validators.required],
-      title: ['', Validators.required],
+      Enname: ['', Validators.required],
+      Arname: ['', Validators.required],
       image: [null],
 
     });
