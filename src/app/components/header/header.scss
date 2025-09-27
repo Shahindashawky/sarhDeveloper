@@ -69,6 +69,10 @@
   .langbtn.p-button {
     color: var(--third-color) !important;
   }
+    .langbtn.p-button-text:not(:disabled):hover{
+background: white !important; 
+box-shadow: none;
+ }
   .langbtn i {
     color: var(--first-color) !important;
   }

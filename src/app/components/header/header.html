@@ -9,10 +9,13 @@
     <p-menubar [model]="items" class="menu"></p-menubar>
         <!-- Actions -->
     <div class="actions flex align-items-center gap-2">
-      <button pButton label="En" class="p-button-text langbtn">
+      <button pButton  (click)="switchLang()" class="p-button-text langbtn">
+  {{ currentLang === 'ar' ? 'En' : 'ع' }}
         <i class="pi pi-globe" ></i>
+
       </button>
-      <button pButton label="تواصل معنا" class="p-button-rounded contactbtn"></button>
+
+      <button pButton  class="p-button-rounded contactbtn" >{{'contact-us' | translate }}</button>
     </div>
 
   </div>

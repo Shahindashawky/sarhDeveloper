@@ -5,7 +5,7 @@ import { ReactiveFormsModule ,FormsModule} from '@angular/forms';
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { provideHttpClient } from '@angular/common/http';import { AppRoutingModule } from './app-routing-module';
+import { HttpClient, provideHttpClient ,HttpClientModule} from '@angular/common/http';import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './components/header/header';
 import { Home } from './pages/home/home';
@@ -35,6 +35,13 @@ import { Followup } from './pages/followup/followup';
 import { Delivery } from './pages/delivery/delivery';
 import { MenubarModule } from 'primeng/menubar';
 
+// ngx-translate
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 @NgModule({
   declarations: [
     App,
@@ -70,7 +77,15 @@ import { MenubarModule } from 'primeng/menubar';
     EditorModule ,
     TextareaModule,
     DatePickerModule ,
-    MenubarModule
+    MenubarModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })    
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
