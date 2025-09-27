@@ -1,0 +1,121 @@
+.contact-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 3rem;
+  direction: rtl;
+
+  .contact-info {
+    background: #000;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    h3 {
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      margin: 0.7rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .map {
+      margin-top: 1.5rem;
+      iframe {
+        width: 100%;
+        height: 250px;
+        border: 0;
+        border-radius: 0.5rem;
+      }
+    }
+    .circle{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid white;
+        position: relative;
+        margin: 0 10px;
+
+        i{
+            position: absolute;
+            left:10px;
+            top: 10px;
+        
+        }
+    }
+  }
+.p-textarea{
+  background: white ;
+  border: 1px solid #dee2e6;
+
+} 
+  .contact-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    font-weight: bold ;
+
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+      }
+
+      input, textarea {
+        width: 100%;
+        font-size: 1rem;
+      }
+    }
+
+    button {
+      display: block;
+      margin: 1rem auto 0;
+      color: #fff;
+      background: black;
+      padding: 10px 40px;
+      border: none;
+    }
+  }
+
+  /* 📱 Responsive */
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+@media (max-width: 480px) {
+    padding: 1rem;
+    gap: 1rem;
+
+    .contact-info,
+    .contact-form {
+      padding: 1rem;
+    }
+
+    .contact-info p {
+      font-size: 0.85rem;
+    }
+
+    .contact-form h3 {
+      font-size: 1rem;
+    }
+
+    .contact-form .form-group input,
+    .contact-form .form-group textarea {
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+  }
+}

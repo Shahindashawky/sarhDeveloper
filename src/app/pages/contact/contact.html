@@ -1,1 +1,66 @@
-<p>contact works!</p>
+<section class="contact-section">
+
+  <div class="contact-form">
+    <h3>تواصل معنا</h3>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+                    <div class="row bd-highlight mb-3">
+                <div class="col-md-6 p-2 bd-highlight">
+                    <label for="name">الاسم<span
+                    class="text-danger">*</span> </label>
+                    <input formControlName="name" placeholder="الاسم بالكامل" class="form-control" type="text" />
+
+                </div>
+
+                <div class="col-md-6 p-2 bd-highlight">
+                    <label for="email"> البريد الالكتروني<span
+                    class="text-danger">*</span></label>
+                    <input formControlName="email" placeholder="البريد الالكتروني" class="form-control" type="text" />
+                </div>
+
+
+            </div>
+      </div>
+      <div class="form-group">
+                            <div class="row bd-highlight mb-3">
+                <div class="col-md-6 p-2 bd-highlight">
+                    <label for="name">رقم التليفون<span
+                    class="text-danger">*</span> </label>
+                    <input formControlName="phone" placeholder="رقم التليفون" class="form-control" type="phone" />
+
+                </div>
+
+                <div class="col-md-6 p-2 bd-highlight">
+                    <label for="email"> الموضوع<span
+                    class="text-danger">*</span></label>
+                    <input formControlName="subject" placeholder="عنوان الموضوع" class="form-control" type="text" />
+                </div>
+
+
+            </div>
+
+        </div>
+
+      <div class="form-group">
+        <label>الرسالة</label>
+        <textarea rows="5" cols="30" pInputTextarea formControlName="message" placeholder="الرسالة أو الاستفسار"></textarea>
+      </div>
+
+      <button pButton type="submit" label="إرسال" class="p-button-rounded"></button>
+    </form>
+  </div>
+    <div class="contact-info">
+    <div class="d-flex"><div class="circle"><i class="pi pi-phone"></i></div><span>اتصل بنا<br>19888</span></div>
+<br>
+    <div class="d-flex"><div class="circle"><i class="pi pi-envelope"></i></div> <span>مراسلتنا عبر البريد الإلكترونى<br>info@sarhdevelopment.com</span></div><br>
+   <div class="d-flex"><div class="circle"><i class="pi pi-send"></i></div><span>راسلنا<br> +202 19888</span></div>
+   <br>
+   <div class="d-flex"> <div class="circle"><i class="pi pi-map-marker"></i></div><span>مكتبنا<br> كورنيش، المعادي، القاهرة، مصر</span></div> 
+<br>
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?...">
+      </iframe>
+    </div>
+  </div>
+</section>
