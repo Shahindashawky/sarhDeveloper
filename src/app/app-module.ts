@@ -34,7 +34,7 @@ import { Business } from './pages/business/business';
 import { Followup } from './pages/followup/followup';
 import { Delivery } from './pages/delivery/delivery';
 import { MenubarModule } from 'primeng/menubar';
-
+import { CarouselModule } from 'primeng/carousel';
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -79,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TextareaModule,
     DatePickerModule ,
     MenubarModule,
+    CarouselModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

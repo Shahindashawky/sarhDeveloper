@@ -37,7 +37,7 @@
 </section>
 
 <section class="about-section">
-    
+
   <div class="about-title">
     اكتشف العقار <br />
     <span>المثالي لك</span>
@@ -45,14 +45,63 @@
 
   <div class="about-text">
     <p>
-            تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
-      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة... 
-        تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
+      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
+      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
+      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
     </p>
   </div>
 
+
+
+
 </section>
- 
+
+<section class="aboutsec2">
+  <div class="about-container">
+    <div class="about-box">
+      <h3>عن <span>سرح</span></h3>
+      <p>
+        تعد سرح للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ
+        العمارات السكنية، التجارية والإدارية الحديثة، ذات الطابع العالمي
+        والمعايير التنافسية التي تتيح لعملائها في السوق المصري تجربة مختلفة
+        ومتكاملة، تتضمن باقة متنوعة من الديكورات والتشطيبات التي تتوافق مع
+        مختلف الأذواق.
+      </p>
+      <button class="more-btn">معرفة المزيد</button>
+    </div>
+    <div class="about-img">
+      <img src="images/building.png" alt="عن سرح" />
+    </div>
+
+  </div>
+</section>
+<section class="projects">
+  <h4 class="subtitle">سابقة أعمالنا</h4>
+  <h2 class="title">المشاريع السابقة</h2>
+  <div class="btn-wrapper">
+  <button class="more-btn2">متابعة المزيد</button>
+</div>
+  <p-carousel 
+    [value]="projects" 
+    [numVisible]="3" 
+    [numScroll]="1" 
+    [circular]="true"
+    [autoplayInterval]="4000"
+    [responsiveOptions]="responsiveOptions"
+    class="project-carousel">
+
+    <ng-template pTemplate="item" let-project>
+      <div class="project-card">
+        <img [src]="project.img" [alt]="project.title">
+        <div class="project-info">
+          <h3>{{ project.title }}</h3>
+          <a class="details">تفاصيل أكثر ←</a>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
+
 <section class="contact">
-    <app-contact></app-contact>
+  <app-contact></app-contact>
 </section>
