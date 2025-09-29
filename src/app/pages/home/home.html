@@ -1,36 +1,33 @@
 <section class="hero">
   <div class="hero-content">
     <h1 class="hero-title">
-      اكتشف مجموعة مختارة من منازل الأحلام في متناول يدك،
-    </h1>
+      {{'hero-title' | translate}} </h1>
     <p class="hero-subtitle">
-      امتلك علامتك الخاص، عقارك الخاص واحدًا في كل مرة. امتلك علامتك الخاص عقارًا واحدًا في كل مرة.
-    </p>
+      {{'hero-subtitle' | translate}} </p>
 
     <div class="hero-buttons">
-      <button pButton label="ابحث" class="p-button-rounded p-button-lg search-btn"></button>
-      <button pButton label="معرفة المزيد" class="p-button-rounded p-button-lg info-btn"></button>
+      <button pButton class="p-button-rounded p-button-lg search-btn">{{'search-btn' | translate}}</button>
+      <button pButton class="p-button-rounded p-button-lg info-btn">{{'learnmore-btn' | translate}}</button>
     </div>
   </div>
 
-  <div class="hero-card">
-    <h2 class="card-title">من نحن ؟</h2>
-    <p class="card-text">
-      امتلك علامتك الخاص، عقارًا واحدًا في كل مرة. امتلك علامتك الخاص عقارًا واحدًا في كل مرة.
+  <div class="hero-card" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
+    <h2 class="card-title"> {{'who' | translate}}</h2>
+    <p class="card-text"> {{'about1' | translate}}
     </p>
 
     <div class="stats">
       <div class="stat">
         <h3>20+</h3>
-        <span>عاما من الخبرة</span>
+        <span>{{'year-exp' | translate}}</span>
       </div>
       <div class="stat">
         <h3>500+</h3>
-        <span>عميل</span>
+        <span>{{'client' | translate}}</span>
       </div>
       <div class="stat">
         <h3>80+</h3>
-        <span>مشروع</span>
+        <span>{{'project' | translate}}</span>
       </div>
     </div>
   </div>
@@ -39,16 +36,13 @@
 <section class="about-section">
 
   <div class="about-title">
-    اكتشف العقار <br />
-    <span>المثالي لك</span>
+    {{'about-title1' | translate}}<br />
+    <span>{{'about-title2' | translate}}</span>
   </div>
 
   <div class="about-text">
     <p>
-      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
-      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
-      تعد سرج للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ المباني السكنية، التجارية والإدارية الحديثة...
-    </p>
+      {{'about-text' | translate}}</p>
   </div>
 
 
@@ -59,43 +53,96 @@
 <section class="aboutsec2">
   <div class="about-container">
     <div class="about-box">
-      <h3>عن <span>سرح</span></h3>
-      <p>
-        تعد سرح للتطوير والاستثمار العقاري رائدة في مجال تصميم وتنفيذ
-        العمارات السكنية، التجارية والإدارية الحديثة، ذات الطابع العالمي
-        والمعايير التنافسية التي تتيح لعملائها في السوق المصري تجربة مختلفة
-        ومتكاملة، تتضمن باقة متنوعة من الديكورات والتشطيبات التي تتوافق مع
-        مختلف الأذواق.
-      </p>
-      <button class="more-btn">معرفة المزيد</button>
+      <h3>{{'ab' | translate}} <span>{{'sarh' | translate}}</span></h3>
+      <p>{{'about-sarh' | translate}}</p>
+      <button class="more-btn">{{'learnmore-btn' | translate}}</button>
     </div>
-    <div class="about-img">
+    <div class="about-img" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
       <img src="images/building.png" alt="عن سرح" />
     </div>
 
   </div>
 </section>
-<section class="projects">
-  <h4 class="subtitle">سابقة أعمالنا</h4>
-  <h2 class="title">المشاريع السابقة</h2>
+<section >
+  <div class="projectssec">
+      <h4 class="subtitle">{{'projects' | translate}}</h4>
+  <h2 class="title">{{'projectlist' | translate}}</h2>
   <div class="btn-wrapper">
-  <button class="more-btn2">متابعة المزيد</button>
+    <button class="more-btn2" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn' |
+      translate}}</button>
+  </div>
+  </div>
+<div class="projects-section">
+  
+  <div class="project-featured">
+    <button class="scroll-top-btn">
+      <i class="pi pi-arrow-up-left"></i>
+    </button>
+
+    <img [src]="featuredProject.image" alt="{{featuredProject.title}}" />
+    <div class="info-box">
+      <h3>{{ featuredProject.title }}</h3>
+      <p class="location">
+        <i class="pi pi-map-marker"></i> {{ featuredProject.location }}
+      </p>
+      <p><i class="pi pi-building"></i> {{ featuredProject.type }}</p>
+
+      <div class="details">
+        <span><i class="pi pi-th-large"></i> <span class="num">{{ featuredProject.area }}</span> م²</span> |
+        <span><i class="pi pi-bed"></i> <span class="num">{{ featuredProject.rooms }} </span>غرف</span> |
+        <span><i class="pi pi-shower"></i> <span class="num">{{ featuredProject.baths }}</span> حمام</span>
+      </div>
+    </div>
+  </div>
+  <div class="projects-carousel">
+    <p-carousel [value]="projects" [numVisible]="2" [numScroll]="2" orientation="vertical" [circular]="true"
+      [autoplayInterval]="4000">
+
+      <ng-template pTemplate="item" let-project>
+        <div class="project-card">
+          <img [src]="project.img" alt="{{project.title}}" />
+          <div class="overlay">
+            <h4>{{ project.title }}</h4>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+  </div>
+  <div class="projectsreversed-carousel">
+    <p-carousel [value]="projectsReversed" [numVisible]="2" [numScroll]="2" orientation="vertical" [circular]="true"
+      [autoplayInterval]="4000">
+
+      <ng-template pTemplate="item" let-project>
+        <div class="project-card">
+          <img [src]="project.img" alt="{{project.title}}" />
+          <div class="overlay">
+            <h4>{{ project.title }}</h4>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+  </div>
 </div>
-  <p-carousel 
-    [value]="projects" 
-    [numVisible]="3" 
-    [numScroll]="1" 
-    [circular]="true"
-    [autoplayInterval]="4000"
-    [responsiveOptions]="responsiveOptions"
-    class="project-carousel">
+
+</section>
+<section class="projects">
+  <h4 class="subtitle">{{'business' | translate}}</h4>
+  <h2 class="title">{{'priv-pro' | translate}}</h2>
+  <div class="btn-wrapper">
+    <button class="more-btn2" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn' |
+      translate}}</button>
+  </div>
+  <p-carousel [value]="projects" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
+    [responsiveOptions]="responsiveOptions" class="project-carousel">
 
     <ng-template pTemplate="item" let-project>
       <div class="project-card">
         <img [src]="project.img" [alt]="project.title">
         <div class="project-info">
           <h3>{{ project.title }}</h3>
-          <a class="details">تفاصيل أكثر ←</a>
+          <a class="details">{{'moredetails' | translate}}←</a>
         </div>
       </div>
     </ng-template>

@@ -33,3 +33,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(0,0,0,0.2);
   border-radius: 4px;
 }
+  .projects-carousel .p-carousel-indicator-list,
+  .projectsreversed-carousel .p-carousel-indicator-list{
+    display: none !important;
+   }
