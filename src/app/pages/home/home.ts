@@ -10,7 +10,26 @@ import { Component } from '@angular/core';
 })
 export class Home {
   currentLang: 'ar' | 'en' = 'ar';
+  visible: boolean = false;
 
+  propertyTypes = [
+    { label: 'شقة', value: 'flat' },
+    { label: 'فيلا', value: 'villa' }
+  ];
+
+  prices = [
+    { label: 'أقل من 1,000,000', value: '1m' },
+    { label: 'أكثر من 1,000,000', value: 'more' }
+  ];
+
+  locations = [
+    { label: 'القاهرة', value: 'cairo' },
+    { label: 'الجيزة', value: 'giza' }
+  ];
+
+  selectedProperty: any;
+  selectedPrice: any;
+  selectedLocation: any;
   projects = [
     {
       title: 'النرجس الجديدة',
@@ -71,5 +90,8 @@ export class Home {
 
   }
 
+    showDialog() {
+        this.visible = true;
+    }
 
 }

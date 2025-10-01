@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LanguageService } from '../../services/languageservice';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './footer.scss'
 })
 export class Footer {
+  currentLang = 'ar';
 
+    constructor( private langService: LanguageService) { }
+  
+  ngOnInit() {
+    this.langService.currentLang$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+}
 }

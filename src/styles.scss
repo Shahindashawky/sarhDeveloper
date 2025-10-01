@@ -37,3 +37,34 @@ h1, h2, h3, h4, h5, h6 {
   .projectsreversed-carousel .p-carousel-indicator-list{
     display: none !important;
    }
+    .search-form .form-field .p-select {
+        width: 100% !important;
+         background: #F9F9F9;
+         border: 0;
+      }
+      .p-dialog{
+        background-color: white !important;
+      }
+      .p-select-option{
+        color: var(--third-color) !important;
+      }
+      .p-select-list{
+                 background: #F9F9F9;
+               color: var(--third-color);
+      }
+.p-select-option.p-select-option-selected{
+     background: #e8e8e8 !important;
+    color: var(--first-color) !important;
+}
+.p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus,
+.p-select-option.p-select-option-selected.p-focus{
+   background: var(--first-color) !important;
+    color: white !important;
+}
+.p-select-overlay{
+  border: none !important;
+}
+.p-button-text.p-button-secondary:not(:disabled):hover{
+   background: var(--first-color) !important;
+ color: white !important;
+}

@@ -11,12 +11,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &.rtl{
+ direction: rtl;
+  }
+  &.ltr{
+direction: ltr;
+  }
 }
+
 
 .p-menubar {
   border: none;
   background: transparent;
   flex: 1;
+  &.rtl{
+  flex-direction: row;
+  direction: rtl;
+  }
+  &.ltr{
+      flex-direction: row-reverse;
+        direction: ltr;
+  }
 }
 
 .p-menubar-root-list {

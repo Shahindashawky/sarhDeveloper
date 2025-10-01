@@ -1,5 +1,5 @@
 
-<footer class="footer">
+<footer class="footer" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
   <div class="container flex flex-wrap justify-content-between align-items-start">
         <div class="footer-col">
       <h4>{{'quick-link' | translate}} </h4>

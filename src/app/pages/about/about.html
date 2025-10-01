@@ -1,1 +1,44 @@
-<p>about works!</p>
+<section class="about section">
+  <div class="container about-container">
+    <div class="about-header flex align-items-center justify-content-between" >
+              <div class="about-text"  [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
+        <h2>{{'about'| translate}}</h2>
+        <p>
+         {{'absarh' |translate}}
+        </p>
+      </div>
+      <div class="about-img">
+        <img src="images/logo.png" alt="عن صرح" />
+      </div>
+
+    </div>
+
+    <div class="about-section">
+      <h3>{{'ourgoal' | translate}}</h3>
+      <div class="grid goals">
+        <div class="col-12 md:col-3 goal-box" *ngFor="let goal of goals">
+          <i [class]="goal.icon"></i>
+          <h4>{{ goal.title }}</h4>
+          <p>{{ goal.text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h3>{{'ourvision' | translate}}</h3>
+      <div class="grid vision">
+        <div class="col-12 md:col-3 vision-box" *ngFor="let vision of visions">
+          <i [class]="vision.icon"></i>
+          <h4>{{ vision.title }}</h4>
+          <p>{{ vision.text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section mission">
+      <h3>{{'ourmessage'| translate}}</h3>
+      <p>{{'message-text'| translate}}
+      </p>
+    </div>
+  </div>
+</section>

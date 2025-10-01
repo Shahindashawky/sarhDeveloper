@@ -2,7 +2,14 @@
   background: var(--third-color);
   color: #fff;
   padding: 2rem 1rem;
+    &.rtl{
+  flex-direction: row;
   direction: rtl;
+  }
+  &.ltr{
+      flex-direction: row-reverse;
+        direction: ltr;
+  }
 }
 
 .footer-col {

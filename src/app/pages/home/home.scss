@@ -596,4 +596,124 @@ justify-content: end;
   }
 }
 
+//dailog
+.search-form {
+  padding: 1.5rem;
+
+  .form-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .form-field {
+      flex: 1; // كل واحد ياخد نفس المساحة
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--third-color);
+      }
+
+  
+    }
+    
+  }
+
+  .filter-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .filter-label {
+      margin-inline-end: 1rem;
+      font-weight: 600;
+      color: var(--third-color);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.8rem;
+
+      .filter-btn {
+        border-radius: 20px;
+        padding: 0.4rem 1.2rem;
+        font-weight: 500;
+        background: #f2f2f2;
+        color: var(--third-color);
+        border: 1px solid #ddd;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--first-color);
+          color: #fff;
+          border-color: var(--first-color);
+        }
+
+        &.active {
+          background: var(--first-color);
+          color: #fff;
+          border-color: var(--first-color);
+        }
+      }
+    }
+  }
+
+  .btn-search {
+    display: flex;
+    justify-content: center;
+
+    .search-btn {
+      background: var(--first-color);
+      border: none;
+      border-radius: 25px;
+      padding: 0.6rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: #c99235 !important;
+      }
+    }
+  }
+}
+
+/* ✅ Responsive */
+@media (max-width: 992px) {
+  .search-form {
+    .form-grid {
+      flex-wrap: wrap;
+
+      .form-field {
+        flex: 1 1 calc(50% - 1rem); // اتنين جنب بعض
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .search-form {
+    .form-grid {
+      flex-direction: column;
+
+      .form-field {
+        flex: 1 1 100%; // كل واحد ياخد صف كامل
+      }
+    }
+
+    .btn-search {
+      justify-content: stretch;
+
+      .search-btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
 
