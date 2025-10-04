@@ -6,20 +6,28 @@
     (ngSubmit)="onSubmit()">
 
         <div class="row mb-4">
-      <label class="form-label ps-0">English name<span class="text-danger fw-bold">*</span></label>
-      <input class="form-control" type="text" placeholder="English name" aria-label="Enname" #Enname formControlName="Enname">
+      <label class="form-label ps-0">English name <span class="arabic">(الاسم باللغه الانجليزية)</span><span class="text-danger fw-bold">*</span></label>
+      <input class="form-control" type="text" placeholder="English name" aria-label="english_name" #english_name formControlName="english_name">
     </div>
     <div class="row mb-4">
-        <label class="form-label ps-0">Arabic name<span class="text-danger fw-bold">*</span></label>
-        <input class="form-control" type="text" placeholder="Arabic name" aria-label="Arname" #Arname formControlName="Arname">
+        <label class="form-label ps-0">Arabic name <span class="arabic">(الاسم باللغه العربيه)</span><span class="text-danger fw-bold">*</span></label>
+        <input class="form-control" type="text" placeholder="Arabic name" aria-label="arabic_name" #arabic_name formControlName="arabic_name">
     </div>
+         <div class="row mb-4">
+                  <label class="form-label ps-0">English features <span class="arabic">(المميزات باللغه الانجليزية)</span></label>
+              <textarea rows="5" cols="30" placeholder="English features" pTextarea formControlName="english_features" ></textarea>
+                </div>
+                     <div class="row mb-4">
+                              <label class="form-label ps-0">Arabic features <span class="arabic">(المميزات باللغه العربيه)</span></label>
+              <textarea rows="5" cols="30" placeholder="Arabic features" pTextarea formControlName="arabic_features" ></textarea>
+                </div>
     <div class="row mb-4">
-      <label for="formFile" class="form-label ps-0">Image</label>
+      <label for="formFile" class="form-label ps-0">Image <span class="arabic">(اضف صوره)</span></label>
       <div class="input-group mb-3 px-0">
         <div class="input-group file-input-group" data-controller="file-input">
           <input class="form-control" type="text" [placeholder]="imageName" readonly data-target="file-input.value">
           <input type="file" class="form-control" id="customFile" data-target="file-input.input"
-            data-action="file-input#display" #image formControlName="image" (change)="onFileChange($event)"
+            data-action="file-input#display" #main_image formControlName="main_image" (change)="onFileChange($event)"
             accept="image/*">
           <div class="input-group-append">
             <label class="btn mb-0" for="customFile">Upload</label>
@@ -29,14 +37,19 @@
     </div>
 
      <div class="row mb-4">
-      <label for="conference" class="form-label ps-0">Select parent region</label>
-      <select 
-        class="form-control" (change)="onSelected(selectedparentregion)" formControlName="parentregionId" id="parentregion">
-        <option value="" disabled selected>Select parent region</option>
-        <option  >
-        
-        </option>
-      </select>
+      <label for="conference" class="form-label ps-0">Select parent region <span class="arabic">( اختر المنطقه الام)</span></label>
+<select 
+  class="form-control" 
+  formControlName="parent_id" 
+  (change)="onSelected(selectedparentregion)" 
+  id="parentregion">
+  <option value="" disabled selected>Select parent region</option>
+  <option *ngFor="let p of parentregion" [value]="p.id">
+    {{ p.arabic_name }} - {{ p.english_name }}
+  </option>
+</select>
+
+
     </div>
 
     <div class="row d-flex justify-content-center">

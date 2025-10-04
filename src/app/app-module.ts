@@ -24,7 +24,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { CreateRegions } from './admin-pages/create-regions/create-regions';
-import { CreateFeatures } from './admin-pages/create-features/create-features';
 import { CreateProject } from './admin-pages/create-project/create-project';
 import { CreateUnits } from './admin-pages/create-units/create-units';
 import { EditorModule } from 'primeng/editor';
@@ -41,6 +40,7 @@ import { SelectModule } from 'primeng/select';
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CreateFacilities } from './admin-pages/create-facilities/create-facilities';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChangePassword,
     Drawerside,
     CreateRegions,
-    CreateFeatures,
+    CreateFacilities,
     CreateProject,
     CreateUnits,
     Business,

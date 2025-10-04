@@ -8,12 +8,12 @@ import { Login } from './admin-pages/login/login';
 import { AdminHome } from './admin-pages/admin-home/admin-home';
 import { ChangePassword } from './admin-pages/change-password/change-password';
 import { CreateRegions } from './admin-pages/create-regions/create-regions';
-import { CreateFeatures } from './admin-pages/create-features/create-features';
 import { CreateProject } from './admin-pages/create-project/create-project';
 import { CreateUnits } from './admin-pages/create-units/create-units';
 import { Business } from './pages/business/business';
 import { Followup } from './pages/followup/followup';
 import { Delivery } from './pages/delivery/delivery';
+import { CreateFacilities } from './admin-pages/create-facilities/create-facilities';
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -30,7 +30,7 @@ const routes: Routes = [
    { path: 'admin-home', component: AdminHome },
       { path: 'resetPassword', component: ChangePassword },
     { path: 'create-region', component: CreateRegions },
-        { path: 'create-feature', component: CreateFeatures },
+        { path: 'create-facilitie', component: CreateFacilities },
     { path: 'create-project', component: CreateProject },
     { path: 'create-unit', component: CreateUnits },
   { path: '**', redirectTo: '' }

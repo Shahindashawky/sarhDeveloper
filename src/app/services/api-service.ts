@@ -35,7 +35,7 @@ export class ApiService {
   }
   //GET
   getRegions(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/regions`);
+    return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
   }
 
   getRegionById(regionID: string): Observable<any> {
@@ -44,12 +44,12 @@ export class ApiService {
         headers: this.httpFileOption.headers,
       });
   }
-  getFeatures(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/features`);
+  getFacilite(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/facilities`);
   }
 
-  getFeatureById(feaID: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/features/${feaID}`,
+  getgetFaciliteById(feaID: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/facilities/${feaID}`,
       {
         headers: this.httpFileOption.headers,
       });
@@ -81,7 +81,7 @@ export class ApiService {
       `${this.apiUrl}/dashboard/regions`,
       newregion,
       {
-        headers: this.httpFileOption.headers,
+        headers: this.httpOption.headers,
       }
     );
   }
@@ -97,12 +97,12 @@ export class ApiService {
       }
     );
   }
-  addFeature(newfeature: any): Observable<any> {
+  addFacilitie(newfacilitie: any): Observable<any> {
     return this.http.post<any>(
-      `${this.apiUrl}/dashboard/features`,
-      newfeature,
+      `${this.apiUrl}/dashboard/facilities`,
+      newfacilitie,
       {
-        headers: this.httpFileOption.headers,
+        headers: this.httpOption.headers,
       }
     );
   }
