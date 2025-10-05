@@ -25,19 +25,23 @@ export class ApiService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}` || '',
+        Accept:'application/json' 
       }),
     };
     this.httpFileOption = {
-      headers: new HttpHeaders({
-        Authorization: this.token || '',
-      }),
+       headers: new HttpHeaders({
+      Authorization: `Bearer ${this.token}` || '',
+        Accept:'application/json'
+       }),
     };
   }
   //GET
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
   }
-
+  getProjectRegions(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/project-regions`);
+  }
   getRegionById(regionID: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/regions/1/${regionID}`,
       {
@@ -81,7 +85,7 @@ export class ApiService {
       `${this.apiUrl}/dashboard/regions`,
       newregion,
       {
-        headers: this.httpOption.headers,
+        headers: this.httpFileOption.headers
       }
     );
   }
@@ -102,7 +106,7 @@ export class ApiService {
       `${this.apiUrl}/dashboard/facilities`,
       newfacilitie,
       {
-        headers: this.httpOption.headers,
+       headers: this.httpFileOption.headers
       }
     );
   }

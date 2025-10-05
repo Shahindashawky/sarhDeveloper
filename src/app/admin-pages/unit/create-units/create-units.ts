@@ -5,17 +5,16 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { ApiService } from '../../services/api-service';
-
+import { ApiService } from '../../../services/api-service';
 @Component({
-  selector: 'app-create-project',
+  selector: 'app-create-units',
   standalone: false,
-  templateUrl: './create-project.html',
-  styleUrl: './create-project.scss'
+  templateUrl: './create-units.html',
+  styleUrl: './create-units.scss'
 })
-export class CreateProject {
-projectForm: FormGroup;
-  selectedregion = '';
+export class CreateUnits {
+unitsForm: FormGroup;
+  selectedproject = '';
   selectedtype = '';
   selectedstatus = '';
   selectedfeatures = '';
@@ -31,27 +30,25 @@ projectForm: FormGroup;
     private api: ApiService,
     private fb: FormBuilder,
   ) {
-    this.projectForm = this.fb.group({
+    this.unitsForm = this.fb.group({
       enname: ['', Validators.required],
       arname: ['', Validators.required],
       mainimage: [null],
-      regionid: this.selectedregion,
+      projectid: this.selectedproject,
       typeid: this.selectedtype,
       statusid: this.selectedstatus,
-      featureid: this.selectedfeatures,
       detarabic: [''],
       detenglish: [''],
-      areafrom: ['', Validators.required],
-      areato: ['', Validators.required],
-      pricefrom: ['', Validators.required],
-      priceto: ['', Validators.required],
-      Constructionrate: ['', Validators.required],
-      mapurl: ['', Validators.required],
-      mapdetenglish: [''],
-      mapdetarabic: [''],
+      area: ['', Validators.required],
+      rooms: ['', Validators.required],
+      bathrooms: ['', Validators.required],
+      price: ['', Validators.required],
+      flooren: ['', Validators.required],
+      floorar: ['', Validators.required],
+      finishtypeen: ['', Validators.required],
+      finishtypear: ['', Validators.required],
       otherimage: [null],
-      selectedDate: [[], Validators.required],
-      pdf: [null],
+
 
     });
   }
@@ -61,23 +58,23 @@ projectForm: FormGroup;
 onSelected(id:any){
 
 }
-  createproject() {
-    if (this.projectForm.valid) {
+  createunits() {
+    if (this.unitsForm.valid) {
       this.isLoading = true;
-      const project: any = {
-        ...this.projectForm.value,
-        date: this.convertData([this.projectForm.value.date])[0],
+      const units: any = {
+        ...this.unitsForm.value,
+        date: this.convertData([this.unitsForm.value.date])[0],
         programme_dates: this.convertData(
-          this.projectForm.value.programme_dates
+          this.unitsForm.value.programme_dates
         ),
         mainimage: this.image,
         otherimages: this.filelist,
         programme_pdf: this.pdf,
       };
       let formData: any = new FormData();
-      for (const key in project) {
-        if (project.hasOwnProperty(key)) {
-          const value = project[key];
+      for (const key in units) {
+        if (units.hasOwnProperty(key)) {
+          const value = units[key];
 
           if (typeof value === 'string') {
             formData.append(key, value);
@@ -147,5 +144,4 @@ onSelected(id:any){
     }
   }
 
-  
 }

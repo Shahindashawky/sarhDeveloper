@@ -7,32 +7,38 @@ import { Contact } from './pages/contact/contact';
 import { Login } from './admin-pages/login/login';
 import { AdminHome } from './admin-pages/admin-home/admin-home';
 import { ChangePassword } from './admin-pages/change-password/change-password';
-import { CreateRegions } from './admin-pages/create-regions/create-regions';
-import { CreateProject } from './admin-pages/create-project/create-project';
-import { CreateUnits } from './admin-pages/create-units/create-units';
 import { Business } from './pages/business/business';
 import { Followup } from './pages/followup/followup';
 import { Delivery } from './pages/delivery/delivery';
-import { CreateFacilities } from './admin-pages/create-facilities/create-facilities';
+import { CreateRegions } from './admin-pages/region/create-regions/create-regions';
+import { CreateFacilities } from './admin-pages/facilitie/create-facilities/create-facilities';
+import { CreateProject } from './admin-pages/project/create-project/create-project';
+import { CreateUnits } from './admin-pages/unit/create-units/create-units';
 
 const routes: Routes = [
   { path: '', component: Home },
   { path: 'about', component: About },
   { path: 'projects', component: Projects },
   { path: 'contact', component: Contact },
-{ path: 'business', component: Business },
-{ path: 'followup', component: Followup },
-{ path: 'delivery', component: Delivery },
+  { path: 'business', component: Business },
+  { path: 'followup', component: Followup },
+  { path: 'delivery', component: Delivery },
 
-
-  //admin-pages
   { path: 'admin-login', component: Login },
-   { path: 'admin-home', component: AdminHome },
-      { path: 'resetPassword', component: ChangePassword },
-    { path: 'create-region', component: CreateRegions },
-        { path: 'create-facilitie', component: CreateFacilities },
-    { path: 'create-project', component: CreateProject },
-    { path: 'create-unit', component: CreateUnits },
+
+  {
+    path: 'admin-home',
+    component: AdminHome,
+    children: [
+      { path: '', redirectTo: 'create-region', pathMatch: 'full' },
+      { path: 'create-region', component: CreateRegions },
+      { path: 'create-facilitie', component: CreateFacilities },
+      { path: 'create-project', component: CreateProject },
+      { path: 'create-unit', component: CreateUnits },
+      { path: 'resetPassword', component: ChangePassword }
+    ]
+  },
+
   { path: '**', redirectTo: '' }
 ];
 

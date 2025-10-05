@@ -1,12 +1,12 @@
-import { Component, DOCUMENT, Inject, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ApiService } from '../../services/api-service';
-import { ParentRegion } from '../../../model/ParentRegion';
-import { TranslateService } from '@ngx-translate/core';
+
+import { ParentRegion } from '../../../../model/ParentRegion';
+import { ApiService } from '../../../services/api-service';
 
 @Component({
   selector: 'app-create-regions',
@@ -24,16 +24,20 @@ export class CreateRegions {
 
   constructor(
     private fb: FormBuilder,
-    private api:ApiService,private translate: TranslateService,
-    @Inject(DOCUMENT) private document: Document
+    private api:ApiService
   ) {
-    this.translate.use('en');
-    this.document.documentElement.dir =  'ltr';
 
   }
 
   ngOnInit(): void {
-    this.regionForm = this.fb.group({
+
+ this.initializeForm();
+    this.api.getRegions().subscribe((data:ParentRegion[])=>{
+      this.parentregion=data
+    })
+  }
+    initializeForm(): void {
+     this.regionForm = this.fb.group({
       parent_id: [null],
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
@@ -42,10 +46,8 @@ export class CreateRegions {
       main_image: [null],
 
     });
-    this.api.getRegions().subscribe((data:ParentRegion[])=>{
-      this.parentregion=data
-    })
   }
+  
   onSelected(value: string): void {
     this.selectedparentregion = value;
   }
@@ -63,34 +65,25 @@ export class CreateRegions {
         arabic_features:this.regionForm.value.arabic_features
       };
         let formData: any = new FormData();
-      for (const key in newregion) {
+           for (const key in newregion) {
         if (newregion.hasOwnProperty(key)) {
           const value = newregion[key];
 
-          if (typeof value === 'string') {
+          if (typeof value === 'string' || typeof value === 'boolean') {
             formData.append(key, value);
           } else if (value instanceof File) {
             formData.append(key, value);
-          } else if (
-            Array.isArray(value) &&
-            value.every((ele) => ele instanceof File)
-          ) {
-            for (let i = 0; i < value.length; i++) {
-              formData.append(key, value[i]);
-            }
-          } else if (Array.isArray(value)) {
-            formData.append(key, JSON.stringify(value));
           } else {
-            formData.append(key, value);
+            console.warn(`Unsupported data type for key: ${key}`);
           }
         }
       }
 this.api.addRegion(formData).subscribe(
         (res: any) => {
-          if (res.success == true) {
             this.regionForm.reset();
-          }
           this.isLoading = false;
+          console.log("done")
+          
         }
       );
  

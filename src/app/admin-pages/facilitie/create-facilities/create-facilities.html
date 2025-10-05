@@ -6,15 +6,15 @@
     (ngSubmit)="onSubmit()">
 
         <div class="row mb-4">
-      <label class="form-label ps-0">English name<span class="text-danger fw-bold">*</span></label>
+      <label class="form-label ps-0">English name <span class="arabic">(الاسم باللغه الانجليزية)</span><span class="text-danger fw-bold">*</span></label>
       <input class="form-control" type="text" placeholder="English name" aria-label="english_name" #english_name formControlName="english_name">
     </div>
     <div class="row mb-4">
-        <label class="form-label ps-0">Arabic name<span class="text-danger fw-bold">*</span></label>
+        <label class="form-label ps-0">Arabic name <span class="arabic">(الاسم باللغه العربيه)</span><span class="text-danger fw-bold">*</span></label>
         <input class="form-control" type="text" placeholder="Arabic name" aria-label="arabic_name" #arabic_name formControlName="arabic_name">
     </div>
     <div class="row mb-4">
-      <label for="formFile" class="form-label ps-0">Image</label>
+      <label for="formFile" class="form-label ps-0">Image <span class="arabic">(اضف صوره)</span></label>
       <div class="input-group mb-3 px-0">
         <div class="input-group file-input-group" data-controller="file-input">
           <input class="form-control" type="text" [placeholder]="imageName" readonly data-target="file-input.value">

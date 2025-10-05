@@ -23,9 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import { CreateRegions } from './admin-pages/create-regions/create-regions';
-import { CreateProject } from './admin-pages/create-project/create-project';
-import { CreateUnits } from './admin-pages/create-units/create-units';
 import { EditorModule } from 'primeng/editor';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -36,11 +33,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { CarouselModule } from 'primeng/carousel';
 import { DialogModule } from 'primeng/dialog';
 import { SelectModule } from 'primeng/select';
-
+import { CreateFacilities } from './admin-pages/facilitie/create-facilities/create-facilities';
+import { CreateUnits } from './admin-pages/unit/create-units/create-units';
+import { CreateProject } from './admin-pages/project/create-project/create-project';
+import { CreateRegions } from './admin-pages/region/create-regions/create-regions';
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CreateFacilities } from './admin-pages/create-facilities/create-facilities';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
