@@ -52,20 +52,20 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/dashboard/facilities`);
   }
 
-  getgetFaciliteById(feaID: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/facilities/${feaID}`,
-      {
-        headers: this.httpFileOption.headers,
-      });
+  // getgetFaciliteById(feaID: string): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/dashboard/facilities/${feaID}`,
+  //     {
+  //       headers: this.httpFileOption.headers,
+  //     });
+  // }
+  getProjectType(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/project-types`);
   }
-  getProjectTypeEn(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/auto-complete/project-types?locale=en`);
+  getProjectStatus(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/project-status`);
   }
-  getRegionsEn(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/auto-complete/regions?locale=en`);
-  }
-  getFeaturesEn(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/auto-complete/features?locale=en`);
+  getProjectFacilities(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/project-facilities`);
   }
 
   //POST
@@ -110,18 +110,30 @@ export class ApiService {
       }
     );
   }
-  addFeaturebyId(
-    featureID: any,
-    newfeature: any
-  ): Observable<any> {
+
+  // addFacilitiebyId(
+  //   featureID: any,
+  //   newfeature: any
+  // ): Observable<any> {
+  //   return this.http.post<any>(
+  //     `${this.apiUrl}/dashboard/features/${featureID}`,
+  //     JSON.stringify(newfeature),
+  //     {
+  //       headers: this.httpOption.headers,
+  //     }
+  //   );
+  // }
+
+    addProject(newproject: any): Observable<any> {
     return this.http.post<any>(
-      `${this.apiUrl}/dashboard/features/${featureID}`,
-      JSON.stringify(newfeature),
+      `${this.apiUrl}/dashboard/projects`,
+      newproject,
       {
-        headers: this.httpOption.headers,
+       headers: this.httpFileOption.headers
       }
     );
   }
+  
   //Put
   updateregion(regionID: any, region: string) {
     return this.http.put<string>(

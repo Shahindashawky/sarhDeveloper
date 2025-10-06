@@ -16,7 +16,6 @@ import { ApiService } from '../../../services/api-service';
 })
 export class CreateRegions {
   regionForm!: FormGroup;
-  selectedparentregion = '';
   imageName: string = 'choose file to upload';
   main_image!: File;
   isLoading: boolean = false;
@@ -48,16 +47,14 @@ export class CreateRegions {
     });
   }
   
-  onSelected(value: string): void {
-    this.selectedparentregion = value;
-  }
+
  
 
   onSubmit(): void {
     if (this.regionForm.valid) {
       this.isLoading = true;
       let newregion: any = {
-        parent_id: this.selectedparentregion,
+        parent_id: this.regionForm.value.parent_id,
         english_name: this.regionForm.value.english_name,
         arabic_name: this.regionForm.value.arabic_name,
         main_image: this.main_image,

@@ -6,8 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../../../services/api-service';
-import { TranslateService } from '@ngx-translate/core';
-import { ParentRegion } from '../../../../model/ParentRegion';
+import { Facilities } from '../../../../model/Facilities';
+import { Region } from '../../../../model/Region';
 
 @Component({
   selector: 'app-create-project',
@@ -17,20 +17,19 @@ import { ParentRegion } from '../../../../model/ParentRegion';
 })
 export class CreateProject {
 projectForm!: FormGroup;
-  selectedregion = '';
-  selectedtype = '';
-  selectedstatus = '';
-  selectedfeatures = '';
   imageName: string = 'choose file to upload';
   imageName2: string = 'choose files to upload ';
-  image!: File;
-  filelist!: File[];
+  main_image!: File;
+  gallery_images!: File[];
   image2!: FileList;
   pdfName: string = '';
   pdf!: File;
   isLoading: boolean = false;
-  region:ParentRegion[] = [];
-  
+  region:Region[]=[]
+  type:any;
+  statu:any;
+facilite:Facilities[]=[];
+
   constructor(
     private api: ApiService,
     private fb: FormBuilder
@@ -40,8 +39,17 @@ projectForm!: FormGroup;
   }
   ngOnInit() {
 this.initializeForm();
-    this.api.getProjectRegions().subscribe((data:ParentRegion[])=>{
+    this.api.getProjectRegions().subscribe((data:Region[])=>{
       this.region=data
+    })
+    this.api.getProjectType().subscribe((data:any)=>{
+      this.type=data
+    })
+    this.api.getProjectStatus().subscribe((data:any)=>{
+      this.statu=data
+    })
+    this.api.getProjectFacilities().subscribe((data:Facilities[])=>{
+      this.facilite=data
     })
   }
       initializeForm(): void {
@@ -49,59 +57,24 @@ this.initializeForm();
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
       main_image: [null],
-      region_id: this.selectedregion,
-      types: this.selectedtype,
-      status: this.selectedstatus,
-      facilities: this.selectedfeatures,
+      region_id: [null],
+      types: [null],
+      status: [null],
+      facilities: [null],
       arabic_description: [''],
-      detenglish: [''],
+      english_description: [''],
       gallery_images: [null],
       pdf: [null],
 
     });
   }
-onSelected(value: string): void {
-    this.selectedregion = value;
-  }
-  createproject() {
-       if (this.projectForm.valid) {
-      this.isLoading = true;
-      let newregion: any = {
-        region_id: this.selectedregion,
-        english_name: this.projectForm.value.english_name,
-        arabic_name: this.projectForm.value.arabic_name,
-      };
-        let formData: any = new FormData();
-           for (const key in newregion) {
-        if (newregion.hasOwnProperty(key)) {
-          const value = newregion[key];
 
-          if (typeof value === 'string' || typeof value === 'boolean') {
-            formData.append(key, value);
-          } else if (value instanceof File) {
-            formData.append(key, value);
-          } else {
-            console.warn(`Unsupported data type for key: ${key}`);
-          }
-        }
-      }
-this.api.addRegion(formData).subscribe(
-        (res: any) => {
-            this.projectForm.reset();
-          this.isLoading = false;
-          console.log("done")
-          
-        }
-      );
- 
-    }
-  }
 
-  onImageChange(event: any): void {
+
+    onImageChange(event: any): void {
     const fileInput = event.target;
     if (fileInput.files && fileInput.files[0]) {
-      // this.speakersForm.patchValue({ image: fileInput.files[0] });
-      this.image = fileInput.files[0];
+      this.main_image = fileInput.files[0];
       const fileName = fileInput.files[0].name;
       this.imageName = fileName;
     }
@@ -111,10 +84,10 @@ this.api.addRegion(formData).subscribe(
     if (fileInput2?.files && fileInput2.files.length > 0) {
       this.image2 = fileInput2.files;
     }
-    this.filelist = [];
+    this.gallery_images = [];
     for (let index = 0; index < this.image2.length; index++) {
       const element = this.image2[index];
-      this.filelist.push(element);
+      this.gallery_images.push(element);
     }
     this.imageName2 = 'upload now';
   }
@@ -126,6 +99,51 @@ this.api.addRegion(formData).subscribe(
       this.pdfName = fileName;
     }
   }
+
+  createproject() {
+       if (this.projectForm.valid) {
+      this.isLoading = true;
+      let newproject: any = {
+        region_id: this.projectForm.value.region_id,
+        english_name: this.projectForm.value.english_name,
+        arabic_name: this.projectForm.value.arabic_name,
+        main_image: this.main_image,
+        types:this.projectForm.value.types,
+        status:this.projectForm.value.status,
+        facilities:this.projectForm.value.facilities,
+        arabic_description:this.projectForm.value.arabic_description,
+        english_description:this.projectForm.value.english_description,
+        gallery_images:this.gallery_images,
+        pdf:this.pdf
+
+      };
+        let formData: any = new FormData();
+           for (const key in newproject) {
+        if (newproject.hasOwnProperty(key)) {
+          const value = newproject[key];
+
+          if (typeof value === 'string' || typeof value === 'boolean') {
+            formData.append(key, value);
+          } else if (value instanceof File) {
+            formData.append(key, value);
+          } else {
+            console.warn(`Unsupported data type for key: ${key}`);
+          }
+        }
+      }
+this.api.addProject(formData).subscribe(
+        (res: any) => {
+            this.projectForm.reset();
+          this.isLoading = false;
+          console.log("done")
+          
+        }
+      );
+ 
+    }
+  }
+
+
 
 
 }

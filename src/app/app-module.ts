@@ -37,6 +37,8 @@ import { CreateFacilities } from './admin-pages/facilitie/create-facilities/crea
 import { CreateUnits } from './admin-pages/unit/create-units/create-units';
 import { CreateProject } from './admin-pages/project/create-project/create-project';
 import { CreateRegions } from './admin-pages/region/create-regions/create-regions';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -84,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CarouselModule,
     DialogModule,
     SelectModule,
+    MultiSelectModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

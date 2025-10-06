@@ -38,17 +38,14 @@
 
      <div class="row mb-4">
       <label for="conference" class="form-label ps-0">Select parent region <span class="arabic">( اختر المنطقه الام)</span></label>
-<select 
-  class="form-control" 
-  formControlName="parent_id" 
-  (change)="onSelected(selectedparentregion)" 
-  id="parentregion">
-  <option value="" disabled selected>Select parent region</option>
-  <option *ngFor="let p of parentregion" [value]="p.id">
-    {{ p.arabic_name }} - {{ p.english_name }}
-  </option>
-</select>
 
+                    <p-select formControlName="parent_id" [options]="parentregion" optionLabel="name" >
+                            <ng-template let-p pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ p.arabic_name }} - {{ p.english_name }}
+                    </div>
+                </ng-template>
+                </p-select>
 
     </div>
 

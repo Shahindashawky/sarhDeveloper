@@ -6,14 +6,14 @@
             <div class="row bd-highlight mb-3">
                 <div class="col-6 p-2 bd-highlight">
                     <label for="english_name"> English name <span class="arabic">(الاسم باللغه الانجليزية)</span><span
-                    class="text-danger">*</span> </label>
+                            class="text-danger">*</span> </label>
                     <input formControlName="english_name" class="form-control" type="text" value="" />
 
                 </div>
 
                 <div class="col-6 p-2 bd-highlight">
                     <label for="arabic_name"> Arabic name <span class="arabic">(الاسم باللغه العربيه)</span><span
-                    class="text-danger">*</span></label>
+                            class="text-danger">*</span></label>
                     <input formControlName="arabic_name" class="form-control" type="text" value="" />
                 </div>
 
@@ -37,62 +37,73 @@
                 </div>
             </div>
         </div>
-               <div class="row mb-4">
-            <label for="type" class="form-label ps-0">Select region <span class="arabic">(اختر المنطقه)</span> <span class="text-danger fw-bold">*</span></label>
-            <select 
-  class="form-control" 
-  formControlName="region_id" 
-  (change)="onSelected(selectedregion)" 
-  id="region">
-  <option value="" disabled selected>Select region</option>
-  <option *ngFor="let r of region" [value]="r.id">
-    {{ r.arabic_name }} - {{ r.english_name }}
-  </option>
-</select>
-        </div>
         <div class="row mb-4">
-            <label for="type" class="form-label ps-0">Type</label>
-            <select (change)="onSelected(selectedtype)" class="form-control"  formControlName="types" id="type">
-                <option value="" disabled selected>Type</option>
-                <option [value]="">
+            <label for="type" class="form-label ps-0">Select region <span class="arabic">(اختر المنطقه)</span> <span
+                    class="text-danger fw-bold">*</span></label>
+            <p-select formControlName="region_id" [options]="region" optionLabel="name">
+                <ng-template let-r pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ r.arabic_name }} - {{ r.english_name }}
+                    </div>
+                </ng-template>
+            </p-select>
 
-                </option>
-            </select>
         </div>
         <div class="row mb-4">
-            <label for="status" class="form-label ps-0">Status</label>
-            <select (change)="onSelected(selectedstatus)" class="form-control"  formControlName="status" id="status">
-                <option value="" disabled selected>status</option>
-                <option [value]="">
+            <label for="type" class="form-label ps-0">Type <span class="arabic">(اختر نوع المشروع)</span> <span
+                    class="text-danger fw-bold">*</span></label>
+            <p-multiSelect optionLabel="name" [options]="type" id="type" formControlName="types" display="chip"
+                [showClear]="true">
+                <ng-template let-t pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ t.arabic_name }} - {{ t.english_name }}
+                    </div>
+                </ng-template>
+            </p-multiSelect>
+        </div>
+        <div class="row mb-4">
+            <label for="status" class="form-label ps-0">Status <span class="arabic">(اختر حالة المشروع)</span> <span
+                    class="text-danger fw-bold">*</span></label>
+            <p-select formControlName="status" [options]="statu" optionLabel="name">
+                <ng-template let-s pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ s.arabic_name }} - {{ s.english_name }}
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+        <div class="row mb-4">
+            <label for="facilities" class="form-label ps-0">facilities <span class="arabic">(اختر مميزات المشروع)</span> <span
+                    class="text-danger fw-bold">*</span></label>
 
-                </option>
-            </select>
+            <p-multiSelect optionLabel="name" [options]="facilite" id="facilite" formControlName="facilities"
+                display="chip" [showClear]="true">
+                <ng-template let-f pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ f.arabic_name }} - {{ f.english_name }}
+                    </div>
+                </ng-template>
+            </p-multiSelect>
         </div>
         <div class="row mb-4">
-            <label for="features" class="form-label ps-0">features</label>
-            <select (change)="onSelected(selectedfeatures)" class="form-control"  formControlName="facilities" id="features">
-                <option value="" disabled selected>features</option>
-                <option [value]="">
+            <textarea rows="5" cols="30" placeholder="details arabic" pTextarea
+                formControlName="arabic_description"></textarea>
+        </div>
+        <div class="row mb-4">
+            <textarea rows="5" cols="30" placeholder="details englidh" pTextarea
+                formControlName="english_description"></textarea>
+        </div>
 
-                </option>
-            </select>
-        </div>
         <div class="row mb-4">
-              <textarea rows="5" cols="30" placeholder="details arabic" pTextarea formControlName="arabic_description" ></textarea>
-                </div>
-        <div class="row mb-4">
-              <textarea rows="5" cols="30" placeholder="details englidh" pTextarea formControlName="english_description" ></textarea>
-        </div>
-
-        <div class="row mb-4">
-            <label for="pdfInput" class="form-label ps-0">PDF</label>
+            <label for="pdfInput" class="form-label ps-0">PDF<span class="arabic">(اختر نوع المشروع)</span> <span
+                    class="text-danger fw-bold">*</span></label>
             <div class="input-group mb-4 px-0">
                 <div class="input-group file-input-group" data-controller="file-input">
                     <input class="form-control" type="text" [placeholder]="pdfName" readonly
                         data-target="file-input.value2">
                     <input type="file" class="form-control" id="pdfInput" data-target="file-input.input2"
-                        data-action="file-input#display" #pdf formControlName="pdf"
-                        (change)="onPdfChange($event)" accept=".pdf">
+                        data-action="file-input#display" #pdf formControlName="pdf" (change)="onPdfChange($event)"
+                        accept=".pdf">
                     <div class="input-group-append">
                         <label class="btn mb-0" for="pdfInput">Upload</label>
                     </div>
@@ -100,10 +111,11 @@
             </div>
         </div>
 
- 
-        
+
+
         <div class="row mb-4">
-            <label for="imageInput2" class="form-label ps-0">other images</label>
+            <label for="imageInput2" class="form-label ps-0">gallery images <span class="arabic">(اختر صور اخرى)</span> <span
+                    class="text-danger fw-bold">*</span></label>
             <div class="input-group mb-4 px-0">
                 <div class="input-group file-input-group" data-controller="file-input2">
                     <input class="form-control" type="text" [placeholder]="imageName2" readonly
