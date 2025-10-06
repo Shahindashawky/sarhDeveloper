@@ -42,33 +42,39 @@ h1, h2, h3, h4, h5, h6 {
          background: #F9F9F9;
          border: 0;
       }
-      .p-dialog{
+      .p-dialog,.p-checkbox-box,.p-inputtext,.p-multiselect-overlay{
         background-color: white !important;
       }
-      .p-select-option{
+      .p-select-option,.p-multiselect-option,.p-select-label,.p-textarea{
         color: var(--third-color) !important;
       }
-      .p-select-list{
+      .p-select-list,.p-multiselect-list{
                  background: #F9F9F9;
                color: var(--third-color);
       }
-.p-select-option.p-select-option-selected{
+.p-select-option.p-select-option-selected,
+.p-multiselect-option.p-multiselect-option-selected{
      background: #e8e8e8 !important;
     color: var(--first-color) !important;
 }
 .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus,
-.p-select-option.p-select-option-selected.p-focus{
+.p-select-option.p-select-option-selected.p-focus,
+  .p-multiselect-option:not(.p-multiselect-option-selected):not(.p-disabled).p-focus,
+.p-multiselect-option.p-multiselect-option-selected.p-focus,.p-chip{
    background: var(--first-color) !important;
     color: white !important;
 }
-.p-select-overlay{
+.p-select-overlay,.p-multiselect-overlay{
   border: none !important;
+}
+.p-checkbox-checked .p-checkbox-box {
+    border-color: var(--fourth-color) !important;
 }
 .p-button-text.p-button-secondary:not(:disabled):hover{
    background: var(--first-color) !important;
  color: white !important;
 }
-.p-textarea{
+.p-textarea,.p-select,.p-multiselect{
   background: white !important;
   border: 1px solid #dee2e6 !important;
 }

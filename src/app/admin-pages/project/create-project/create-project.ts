@@ -16,7 +16,7 @@ import { Region } from '../../../../model/Region';
   styleUrl: './create-project.scss'
 })
 export class CreateProject {
-projectForm!: FormGroup;
+  projectForm!: FormGroup;
   imageName: string = 'choose file to upload';
   imageName2: string = 'choose files to upload ';
   main_image!: File;
@@ -25,10 +25,10 @@ projectForm!: FormGroup;
   pdfName: string = '';
   pdf!: File;
   isLoading: boolean = false;
-  region:Region[]=[]
-  type:any;
-  statu:any;
-facilite:Facilities[]=[];
+  region: Region[] = []
+  type: any;
+  statu: any;
+  facilite: Facilities[] = [];
 
   constructor(
     private api: ApiService,
@@ -38,32 +38,32 @@ facilite:Facilities[]=[];
 
   }
   ngOnInit() {
-this.initializeForm();
-    this.api.getProjectRegions().subscribe((data:Region[])=>{
-      this.region=data
+    this.initializeForm();
+    this.api.getProjectRegions().subscribe((data: Region[]) => {
+      this.region = data
     })
-    this.api.getProjectType().subscribe((data:any)=>{
-      this.type=data
+    this.api.getProjectType().subscribe((data: any) => {
+      this.type = data
     })
-    this.api.getProjectStatus().subscribe((data:any)=>{
-      this.statu=data
+    this.api.getProjectStatus().subscribe((data: any) => {
+      this.statu = data
     })
-    this.api.getProjectFacilities().subscribe((data:Facilities[])=>{
-      this.facilite=data
+    this.api.getProjectFacilities().subscribe((data: Facilities[]) => {
+      this.facilite = data
     })
   }
-      initializeForm(): void {
+  initializeForm(): void {
     this.projectForm = this.fb.group({
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
-      main_image: [null],
-      region_id: [null],
-      types: [null],
-      status: [null],
-      facilities: [null],
+      main_image: [null, Validators.required],
+      region_id: [null, Validators.required],
+      types: ['', Validators.required],
+      status: [null, Validators.required],
+      facilities: ['', Validators.required],
       arabic_description: [''],
       english_description: [''],
-      gallery_images: [null],
+      gallery_images: [null, Validators.required],
       pdf: [null],
 
     });
@@ -71,7 +71,7 @@ this.initializeForm();
 
 
 
-    onImageChange(event: any): void {
+  onImageChange(event: any): void {
     const fileInput = event.target;
     if (fileInput.files && fileInput.files[0]) {
       this.main_image = fileInput.files[0];
@@ -101,29 +101,32 @@ this.initializeForm();
   }
 
   createproject() {
-       if (this.projectForm.valid) {
+    if (this.projectForm.valid) {
       this.isLoading = true;
       let newproject: any = {
-        region_id: this.projectForm.value.region_id,
+        region_id: this.projectForm.value.region_id?.id,
         english_name: this.projectForm.value.english_name,
         arabic_name: this.projectForm.value.arabic_name,
         main_image: this.main_image,
-        types:this.projectForm.value.types,
-        status:this.projectForm.value.status,
-        facilities:this.projectForm.value.facilities,
-        arabic_description:this.projectForm.value.arabic_description,
-        english_description:this.projectForm.value.english_description,
-        gallery_images:this.gallery_images,
-        pdf:this.pdf
+        types: this.projectForm.value.types.map((t: any) => t.id),
+        status: this.projectForm.value.status?.id,
+        facilities: this.projectForm.value.facilities.map((f: any) => f.id),
+        arabic_description: this.projectForm.value.arabic_description,
+        english_description: this.projectForm.value.english_description,
+        gallery_images: this.gallery_images,
+        pdf: this.pdf
 
       };
-        let formData: any = new FormData();
-           for (const key in newproject) {
+      let formData: any = new FormData();
+      for (const key in newproject) {
         if (newproject.hasOwnProperty(key)) {
           const value = newproject[key];
-
-          if (typeof value === 'string' || typeof value === 'boolean') {
-            formData.append(key, value);
+          if (Array.isArray(value)) {
+            value.forEach((item) => formData.append(`${key}[]`, item));
+          }
+          if (typeof value === 'string' || typeof value === 'boolean' ||
+  typeof value === 'number') {
+            formData.append(key, String(value));
           } else if (value instanceof File) {
             formData.append(key, value);
           } else {
@@ -131,15 +134,17 @@ this.initializeForm();
           }
         }
       }
-this.api.addProject(formData).subscribe(
-        (res: any) => {
-            this.projectForm.reset();
-          this.isLoading = false;
-          console.log("done")
-          
-        }
-      );
- 
+      console.log(newproject);
+
+      this.api.addProject(formData).subscribe(
+              (res: any) => {
+                  this.projectForm.reset();
+                this.isLoading = false;
+                console.log("done")
+
+              }
+            );
+
     }
   }
 
