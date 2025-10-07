@@ -44,23 +44,25 @@ export class Login {
 
 // }
 
- onSubmit() {
-    this.api.login(this.loginForm.value).subscribe((i: any) => {
+onSubmit() {
+  this.api.login(this.loginForm.value).subscribe({
+    next: (i: any) => {
       localStorage.setItem('token', i.token);
       this.api.token = i.token;
       this.api.httpOption.Authorization = i.token;
       
       if (i.token) {
         this.api.auth = true;
-        this.router.navigateByUrl('admin-home').then(() => {
-          // window.location.reload();
-        });
+        localStorage.setItem('auth', 'true'); 
+        this.router.navigateByUrl('/admin-home');
       }
-    }),
-      (err: HttpErrorResponse) => {
-        console.log(err.error.message);
-      };
-  }
+    },
+    error: (err: HttpErrorResponse) => {
+      console.log(err.error.message);
+    }
+  });
+}
+
 
 
 }

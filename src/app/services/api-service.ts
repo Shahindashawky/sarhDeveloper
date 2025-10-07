@@ -67,7 +67,13 @@ export class ApiService {
   getProjectFacilities(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-facilities`);
   }
+  getAuth() {
+    if (this.token) {
+      this.auth = true;
+    }
 
+    return this.auth;
+  }
   //POST
 
   login(data: any) {

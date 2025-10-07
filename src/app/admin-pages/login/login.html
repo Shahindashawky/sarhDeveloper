@@ -2,13 +2,16 @@
   <div class="overlay"></div>
 
   <div class="login-card">
+      <img src="/images/logo.png" alt="Logo" class="login-logo" />  <!-- 🟢 أضف اللوجو هنا -->
+
     <h2>تسجيل الدخول</h2>
     <p class="subtitle">برجاء إدخال التفاصيل الخاصة بك</p>
-    <form class="w-100 p-4" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onSubmit()" novalidate>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onSubmit()" novalidate>
       <div class="form-group">
         <div class="inp">
-          <i class="pi pi-envelope"></i>
-          <input type="email" placeholder="بريدك الإلكتروني" class="form-control" formControlName="email" />
+          <i class="pi pi-envelope" ></i>
+          <input type="email" placeholder="بريدك الإلكتروني" formControlName="email" />
         </div>
 
       </div>
@@ -16,25 +19,20 @@
           <small class="text-danger" *ngIf="email.errors?.['required']">Email is required.</small>
           <small class="text-danger" *ngIf="email.errors?.['pattern']">Email is not valid.</small>
         </div>
-<br>
+        <br>
       <div class="form-group">
         <div class="inp">
           <i class="pi pi-lock"></i>
-          <input type="password" placeholder="كلمة السر" class="form-control" formControlName="password" />
+          <input type="password" placeholder="كلمة السر" formControlName="password" />
         </div>
-
       </div>
         <div *ngIf="password?.invalid && password?.touched">
-          <small class="text-danger" *ngIf="password?.errors?.['required']">password is required.</small>
-          <small class="text-danger" *ngIf="password?.errors?.['minlength']">password is so small min-length 6.</small>
+          <small class="text-danger" *ngIf="password?.errors?.['required']">Password is required.</small>
+          <small class="text-danger" *ngIf="password?.errors?.['minlength']">Password too short (min 6).</small>
         </div>
-      <br />
-      <a [routerLink]="['/resetPassword']" class="forgot-password">إعادة تعيين كلمة المرور</a>
-
-      <button type="submit" class="btn-login">تسجيل الدخول</button>
-
-
+      <!-- <a [routerLink]="['/admin-home/resetPassword']" class="forgot-password">إعادة تعيين كلمة المرور</a> -->
+<br>
+      <button type="submit"  [disabled]="loginForm.invalid" class="btn-login">تسجيل الدخول</button>
     </form>
-
   </div>
 </div>

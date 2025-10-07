@@ -1,1 +1,18 @@
-
+.admin-layout{
+    margin: 10px !important;
+    display: ltr;
+}
+.logoutbtn{
+        border: 1px solid var(--first-color);
+    padding: 5px 30px;
+    color: white;
+    background: var(--first-color);
+    transition: all 0.2s ease-in-out;
+    float: inline-end;
+    margin: 10px;
+}
+  .logoutbtn:hover {
+    background: #c99235 !important;
+    border: 1px solid #c99235 !important;
+    color: white !important;
+  }

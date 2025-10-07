@@ -14,6 +14,8 @@ import { CreateRegions } from './admin-pages/region/create-regions/create-region
 import { CreateFacilities } from './admin-pages/facilitie/create-facilities/create-facilities';
 import { CreateProject } from './admin-pages/project/create-project/create-project';
 import { CreateUnits } from './admin-pages/unit/create-units/create-units';
+import { AuthGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
   { path: '', component: Home },
@@ -29,13 +31,14 @@ const routes: Routes = [
   {
     path: 'admin-home',
     component: AdminHome,
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'create-region', pathMatch: 'full' },
-      { path: 'create-region', component: CreateRegions },
-      { path: 'create-facilitie', component: CreateFacilities },
-      { path: 'create-project', component: CreateProject },
-      { path: 'create-unit', component: CreateUnits },
-      { path: 'resetPassword', component: ChangePassword }
+      { path: '', redirectTo: 'create-region', pathMatch: 'full'},
+      { path: 'create-region', component: CreateRegions},
+      { path: 'create-facilitie', component: CreateFacilities},
+      { path: 'create-project', component: CreateProject},
+      { path: 'create-unit', component: CreateUnits},
+      { path: 'resetPassword', component: ChangePassword}
     ]
   },
 
