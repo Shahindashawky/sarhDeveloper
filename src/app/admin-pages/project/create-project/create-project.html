@@ -40,7 +40,7 @@
         <div class="row mb-4">
             <label for="type" class="form-label ps-0">Select region <span class="arabic">(اختر المنطقه)</span> <span
                     class="text-danger fw-bold">*</span></label>
-            <p-select formControlName="region_id" optionLabel="name" [options]="region" optionLabel="name">
+            <p-select formControlName="region_id"  [options]="region" optionLabel="name">
                 <ng-template let-r pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         {{ r.arabic_name }} - {{ r.english_name }}

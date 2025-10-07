@@ -59,7 +59,8 @@
         border-radius: 8px;
         font-size: 1rem;
         transition: border-color 0.3s;
-
+        background: white;
+        color: var(--second-color);
         &:focus {
           border-color: #000;
           outline: none;

@@ -52,9 +52,9 @@ onSubmit() {
       this.api.httpOption.Authorization = i.token;
       
       if (i.token) {
+        this.api.setAuth(true);
         this.api.auth = true;
-        localStorage.setItem('auth', 'true'); 
-        this.router.navigateByUrl('/admin-home');
+        this.router.navigateByUrl('admin-home');
       }
     },
     error: (err: HttpErrorResponse) => {

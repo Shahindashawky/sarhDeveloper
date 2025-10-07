@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse, } from '@angular/common/htt
 import { environment } from '../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,16 @@ export class ApiService {
   token: any;
   auth = false;
 
+  private authSubject = new BehaviorSubject<boolean>(false);
+  authStatus = this.authSubject.asObservable();
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       this.token = localStorage.getItem('token');
+      const isAuth = !!this.token;
+      this.authSubject.next(isAuth); 
     }
+
     this.httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -35,6 +41,18 @@ export class ApiService {
        }),
     };
   }
+  //auth
+     setAuth(auth:boolean) {
+    this.auth = auth;
+    this.authSubject.next(auth);
+    if (!auth) {
+      localStorage.removeItem('token');
+    }
+  }
+getAuth() {
+  return this.authSubject.value;
+
+}
   //GET
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
@@ -51,7 +69,9 @@ export class ApiService {
   getFacilite(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/facilities`);
   }
-
+ getunitsProjects(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/projects`);
+  }
   // getgetFaciliteById(feaID: string): Observable<any> {
   //   return this.http.get<any>(`${this.apiUrl}/dashboard/facilities/${feaID}`,
   //     {
@@ -61,19 +81,19 @@ export class ApiService {
   getProjectType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-types`);
   }
+    getUnitsType(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/unit-types`);
+  }
   getProjectStatus(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-status`);
+  }
+  getUnitsStatus(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/unit-status`);
   }
   getProjectFacilities(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-facilities`);
   }
-  getAuth() {
-    if (this.token) {
-      this.auth = true;
-    }
-
-    return this.auth;
-  }
+  
   //POST
 
   login(data: any) {
@@ -139,7 +159,15 @@ export class ApiService {
       }
     );
   }
-  
+      addUnits(newunits: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/dashboard/units`,
+      newunits,
+      {
+       headers: this.httpFileOption.headers
+      }
+    );
+  }
   //Put
   updateregion(regionID: any, region: string) {
     return this.http.put<string>(

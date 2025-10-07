@@ -19,9 +19,9 @@ export class AdminHome {
 
   }
   logout(){
-    localStorage.removeItem('token');
-    this.api.auth = false;
-        localStorage.removeItem('auth');
-    this.router.navigateByUrl('/admin-login');
+    this.api.auth=false;
+    this.api.setAuth(false);
+    this.router.navigateByUrl('login');
+    localStorage.removeItem('token')
   }
 }
