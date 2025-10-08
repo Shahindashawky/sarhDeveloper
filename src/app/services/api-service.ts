@@ -57,11 +57,35 @@ getAuth() {
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
   }
+  getALLRegions(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/regions`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+   getALLFacilitie(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/facilities`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+     getALLProjects(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/projects`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+   getALLUnits(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/units`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
   getProjectRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-regions`);
   }
   getRegionById(regionID: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/regions/1/${regionID}`,
+    return this.http.get<any>(`${this.apiUrl}/dashboard/regions/${regionID}`,
       {
         headers: this.httpFileOption.headers,
       });
@@ -72,12 +96,7 @@ getAuth() {
  getunitsProjects(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/projects`);
   }
-  // getgetFaciliteById(feaID: string): Observable<any> {
-  //   return this.http.get<any>(`${this.apiUrl}/dashboard/facilities/${feaID}`,
-  //     {
-  //       headers: this.httpFileOption.headers,
-  //     });
-  // }
+
   getProjectType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-types`);
   }
@@ -171,8 +190,8 @@ getAuth() {
   //Put
   updateregion(regionID: any, region: string) {
     return this.http.put<string>(
-      `${this.apiUrl}/dashboard/regions/${regionID}`,
-      { status },
+      `${this.apiUrl}/dashboard/regions/update-status/${regionID}`,
+      { region },
       {
         headers: this.httpOption.headers,
       }

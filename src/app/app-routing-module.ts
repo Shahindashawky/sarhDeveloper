@@ -15,6 +15,12 @@ import { CreateFacilities } from './admin-pages/facilitie/create-facilities/crea
 import { CreateProject } from './admin-pages/project/create-project/create-project';
 import { CreateUnits } from './admin-pages/unit/create-units/create-units';
 import { AuthGuard } from './services/auth.guard';
+import { ViewRegions } from './admin-pages/region/view-regions/view-regions';
+import { ViewFacilities } from './admin-pages/facilitie/view-facilities/view-facilities';
+import { ViewProjects } from './admin-pages/project/view-projects/view-projects';
+import { ViewUnits } from './admin-pages/unit/view-units/view-units';
+import { EditRegions } from './admin-pages/region/edit-regions/edit-regions';
+import { EditFacilities } from './admin-pages/facilitie/edit-facilities/edit-facilities';
 
 
 const routes: Routes = [
@@ -35,9 +41,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'create-region', pathMatch: 'full'},
       { path: 'create-region', component: CreateRegions},
+      { path: 'view-region', component: ViewRegions},
+      { path: 'edit-region/:id', component: EditRegions},
       { path: 'create-facilitie', component: CreateFacilities},
+      { path: 'view-facilitie', component: ViewFacilities},
+      { path: 'edit-facilitie/:id', component: EditFacilities},
       { path: 'create-project', component: CreateProject},
+      { path: 'view-project', component: ViewProjects},
       { path: 'create-unit', component: CreateUnits},
+      { path: 'view-unit', component: ViewUnits},
       { path: 'resetPassword', component: ChangePassword}
     ]
   },

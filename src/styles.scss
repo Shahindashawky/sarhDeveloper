@@ -87,3 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 .p-select:not(.p-disabled).p-focus{
   border-color: var(--fourth-color) !important;
 }
+.p-paginator-page.p-paginator-page-selected{
+  background: var(--fourth-color) !important;
+    color: white !important;
+}

@@ -1,0 +1,50 @@
+<div class="project-container">
+  <div class="card">
+    <h2 class="title">Projects List</h2>
+
+    <p-table
+      [value]="projects"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      responsiveLayout="scroll"
+      styleClass="p-datatable-striped p-datatable-gridlines"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>English Name</th>
+          <th>Arabic Name</th>
+          <th>Region</th>
+          <th>status</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-project>
+        <tr>
+          <td>{{ project.english_name }}</td>
+          <td>{{ project.arabic_name }}</td>
+          <td>{{ project.region }}</td>
+          <td>{{ project.status }}</td>
+          <td class="actions">
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text p-button-warn"
+              (click)="onEdit(project.id)"
+              pTooltip="Edit"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="onDelete(project.id)"
+              pTooltip="Delete"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

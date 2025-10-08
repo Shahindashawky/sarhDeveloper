@@ -38,11 +38,18 @@ import { CreateUnits } from './admin-pages/unit/create-units/create-units';
 import { CreateProject } from './admin-pages/project/create-project/create-project';
 import { CreateRegions } from './admin-pages/region/create-regions/create-regions';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primeng/table';
 
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthGuard } from './services/auth.guard';
+import { ViewRegions } from './admin-pages/region/view-regions/view-regions';
+import { ViewFacilities } from './admin-pages/facilitie/view-facilities/view-facilities';
+import { ViewProjects } from './admin-pages/project/view-projects/view-projects';
+import { ViewUnits } from './admin-pages/unit/view-units/view-units';
+import { EditRegions } from './admin-pages/region/edit-regions/edit-regions';
+import { EditFacilities } from './admin-pages/facilitie/edit-facilities/edit-facilities';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,7 +74,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateUnits,
     Business,
     Followup,
-    Delivery
+    Delivery,
+    ViewRegions,
+    ViewFacilities,
+    ViewProjects,
+    ViewUnits,
+    EditRegions,
+    EditFacilities
   ],
   imports: [
     BrowserModule,
@@ -77,6 +90,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,        
     ReactiveFormsModule ,
     DrawerModule,
+    TableModule,
     Ripple ,
     StyleClass,
     BrowserAnimationsModule,
