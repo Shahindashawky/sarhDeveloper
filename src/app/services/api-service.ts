@@ -4,6 +4,9 @@ import { environment } from '../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { Region } from '../../model/Region';
+import { Facilities } from '../../model/Facilities';
+import { Project } from '../../model/Project';
 
 @Injectable({
   providedIn: 'root'
@@ -24,35 +27,35 @@ export class ApiService {
     if (isPlatformBrowser(this.platformId)) {
       this.token = localStorage.getItem('token');
       const isAuth = !!this.token;
-      this.authSubject.next(isAuth); 
+      this.authSubject.next(isAuth);
     }
 
     this.httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}` || '',
-        Accept:'application/json' 
+        Accept: 'application/json'
       }),
     };
     this.httpFileOption = {
-       headers: new HttpHeaders({
-      Authorization: `Bearer ${this.token}` || '',
-        Accept:'application/json'
-       }),
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.token}` || '',
+        Accept: 'application/json'
+      }),
     };
   }
   //auth
-     setAuth(auth:boolean) {
+  setAuth(auth: boolean) {
     this.auth = auth;
     this.authSubject.next(auth);
     if (!auth) {
       localStorage.removeItem('token');
     }
   }
-getAuth() {
-  return this.authSubject.value;
+  getAuth() {
+    return this.authSubject.value;
 
-}
+  }
   //GET
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
@@ -63,19 +66,25 @@ getAuth() {
         headers: this.httpOption.headers,
       });
   }
-   getALLFacilitie(): Observable<any> {
+  getALLFacilitie(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/facilities`,
       {
         headers: this.httpOption.headers,
       });
   }
-     getALLProjects(): Observable<any> {
+  getALLProjects(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/projects`,
       {
         headers: this.httpOption.headers,
       });
   }
-   getALLUnits(): Observable<any> {
+    getProjectById(projectID: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/projects/${projectID}`,
+      {
+        headers: this.httpFileOption.headers,
+      });
+  }
+  getALLUnits(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/units`,
       {
         headers: this.httpOption.headers,
@@ -93,14 +102,20 @@ getAuth() {
   getFacilite(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/facilities`);
   }
- getunitsProjects(): Observable<any> {
+  getFaciliteById(faciliteID: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/facilities/${faciliteID}`,
+      {
+        headers: this.httpFileOption.headers,
+      });
+  }
+  getunitsProjects(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/projects`);
   }
 
   getProjectType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-types`);
   }
-    getUnitsType(): Observable<any> {
+  getUnitsType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/unit-types`);
   }
   getProjectStatus(): Observable<any> {
@@ -112,7 +127,7 @@ getAuth() {
   getProjectFacilities(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-facilities`);
   }
-  
+
   //POST
 
   login(data: any) {
@@ -151,68 +166,58 @@ getAuth() {
       `${this.apiUrl}/dashboard/facilities`,
       newfacilitie,
       {
-       headers: this.httpFileOption.headers
+        headers: this.httpFileOption.headers
       }
     );
   }
 
-  // addFacilitiebyId(
-  //   featureID: any,
-  //   newfeature: any
-  // ): Observable<any> {
-  //   return this.http.post<any>(
-  //     `${this.apiUrl}/dashboard/features/${featureID}`,
-  //     JSON.stringify(newfeature),
-  //     {
-  //       headers: this.httpOption.headers,
-  //     }
-  //   );
-  // }
 
-    addProject(newproject: any): Observable<any> {
+  addProject(newproject: any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/dashboard/projects`,
       newproject,
       {
-       headers: this.httpFileOption.headers
+        headers: this.httpFileOption.headers
       }
     );
   }
-      addUnits(newunits: any): Observable<any> {
+  addUnits(newunits: any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/dashboard/units`,
       newunits,
       {
-       headers: this.httpFileOption.headers
+        headers: this.httpFileOption.headers
       }
     );
   }
+
   //Put
-  updateregion(regionID: any, region: string) {
-    return this.http.put<string>(
-      `${this.apiUrl}/dashboard/regions/update-status/${regionID}`,
-      { region },
-      {
-        headers: this.httpOption.headers,
-      }
+  updateRegion(regionID: any, region: Region) {
+    return this.http.post(
+      `${this.apiUrl}/dashboard/regions/${regionID}?_method=PUT`,
+      region,
+      this.httpFileOption
     );
   }
-  updatestatusregion(stID: any, status: string) {
-    return this.http.put<string>(
-      `${this.apiUrl}/dashboard/regions/update-status/${stID}`,
-      { status },
-      {
-        headers: this.httpOption.headers,
-      }
+  updateFacilitie(facilitieID: any, facilitie: Facilities) {
+    return this.http.post(
+      `${this.apiUrl}/dashboard/facilities/${facilitieID}?_method=PUT`,
+      facilitie,
+      this.httpFileOption
     );
   }
-  updatestatusfeature(stID: any, status: string) {
-    return this.http.put<string>(
-      `${this.apiUrl}/dashboard/features/update-status/${stID}`,
-      { status },
-      {
-        headers: this.httpOption.headers,
-      }
+  updateProject(projectID: any, project: Project) {
+    return this.http.post(
+      `${this.apiUrl}/dashboard/projects/${projectID}?_method=PUT`,
+      project,
+      this.httpFileOption
+    );
+  }
+ updateunit(unitID: any, unit: any) {
+    return this.http.post(
+      `${this.apiUrl}/dashboard/units/${unitID}?_method=PUT`,
+      unit,
+      this.httpFileOption
     );
   }
   //DELETE
@@ -223,8 +228,8 @@ getAuth() {
       }
     );
   }
-  deleteFeatureById(fID: any) {
-    return this.http.delete(`${this.apiUrl}/dashboard/features/${fID}`,
+  deleteFacilitieById(fID: any) {
+    return this.http.delete(`${this.apiUrl}/dashboard/facilities/${fID}`,
       {
         headers: this.httpOption.headers,
       }

@@ -19,11 +19,6 @@ ngOnInit() {
 
 
 onDelete(facilitieid: any) {
-  console.log('Deleting facilities:', facilitieid);
-  // هنا ضيفي تأكيد قبل الحذف مثلاً
-  // this.confirmationService.confirm({
-  //   message: `Are you sure you want to delete ${facilities.english_name}?`,
-  //   accept: () => this.api.deletefacilities(facilities.id).subscribe(...)
-  // });
+  this.api.deleteFacilitieById(facilitieid).subscribe(f=>{})
 }
 }

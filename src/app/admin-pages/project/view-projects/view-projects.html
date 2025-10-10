@@ -9,7 +9,7 @@
       [rowsPerPageOptions]="[5, 10, 20]"
       [tableStyle]="{ 'min-width': '60rem' }"
       responsiveLayout="scroll"
-      styleClass="p-datatable-striped p-datatable-gridlines"
+      styleClass="p-datatable-striped p-datatable-gridlines custom-table"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -32,7 +32,7 @@
               pButton
               icon="pi pi-pencil"
               class="p-button-rounded p-button-text p-button-warn"
-              (click)="onEdit(project.id)"
+              [routerLink]="['/admin-home/edit-project',project.id]"
               pTooltip="Edit"
             ></button>
             <button

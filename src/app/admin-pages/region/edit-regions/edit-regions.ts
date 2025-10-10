@@ -14,17 +14,17 @@ import { Region } from '../../../../model/Region';
 export class EditRegions {
  regionForm!: FormGroup;
   imageName: string = 'choose file to upload';
-  main_image!: File;
+  main_image!: any;
   isLoading: boolean = false;
   parentregion:ParentRegion[] = [];
-  regionId!: string;
+  regionId!: any;
+
   constructor(
     private fb: FormBuilder,
     private api:ApiService,
     private route: ActivatedRoute
   ) {
   this.route.params.subscribe((params) => {
-      // Access the speakerId from the route parameters
       this.regionId = params['id'];
     });
   }
@@ -35,6 +35,18 @@ export class EditRegions {
     this.api.getRegions().subscribe((data:ParentRegion[])=>{
       this.parentregion=data
     })
+        this.api.getRegionById(this.regionId).subscribe((res:any) => {
+        const region:Region=res;
+
+      this.regionForm.patchValue({
+        parent_id: region.parent_id,
+      english_name: region.english_name,
+      arabic_name: region.arabic_name,
+      english_features:region.english_features,
+      arabic_features:region.arabic_features,
+      
+        });
+      })
   }
     initializeForm(): void {
           this.regionForm = this.fb.group({
@@ -46,22 +58,17 @@ export class EditRegions {
       main_image: [null],
 
     });
-
-      this.api.getRegionById(this.regionId).subscribe((res:any) => {
-        const region:Region=res
-      this.regionForm.patchValue({
-      english_name: region.english_name,
-      arabic_name: region.arabic_name,
-      english_features:region.english_features,
-      arabic_features:region.arabic_features,
-      main_image: region.main_image,
-        });
-      })
-
- 
   }
   
-
+  onFileChange(event: any): void {
+    const fileInput = event.target;
+    if (fileInput.files && fileInput.files[0]) {
+      this.main_image = fileInput.files[0];
+      const fileName = fileInput.files[0].name;
+      this.imageName = fileName;
+      
+    }
+  }
  
 
   onSubmit(): void {
@@ -79,35 +86,35 @@ export class EditRegions {
            for (const key in newregion) {
         if (newregion.hasOwnProperty(key)) {
           const value = newregion[key];
-
           if (typeof value === 'string' || typeof value === 'boolean') {
             formData.append(key, value);
           } else if (value instanceof File) {
             formData.append(key, value);
-          } else {
-            console.warn(`Unsupported data type for key: ${key}`);
+          } else if (Array.isArray(value)) {
+            for (let i = 0; i < value.length; i++) {
+              formData.append(key, value[i]);
+            }
+           } else {
+             formData.append(key, value);
+
           }
         }
       }
-this.api.updateregion(this.regionId ,formData).subscribe(
+this.api.updateRegion(this.regionId ,formData).subscribe(
         (res: any) => {
             this.regionForm.reset();
-          this.isLoading = false;
-          console.log("done")
-          
-        }
+          this.isLoading = false;          
+        console.log('Region updated successfully');          
+        },
+  (err) => {
+    console.error("Update failed", err);
+    this.isLoading = false;
+  }
       );
  
     }
   }
 
-  onFileChange(event: any): void {
-    const fileInput = event.target;
-    if (fileInput.files && fileInput.files[0]) {
-      this.main_image = fileInput.files[0];
-      const fileName = fileInput.files[0].name;
-      this.imageName = fileName;
-    }
-  }
+
 
 }

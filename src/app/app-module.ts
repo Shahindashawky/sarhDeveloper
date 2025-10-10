@@ -50,6 +50,8 @@ import { ViewProjects } from './admin-pages/project/view-projects/view-projects'
 import { ViewUnits } from './admin-pages/unit/view-units/view-units';
 import { EditRegions } from './admin-pages/region/edit-regions/edit-regions';
 import { EditFacilities } from './admin-pages/facilitie/edit-facilities/edit-facilities';
+import { EditProject } from './admin-pages/project/edit-project/edit-project';
+import { EditUnit } from './admin-pages/unit/edit-unit/edit-unit';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -80,7 +82,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewProjects,
     ViewUnits,
     EditRegions,
-    EditFacilities
+    EditFacilities,
+    EditProject,
+    EditUnit
   ],
   imports: [
     BrowserModule,

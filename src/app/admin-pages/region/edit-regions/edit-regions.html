@@ -34,12 +34,13 @@
           </div>
         </div>
       </div>
+      
     </div>
 
      <div class="row mb-4">
-      <label for="conference" class="form-label ps-0">Select parent region <span class="arabic">( اختر المنطقه الام)</span></label>
+      <label for="parentregion" class="form-label ps-0">Select parent region <span class="arabic">( اختر المنطقه الام)</span></label>
 
-                    <p-select formControlName="parent_id" [options]="parentregion" optionLabel="name" >
+                    <p-select formControlName="parent_id" [options]="parentregion" optionLabel="english_name"  optionValue="id" >
                             <ng-template let-p pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         {{ p.arabic_name }} - {{ p.english_name }}

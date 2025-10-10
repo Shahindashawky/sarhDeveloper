@@ -1,6 +1,6 @@
 <div class="container mb-2 fc">
-    <h2 class="row fw-bold">Create project</h2>
-    <form (ngSubmit)="createproject()" [formGroup]="projectForm" enctype="multipart/form-data" class="row projectForm">
+    <h2 class="row fw-bold">Edit project</h2>
+    <form (ngSubmit)="editproject()" [formGroup]="projectForm" enctype="multipart/form-data" class="row projectForm">
 
         <div class="form-group">
             <div class="row bd-highlight mb-3">
@@ -40,10 +40,10 @@
         <div class="row mb-4">
             <label for="type" class="form-label ps-0">Select region <span class="arabic">(اختر المنطقه)</span> <span
                     class="text-danger fw-bold">*</span></label>
-            <p-select formControlName="region_id"  [options]="region" optionLabel="english_name"  >
+            <p-select formControlName="region_id"  [options]="region" optionLabel="english_name"  optionValue="id">
                 <ng-template let-r pTemplate="item">
                     <div class="flex align-items-center gap-2">
-                        {{ r.arabic_name }} - {{ r.english_name }}
+                        {{ r.arabic_name }} - {{ r.english_name }} 
                     </div>
                 </ng-template>
             </p-select>
@@ -52,7 +52,7 @@
         <div class="row mb-4">
             <label for="type" class="form-label ps-0">Type <span class="arabic">(اختر نوع المشروع)</span> <span
                     class="text-danger fw-bold">*</span></label>
-            <p-multiSelect optionLabel="english_name"   [options]="type" id="type" formControlName="types" display="chip"
+            <p-multiSelect optionLabel="english_name"  optionValue="id" [options]="type" id="type" formControlName="types" display="chip"
                 [showClear]="true">
                 <ng-template let-t pTemplate="item">
                     <div class="flex align-items-center gap-2">
@@ -64,7 +64,7 @@
         <div class="row mb-4">
             <label for="status" class="form-label ps-0">Status <span class="arabic">(اختر حالة المشروع)</span> <span
                     class="text-danger fw-bold">*</span></label>
-            <p-select formControlName="status" optionLabel="english_name"   [options]="statu" >
+            <p-select formControlName="status" optionLabel="english_name"  optionValue="id" [options]="statu" >
                 <ng-template let-s pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         {{ s.arabic_name }} - {{ s.english_name }}
@@ -76,7 +76,7 @@
             <label for="facilities" class="form-label ps-0">facilities <span class="arabic">(اختر مميزات المشروع)</span> <span
                     class="text-danger fw-bold">*</span></label>
 
-            <p-multiSelect optionLabel="english_name"   [options]="facilite" id="facilite" formControlName="facilities"
+            <p-multiSelect optionLabel="english_name"  optionValue="id" [options]="facilite" id="facilite" formControlName="facilities"
                 display="chip" [showClear]="true">
                 <ng-template let-f pTemplate="item">
                     <div class="flex align-items-center gap-2">
@@ -131,7 +131,7 @@
         </div>
         <div class="row d-flex justify-content-center">
             <button class="btn create-btn" type="submit">
-                <span>Create</span>
+                <span>Edit</span>
             </button>
         </div>
     </form>

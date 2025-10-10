@@ -70,8 +70,13 @@ export class CreateRegions {
             formData.append(key, value);
           } else if (value instanceof File) {
             formData.append(key, value);
-          } else {
-            console.warn(`Unsupported data type for key: ${key}`);
+          } else if (Array.isArray(value)) {
+            for (let i = 0; i < value.length; i++) {
+              formData.append(key, value[i]);
+            }
+           } else {
+             formData.append(key, value);
+
           }
         }
       }

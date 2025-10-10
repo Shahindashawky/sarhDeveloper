@@ -32,7 +32,7 @@ facilitieForm!: FormGroup;
     this.facilitieForm = this.fb.group({
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
-      main_image: [null],
+      main_image: [null, Validators.required],
 
     });
   }

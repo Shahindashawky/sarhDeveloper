@@ -3,7 +3,7 @@ export interface Project {
     arabic_name:string,
     english_name:string,
     name:string,
-    region_id:number,
+    region_id:any,
     main_image:File,
     arabic_description:string,
     english_description:string,

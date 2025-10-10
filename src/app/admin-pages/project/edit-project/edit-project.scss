@@ -1,0 +1,74 @@
+.projectForm {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  label {
+    font-weight: 600;
+  }
+  .create-btn {
+    background-color: var(--first-color);
+    color: white;
+    width: fit-content;
+    align-self: center;
+  }
+  .file-input-group {
+    input[type="file"] {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    .btn {
+      background-color: var(--first-color);
+      color: white;
+      border-radius: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+
+  input.ng-touched.ng-invalid,
+  textarea.ng-touched.ng-invalid {
+    border-color: red;
+  }
+
+  .create-btn {
+    width: 8rem;
+  }
+
+  button:hover,
+  .btn:hover {
+    opacity: 0.7 !important;
+  }
+
+  .spinner-border {
+    --bs-spinner-width: 0.5rem;
+    --bs-spinner-height: 0.5rem;
+    --bs-spinner-border-width: 0.15em;
+  }
+  .p-toast-top-right {
+    top: 170px !important;
+    right: 20px;
+  }
+
+  .smallText {
+    color: #9fb1bd;
+    font-weight: 100;
+  }
+}
+::ng-deep{
+  .p-calendar .p-datepicker {
+    top: 44px !important;
+}
+.p-textarea{
+  background: white ;
+  border: 1px solid #dee2e6;
+
+} 
+   .p-textarea:enabled:hover ,
+   .p-textarea:enabled:focus{
+    border-color: var(--first-color);
+}
+}

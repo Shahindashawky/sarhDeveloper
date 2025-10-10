@@ -21,6 +21,8 @@ import { ViewProjects } from './admin-pages/project/view-projects/view-projects'
 import { ViewUnits } from './admin-pages/unit/view-units/view-units';
 import { EditRegions } from './admin-pages/region/edit-regions/edit-regions';
 import { EditFacilities } from './admin-pages/facilitie/edit-facilities/edit-facilities';
+import { EditProject } from './admin-pages/project/edit-project/edit-project';
+import { EditUnit } from './admin-pages/unit/edit-unit/edit-unit';
 
 
 const routes: Routes = [
@@ -48,8 +50,10 @@ const routes: Routes = [
       { path: 'edit-facilitie/:id', component: EditFacilities},
       { path: 'create-project', component: CreateProject},
       { path: 'view-project', component: ViewProjects},
+      { path: 'edit-project/:id', component: EditProject},
       { path: 'create-unit', component: CreateUnits},
       { path: 'view-unit', component: ViewUnits},
+      { path: 'edit-unit/:id', component: EditUnit},
       { path: 'resetPassword', component: ChangePassword}
     ]
   },
