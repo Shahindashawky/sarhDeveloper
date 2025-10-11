@@ -1,1 +1,164 @@
-<p>edit-unit works!</p>
+<div class="container mb-2 fc">
+    <h2 class="row fw-bold">Create units</h2>
+    <form (ngSubmit)="editunits()" [formGroup]="unitsForm" enctype="multipart/form-data" class="row unitsForm">
+
+        
+        <div class="form-group">
+            <div class="row bd-highlight mb-3">
+                <div class="col-6 p-2 bd-highlight">
+                    <label for="english_name"> English name <span class="arabic">(الاسم باللغه الانجليزية)</span><span
+                            class="text-danger">*</span> </label>
+                    <input formControlName="english_name" class="form-control" type="text"  />
+
+                </div>
+
+                <div class="col-6 p-2 bd-highlight">
+                    <label for="arabic_name"> Arabic name <span class="arabic">(الاسم باللغه العربيه)</span><span
+                            class="text-danger">*</span></label>
+                    <input formControlName="arabic_name" class="form-control" type="text"  />
+                </div>
+
+
+            </div>
+        </div>
+
+            <div class="row mb-4">
+            <label for="imageInput" class="form-label ps-0">Main image <span class="arabic">(اضف صوره)</span><span
+                    class="text-danger">*</span></label>
+            <div class="input-group mb-4 px-0">
+                <div class="input-group file-input-group" data-controller="file-input">
+                    <input class="form-control" type="text" [placeholder]="imageName" readonly
+                        data-target="file-input.value">
+                    <input type="file" class="form-control" id="imageInput" data-target="file-input.input"
+                        data-action="file-input#display" #main_image formControlName="main_image"
+                        (change)="onImageChange($event)" accept="image/*">
+                    <div class="input-group-append">
+                        <label class="btn mb-0" for="imageInput">Upload</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+               <div class="row mb-4">
+            <label for="type" class="form-label ps-0">Select project <span class="arabic">(اختر المشروع)</span> <span
+                    class="text-danger fw-bold">*</span></label>
+              <p-select formControlName="project_id" optionLabel="english_name"  optionValue="id" [options]="project" >
+                <ng-template let-p pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ p.arabic_name }} - {{ p.english_name }}
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+        <div class="row mb-4">
+            <label for="type" class="form-label ps-0">Type <span class="arabic">(اختر النوع)</span></label>
+             <p-select formControlName="unit_type_id" optionLabel="english_name"  optionValue="id" [options]="type" >
+                <ng-template let-t pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ t.arabic_name }} - {{ t.english_name }}
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+        <div class="row mb-4">
+            <label for="status" class="form-label ps-0">Status <span class="arabic">(اختر الحالة)</span></label>
+              <p-select formControlName="status" optionLabel="english_name"  optionValue="id" [options]="status" >
+                <ng-template let-s pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        {{ s.arabic_name }} - {{ s.english_name }}
+                    </div>
+                </ng-template>
+            </p-select>
+        </div>
+
+        <div class="row mb-4">
+              <textarea rows="5" cols="30" placeholder="details arabic" pTextarea formControlName="arabic_details" ></textarea>
+                </div>
+        <div class="row mb-4">
+              <textarea rows="5" cols="30" placeholder="details englidh" pTextarea formControlName="english_details" ></textarea>
+        </div>
+         <div class="row mb-4">
+                    <label for="enname">Area <span class="arabic">(المساحه)</span><span
+                    class="text-danger">*</span> </label>
+                    <input formControlName="area" class="form-control" type="text"  />
+        </div>
+ 
+
+                 <div class="row mb-4">
+                    <label for="arname">rooms <span class="arabic">(الغرف)</span><span
+                    class="text-danger">*</span></label>
+                    <input formControlName="rooms" class="form-control" type="text"  />
+                </div>
+
+
+                 <div class="row mb-4">
+                    <label for="arname">bathrooms <span class="arabic">(الحمام)</span><span
+                    class="text-danger">*</span></label>
+                    <input formControlName="bathrooms" class="form-control" type="text"  />
+                </div>
+                 <div class="row mb-4">
+                    <label for="arname">price <span class="arabic">(السعر)</span><span
+                    class="text-danger">*</span></label>
+                    <input formControlName="price" class="form-control" type="text"  />
+                </div>
+    <div class="row mb-4">
+                    <label for="arname">Map-URL <span class="arabic">(للخريطه URL عنوان )</span><span
+                    class="text-danger">*</span></label>
+                    <input formControlName="map_url" class="form-control" type="text"  />
+                </div>
+     <div class="form-group">
+            <div class="row bd-highlight mb-3">
+                <div class="col-6 p-2 bd-highlight">
+                    <label for="enname">Floor English <span class="arabic">(الطابق باللغه الانجليزيه)</span></label>
+                    <input formControlName="english_floor" class="form-control" type="text"  />
+
+                </div>
+
+                <div class="col-6 p-2 bd-highlight">
+                    <label for="arname">Floor Arabic <span class="arabic">(الطابق باللغه العربى)</span></label>
+                    <input formControlName="arabic_floor" class="form-control" type="text"  />
+                </div>
+
+
+            </div>
+        </div>
+         <div class="form-group">
+            <div class="row bd-highlight mb-3">
+                <div class="col-6 p-2 bd-highlight">
+                    <label for="enname">Finishing type arabic <span class="arabic">(نوع تشطيب باللغه العربى)</span></label>
+                    <input formControlName="arabic_finishing" class="form-control" type="text"  />
+
+                </div>
+
+                <div class="col-6 p-2 bd-highlight">
+                    <label for="arname">Finishing type english <span class="arabic">(نوع تشطيب باللغه الانجليزيه)</span></label>
+                    <input formControlName="english_finishing" class="form-control" type="text"  />
+                </div>
+
+
+            </div>
+        </div>
+      
+
+        <div class="row mb-4">
+            <label for="imageInput2" class="form-label ps-0">gallery images <span class="arabic">(اختر صور اخرى)</span> <span
+                    class="text-danger fw-bold">*</span></label>
+            <div class="input-group mb-4 px-0">
+                <div class="input-group file-input-group" data-controller="file-input2">
+                    <input class="form-control" type="text" [placeholder]="imageName2" readonly
+                        data-target="file-input2.value">
+                    <input type="file" multiple="true" class="form-control" id="imageInput2"
+                        data-target="file-input2.input" data-action="file-input2#display" #gallery_images
+                        formControlName="gallery_images" (change)="onImageChangepartners($event)" accept="image/*">
+                    <div class="input-group-append">
+                        <label class="btn mb-0" for="imageInput2">Upload</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <button class="btn create-btn" type="submit">
+                <span>Edit</span>
+            </button>
+        </div>
+    </form>
+</div>

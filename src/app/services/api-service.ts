@@ -90,6 +90,12 @@ export class ApiService {
         headers: this.httpOption.headers,
       });
   }
+      getUnitById(unitID: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/units/${unitID}`,
+      {
+        headers: this.httpFileOption.headers,
+      });
+  }
   getProjectRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-regions`);
   }

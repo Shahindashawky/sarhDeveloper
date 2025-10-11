@@ -99,7 +99,7 @@ export class CreateUnits {
   createunits() {
     if (this.unitsForm.valid) {
       this.isLoading = true;
-      let newproject: any = {
+      let newunit: any = {
         project_id: this.unitsForm.value.project_id?.id,
         english_name: this.unitsForm.value.english_name,
         arabic_name: this.unitsForm.value.arabic_name,
@@ -121,9 +121,9 @@ export class CreateUnits {
 
       };
       let formData: any = new FormData();
-      for (const key in newproject) {
-        if (newproject.hasOwnProperty(key)) {
-          const value = newproject[key];
+      for (const key in newunit) {
+        if (newunit.hasOwnProperty(key)) {
+          const value = newunit[key];
           if (Array.isArray(value)) {
             value.forEach((item) => formData.append(`${key}[]`, item));
           }
@@ -137,7 +137,6 @@ export class CreateUnits {
           }
         }
       }
-      console.log(newproject);
 
       this.api.addUnits(formData).subscribe(
               (res: any) => {
