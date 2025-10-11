@@ -45,12 +45,12 @@ h1, h2, h3, h4, h5, h6 {
       .p-dialog,.p-checkbox-box,.p-inputtext,.p-multiselect-overlay{
         background-color: white !important;
       }
-      .p-select-option,.p-multiselect-option,.p-select-label,.p-textarea{
+      .p-select-option,.p-multiselect-option,.p-select-label,.p-textarea,.p-inputtext{
         color: var(--third-color) !important;
       }
       .p-select-list,.p-multiselect-list{
-                 background: #F9F9F9;
-               color: var(--third-color);
+                 background: #F9F9F9 !important;
+               color: var(--third-color) !important;
       }
 .p-select-option.p-select-option-selected,
 .p-multiselect-option.p-multiselect-option-selected{
@@ -89,5 +89,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .p-paginator-page.p-paginator-page-selected{
   background: var(--fourth-color) !important;
+    color: white !important;
+}
+.p-datepicker-today > .p-datepicker-day-selected ,
+.p-datepicker-day-selected{
+    background: var(--first-color) !important;
     color: white !important;
 }

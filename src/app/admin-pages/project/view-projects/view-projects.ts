@@ -16,18 +16,15 @@ ngOnInit() {
           
         })
     }
-    onEdit(projectid: any) {
-  console.log('Editing projects:', projectid);
-  // هنا ممكن تفتحي Dialog أو تروحي لصفحة edit
-  // this.router.navigate(['/admin-home/edit-projects', projects.id]);
+EditStatus(regionid: any){
+this.api.updateprojectStatus(regionid).subscribe(r=>{
+  console.log('updated status done',r);
+  
+})
 }
 
 onDelete(projectid: any) {
-  console.log('Deleting projects:', projectid);
-  // هنا ضيفي تأكيد قبل الحذف مثلاً
-  // this.confirmationService.confirm({
-  //   message: `Are you sure you want to delete ${facilities.english_name}?`,
-  //   accept: () => this.api.deletefacilities(facilities.id).subscribe(...)
-  // });
+  this.api.deleteProjectById(projectid).subscribe(r=>{ })
+
 }
 }

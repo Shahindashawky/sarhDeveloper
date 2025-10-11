@@ -1,9 +1,9 @@
-<div class="project-container">
+<div class="construction-container">
   <div class="card">
-    <h2 class="title">Projects List</h2>
+    <h2 class="title">Constructions-Update List</h2>
 
     <p-table
-      [value]="projects"
+      [value]="constructions"
       [paginator]="true"
       [rows]="5"
       [rowsPerPageOptions]="[5, 10, 20]"
@@ -13,37 +13,31 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>English Name</th>
-          <th>Arabic Name</th>
-          <th>Region</th>
+          <th>Project</th>
+          <th>Update Date</th>
           <th>status</th>
-          <th>Active</th>
           <th>Actions</th>
         </tr>
       </ng-template>
 
-      <ng-template pTemplate="body" let-project>
+      <ng-template pTemplate="body" let-construction>
         <tr>
-          <td>{{ project.english_name }}</td>
-          <td>{{ project.arabic_name }}</td>
-          <td>{{ project.region }}</td>
-          <td>{{ project.status }}</td>
-          <td>
-            <p-toggleswitch [(ngModel)]="project.is_active" (onChange)="EditStatus(project.id)" />
-          </td>
+          <td>{{ construction.project }}</td>
+          <td>{{ construction.update_date}}</td>
+          <td>{{ construction.status }}</td>
           <td class="actions">
             <button
               pButton
               icon="pi pi-pencil"
               class="p-button-rounded p-button-text p-button-warn"
-              [routerLink]="['/admin-home/edit-project',project.id]"
+              [routerLink]="['/admin-home/edit-construction',construction.id]"
               pTooltip="Edit"
             ></button>
             <button
               pButton
               icon="pi pi-trash"
               class="p-button-rounded p-button-text p-button-danger"
-              (click)="onDelete(project.id)"
+              (click)="onDelete(construction.id)"
               pTooltip="Delete"
             ></button>
           </td>

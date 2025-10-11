@@ -16,6 +16,7 @@
           <th>English Name</th>
           <th>Arabic Name</th>
           <th>status</th>
+          <th>Active</th>
           <th>Actions</th>
         </tr>
       </ng-template>
@@ -25,6 +26,9 @@
           <td>{{ unit.english_name }}</td>
           <td>{{ unit.arabic_name }}</td>
           <td>{{ unit.status }}</td>
+          <td>
+            <p-toggleswitch [(ngModel)]="unit.is_active" (onChange)="EditStatus(unit.id)" />
+          </td>
           <td class="actions">
             <button
               pButton

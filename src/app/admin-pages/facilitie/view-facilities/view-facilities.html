@@ -2,20 +2,15 @@
   <div class="card">
     <h2 class="title">Facilities List</h2>
 
-    <p-table
-      [value]="facilities"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      [tableStyle]="{ 'min-width': '60rem' }"
-      responsiveLayout="scroll"
-      styleClass="p-datatable-striped p-datatable-gridlines custom-table"
-    >
+    <p-table [value]="facilities" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
+      [tableStyle]="{ 'min-width': '60rem' }" responsiveLayout="scroll"
+      styleClass="p-datatable-striped p-datatable-gridlines custom-table">
       <ng-template pTemplate="header">
         <tr>
           <th>English Name</th>
           <th>Arabic Name</th>
           <th>Image</th>
+          <th>Active</th>
           <th>Actions</th>
         </tr>
       </ng-template>
@@ -25,26 +20,16 @@
           <td>{{ facilitie.english_name }}</td>
           <td>{{ facilitie.arabic_name }}</td>
           <td>
-            <img
-              [src]="facilitie.main_image"
-              class="facilitie-image"
-              alt="facilitie image"
-            />
+            <img [src]="facilitie.main_image" class="facilitie-image" alt="facilitie image" />
+          </td>
+          <td>
+            <p-toggleswitch [(ngModel)]="facilitie.is_active" (onChange)="EditStatus(facilitie.id)" />
           </td>
           <td class="actions">
-            <button
-              pButton
-              icon="pi pi-pencil" [routerLink]="['/admin-home/edit-facilitie',facilitie.id]"
-              class="p-button-rounded p-button-text p-button-warn"
-              pTooltip="Edit"
-            ></button>
-            <button
-              pButton
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-text p-button-danger"
-              (click)="onDelete(facilitie.id)"
-              pTooltip="Delete"
-            ></button>
+            <button pButton icon="pi pi-pencil" [routerLink]="['/admin-home/edit-facilitie',facilitie.id]"
+              class="p-button-rounded p-button-text p-button-warn" pTooltip="Edit"></button>
+            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+              (click)="onDelete(facilitie.id)" pTooltip="Delete"></button>
           </td>
         </tr>
       </ng-template>

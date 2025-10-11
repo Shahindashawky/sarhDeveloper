@@ -17,7 +17,12 @@ ngOnInit() {
         })
     }
 
-
+EditStatus(facilitieid: any){
+this.api.updatefacilitieStatus(facilitieid).subscribe(r=>{
+  console.log('updated status done',r);
+  
+})
+}
 onDelete(facilitieid: any) {
   this.api.deleteFacilitieById(facilitieid).subscribe(f=>{})
 }

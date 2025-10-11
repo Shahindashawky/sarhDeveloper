@@ -39,7 +39,7 @@ import { CreateProject } from './admin-pages/project/create-project/create-proje
 import { CreateRegions } from './admin-pages/region/create-regions/create-regions';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
-
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -52,6 +52,9 @@ import { EditRegions } from './admin-pages/region/edit-regions/edit-regions';
 import { EditFacilities } from './admin-pages/facilitie/edit-facilities/edit-facilities';
 import { EditProject } from './admin-pages/project/edit-project/edit-project';
 import { EditUnit } from './admin-pages/unit/edit-unit/edit-unit';
+import { CreateConstructionUpdate } from './admin-pages/construction-update/create-construction-update/create-construction-update';
+import { ViewConstructionUpdate } from './admin-pages/construction-update/view-construction-update/view-construction-update';
+import { EditConstructionUpdate } from './admin-pages/construction-update/edit-construction-update/edit-construction-update';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -84,7 +87,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditRegions,
     EditFacilities,
     EditProject,
-    EditUnit
+    EditUnit,
+    CreateConstructionUpdate,
+    ViewConstructionUpdate,
+    EditConstructionUpdate
   ],
   imports: [
     BrowserModule,
@@ -106,6 +112,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DialogModule,
     SelectModule,
     MultiSelectModule,
+    ToggleSwitchModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

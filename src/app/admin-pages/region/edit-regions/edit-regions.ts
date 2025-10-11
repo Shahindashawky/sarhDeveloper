@@ -32,7 +32,7 @@ export class EditRegions {
   ngOnInit(): void {
 
  this.initializeForm();
-    this.api.getRegions().subscribe((data:ParentRegion[])=>{
+    this.api.getRegionsexcept(this.regionId).subscribe((data:ParentRegion[])=>{
       this.parentregion=data
     })
         this.api.getRegionById(this.regionId).subscribe((res:any) => {

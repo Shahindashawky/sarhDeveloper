@@ -56,9 +56,13 @@ export class ApiService {
     return this.authSubject.value;
 
   }
+
   //GET
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
+  }
+  getRegionsexcept(regionId:any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/regions?exclude_id=${regionId}`);
   }
   getALLRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/regions`,
@@ -133,7 +137,24 @@ export class ApiService {
   getProjectFacilities(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-facilities`);
   }
-
+  getconstructionUpdateProject(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/projects`);
+  }
+   getconstructionUpdatestatus(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/construction-status`);
+  }
+    getALLConstructions(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/constructions`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+      getConstructionById(constID: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/dashboard/constructions/${constID}`,
+      {
+        headers: this.httpFileOption.headers,
+      });
+  }
   //POST
 
   login(data: any) {
@@ -142,7 +163,7 @@ export class ApiService {
     });
   }
   resetPassword(rdata: any) {
-    return this.http.post(`${this.apiUrl}/auth/change-password?locale=ar`, rdata, {
+    return this.http.post(`${this.apiUrl}/auth/change-password`, rdata, {
       headers: this.httpOption.headers,
     });
   }
@@ -196,7 +217,15 @@ export class ApiService {
       }
     );
   }
-
+  addConstructionUpdate(newconst: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/dashboard/constructions`,
+      newconst,
+      {
+        headers: this.httpFileOption.headers
+      }
+    );
+  }
   //Put
   updateRegion(regionID: any, region: Region) {
     return this.http.post(
@@ -226,6 +255,49 @@ export class ApiService {
       this.httpFileOption
     );
   }
+   updateconstruction(constID: any, construction: any) {
+    return this.http.post(
+      `${this.apiUrl}/dashboard/constructions/${constID}?_method=PUT`,
+      construction,
+      this.httpFileOption
+    );
+  }
+  updateregionStatus(regionstatus: any) {
+    return this.http.put(
+      `${this.apiUrl}/dashboard/regions/update-status/${regionstatus}`,
+      {},
+      {
+        headers: this.httpOption.headers,
+      }
+        );
+  }
+    updatefacilitieStatus(facilitiestatus: any) {
+    return this.http.put(
+      `${this.apiUrl}/dashboard/facilities/update-status/${facilitiestatus}`,
+      {},
+      {
+        headers: this.httpOption.headers,
+      }
+        );
+  }
+      updateprojectStatus(projectstatus: any) {
+    return this.http.put(
+      `${this.apiUrl}/dashboard/projects/update-status/${projectstatus}`,
+      {},
+      {
+        headers: this.httpOption.headers,
+      }
+        );
+  }
+        updateunitStatus(unitstatus: any) {
+    return this.http.put(
+      `${this.apiUrl}/dashboard/units/update-status/${unitstatus}`,
+      {},
+      {
+        headers: this.httpOption.headers,
+      }
+        );
+  }
   //DELETE
   deleteregionById(rID: any) {
     return this.http.delete(`${this.apiUrl}/dashboard/regions/${rID}`,
@@ -236,6 +308,27 @@ export class ApiService {
   }
   deleteFacilitieById(fID: any) {
     return this.http.delete(`${this.apiUrl}/dashboard/facilities/${fID}`,
+      {
+        headers: this.httpOption.headers,
+      }
+    );
+  }
+  deleteProjectById(pID: any) {
+    return this.http.delete(`${this.apiUrl}/dashboard/projects/${pID}`,
+      {
+        headers: this.httpOption.headers,
+      }
+    );
+  }
+    deleteUnitById(uID: any) {
+    return this.http.delete(`${this.apiUrl}/dashboard/units/${uID}`,
+      {
+        headers: this.httpOption.headers,
+      }
+    );
+  }
+   deleteConstructionById(cID: any) {
+    return this.http.delete(`${this.apiUrl}/dashboard/constructions/${cID}`,
       {
         headers: this.httpOption.headers,
       }

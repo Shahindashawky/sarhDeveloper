@@ -23,6 +23,9 @@ import { EditRegions } from './admin-pages/region/edit-regions/edit-regions';
 import { EditFacilities } from './admin-pages/facilitie/edit-facilities/edit-facilities';
 import { EditProject } from './admin-pages/project/edit-project/edit-project';
 import { EditUnit } from './admin-pages/unit/edit-unit/edit-unit';
+import { CreateConstructionUpdate } from './admin-pages/construction-update/create-construction-update/create-construction-update';
+import { ViewConstructionUpdate } from './admin-pages/construction-update/view-construction-update/view-construction-update';
+import { EditConstructionUpdate } from './admin-pages/construction-update/edit-construction-update/edit-construction-update';
 
 
 const routes: Routes = [
@@ -54,6 +57,9 @@ const routes: Routes = [
       { path: 'create-unit', component: CreateUnits},
       { path: 'view-unit', component: ViewUnits},
       { path: 'edit-unit/:id', component: EditUnit},
+      { path: 'create-construction', component: CreateConstructionUpdate},
+      { path: 'view-construction', component: ViewConstructionUpdate},
+      { path: 'edit-construction/:id', component: EditConstructionUpdate},
       { path: 'resetPassword', component: ChangePassword}
     ]
   },

@@ -17,7 +17,12 @@ ngOnInit() {
         })
     }
 
-
+EditStatus(regionid: any){
+this.api.updateregionStatus(regionid).subscribe(r=>{
+  console.log('updated status done',r);
+  
+})
+}
 onDelete(regionid: any) {
   this.api.deleteregionById(regionid).subscribe(r=>{ })
 

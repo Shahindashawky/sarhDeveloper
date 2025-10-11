@@ -15,18 +15,14 @@ ngOnInit() {
           
         })
     }
-    onEdit(unitid: any) {
-  console.log('Editing units:', unitid);
-  // هنا ممكن تفتحي Dialog أو تروحي لصفحة edit
-  // this.router.navigate(['/admin-home/edit-units', units.id]);
-}
+    EditStatus(unitid: any) {
+this.api.updateunitStatus(unitid).subscribe(r=>{
+  console.log('updated status done',r);
+  
+})}
 
 onDelete(unitid: any) {
-  console.log('Deleting units:', unitid);
-  // هنا ضيفي تأكيد قبل الحذف مثلاً
-  // this.confirmationService.confirm({
-  //   message: `Are you sure you want to delete ${facilities.english_name}?`,
-  //   accept: () => this.api.deletefacilities(facilities.id).subscribe(...)
-  // });
+  this.api.deleteUnitById(unitid).subscribe(r=>{ })
+
 }
 }
