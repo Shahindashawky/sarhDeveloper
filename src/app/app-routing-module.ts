@@ -26,6 +26,7 @@ import { EditUnit } from './admin-pages/unit/edit-unit/edit-unit';
 import { CreateConstructionUpdate } from './admin-pages/construction-update/create-construction-update/create-construction-update';
 import { ViewConstructionUpdate } from './admin-pages/construction-update/view-construction-update/view-construction-update';
 import { EditConstructionUpdate } from './admin-pages/construction-update/edit-construction-update/edit-construction-update';
+import { RegionDetails } from './pages/projects/region-details/region-details';
 
 
 const routes: Routes = [
@@ -36,7 +37,7 @@ const routes: Routes = [
   { path: 'business', component: Business },
   { path: 'followup', component: Followup },
   { path: 'delivery', component: Delivery },
-
+  { path: 'region-details/:id', component: RegionDetails },
   { path: 'admin-login', component: Login },
 
   {
@@ -68,7 +69,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'disabled', 
+    })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

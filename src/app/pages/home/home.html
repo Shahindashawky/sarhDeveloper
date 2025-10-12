@@ -8,7 +8,7 @@
     <div class="hero-buttons">
       <button (click)="showDialog()" pButton class="p-button-rounded p-button-lg search-btn">{{'search-btn' |
         translate}}</button>
-      <button pButton class="p-button-rounded p-button-lg info-btn">{{'learnmore-btn' | translate}}</button>
+      <button pButton (click)="scrollToSection('aboutsec')" class="p-button-rounded p-button-lg info-btn">{{'learnmore-btn' | translate}}</button>
     </div>
   </div>
 
@@ -16,25 +16,12 @@
     <h2 class="card-title"> {{'who' | translate}}</h2>
     <p class="card-text"> {{'about1' | translate}}
     </p>
+    <app-counters></app-counters>
 
-    <div class="stats">
-      <div class="stat">
-        <h3>20+</h3>
-        <span>{{'year-exp' | translate}}</span>
-      </div>
-      <div class="stat">
-        <h3>500+</h3>
-        <span>{{'client' | translate}}</span>
-      </div>
-      <div class="stat">
-        <h3>80+</h3>
-        <span>{{'project' | translate}}</span>
-      </div>
-    </div>
   </div>
 </section>
 
-<section class="about-section">
+<section class="about-section"  id='aboutsec'>
 
   <div class="about-title">
     {{'about-title1' | translate}}<br />
@@ -56,7 +43,7 @@
     <div class="about-box">
       <h3>{{'ab' | translate}} <span>{{'sarh' | translate}}</span></h3>
       <p>{{'about-sarh' | translate}}</p>
-      <button class="more-btn">{{'learnmore-btn' | translate}}</button>
+      <button class="more-btn" [routerLink]="['/about']">{{'learnmore-btn' | translate}}</button>
     </div>
     <div class="about-img" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
       <img src="images/building.png" alt="عن سرح" />

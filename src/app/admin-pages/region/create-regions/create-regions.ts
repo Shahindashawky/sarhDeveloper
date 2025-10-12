@@ -61,25 +61,30 @@ export class CreateRegions {
         english_features:this.regionForm.value.english_features,
         arabic_features:this.regionForm.value.arabic_features
       };
+
         let formData: any = new FormData();
            for (const key in newregion) {
-        if (newregion.hasOwnProperty(key)) {
-          const value = newregion[key];
+  if (newregion.hasOwnProperty(key)) {
+    const value = newregion[key];
 
-          if (typeof value === 'string' || typeof value === 'boolean') {
-            formData.append(key, value);
-          } else if (value instanceof File) {
-            formData.append(key, value);
-          } else if (Array.isArray(value)) {
-            for (let i = 0; i < value.length; i++) {
-              formData.append(key, value[i]);
-            }
-           } else {
-             formData.append(key, value);
+    if (key === 'parent_id' && (value === null || value === undefined || value === '')) {
+      continue;
+    }
 
-          }
-        }
+    if (typeof value === 'string' || typeof value === 'boolean') {
+      formData.append(key, value);
+    } else if (value instanceof File) {
+      formData.append(key, value);
+    } else if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        formData.append(key, value[i]);
       }
+    } else {
+      formData.append(key, value);
+    }
+  }
+}
+
 this.api.addRegion(formData).subscribe(
         (res: any) => {
             this.regionForm.reset();

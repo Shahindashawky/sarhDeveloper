@@ -14,6 +14,11 @@ import { Project } from '../../model/Project';
 
 export class ApiService {
 
+  regionImage="/images/dummyregion.png";
+  facilityImage="/icons/facility-management.png";
+  projectImage="/images/build2.png";
+  unitImage="/images/build3.png";
+
   private apiUrl = environment.apiUrl;
   httpOption: any;
   httpFileOption: any;
@@ -153,6 +158,19 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/dashboard/constructions/${constID}`,
       {
         headers: this.httpFileOption.headers,
+      });
+  }
+
+  getProjectList(lang:any){
+        return this.http.get<any>(`${this.apiUrl}/project-list?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+    getRegionDetails(rid:any,lang:any){
+        return this.http.get<any>(`${this.apiUrl}/region-details/${rid}/?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
       });
   }
   //POST

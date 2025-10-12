@@ -1,15 +1,15 @@
 <section class="projects-page">
   <div class="container">
-    <h2 class="page-title">{{ 'projects' | translate }}</h2>
+    <h2 class="page-title">{{ regionTitle }}</h2>
 
     <div class="projects-container">
-        @for (project of projectList; track project) {
-      <div class="project-card" (click)="goToProject(project.id)">
+        @for (project of regionList; track project) {
+      <div class="project-card">
         <div class="image-wrapper">
           <img
             [src]="project.main_image || regionImage"
             (error)="onImageError($event)"
-            alt="Project image"
+            alt="region image"
           />
           <div class="overlay"></div>
           <span class="project-name">{{ project.name }}</span>

@@ -22,7 +22,7 @@
           <td>{{ region.arabic_name }}</td>
           <td>{{ region.parent || '—' }}</td>
           <td>
-            <img [src]="region.main_image" class="region-image" alt="Region image" />
+            <img [src]="region.main_image || regionImage" (error)="onImageError($event)" class="region-image" alt="Region image" />
           </td>
           <td>
             <p-toggleswitch [(ngModel)]="region.is_active" (onChange)="EditStatus(region.id)" />

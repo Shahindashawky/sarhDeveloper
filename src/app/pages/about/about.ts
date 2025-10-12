@@ -11,7 +11,7 @@ import { LanguageService } from '../../services/languageservice';
 export class About {
  goals:any;
  visions:any;
-  currentLang: 'ar' | 'en' = 'ar';
+ currentLang: 'ar' | 'en' = 'ar';
 
   constructor(private translate: TranslateService, private langService: LanguageService) { }
 

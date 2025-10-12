@@ -55,6 +55,8 @@ import { EditUnit } from './admin-pages/unit/edit-unit/edit-unit';
 import { CreateConstructionUpdate } from './admin-pages/construction-update/create-construction-update/create-construction-update';
 import { ViewConstructionUpdate } from './admin-pages/construction-update/view-construction-update/view-construction-update';
 import { EditConstructionUpdate } from './admin-pages/construction-update/edit-construction-update/edit-construction-update';
+import { Counters } from './components/counters/counters';
+import { RegionDetails } from './pages/projects/region-details/region-details';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -90,7 +92,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditUnit,
     CreateConstructionUpdate,
     ViewConstructionUpdate,
-    EditConstructionUpdate
+    EditConstructionUpdate,
+    Counters,
+    RegionDetails
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,7 @@
           <td>{{ facilitie.english_name }}</td>
           <td>{{ facilitie.arabic_name }}</td>
           <td>
-            <img [src]="facilitie.main_image" class="facilitie-image" alt="facilitie image" />
+            <img [src]="facilitie.main_image || facilityImage" (error)="onImageError($event)" class="facilitie-image" alt="facilitie image" />
           </td>
           <td>
             <p-toggleswitch [(ngModel)]="facilitie.is_active" (onChange)="EditStatus(facilitie.id)" />

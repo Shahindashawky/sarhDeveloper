@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../services/languageservice';
+import { ApiService } from '../../services/api-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -7,5 +11,35 @@ import { Component } from '@angular/core';
   styleUrl: './projects.scss'
 })
 export class Projects {
+regionImage = '';
+ currentLang: 'ar' | 'en' = 'ar';
+projectList:any;
 
+  constructor(private translate: TranslateService, private langService: LanguageService,private api:ApiService,private router:Router) { 
+    this.regionImage=this.api.regionImage
+  }
+
+  ngOnInit(): void {
+        this.langService.currentLang$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+    this.getProject();
+      this.translate.onLangChange.subscribe(() => {
+      this.getProject();
+    });
+  }
+  
+  getProject(){
+  this.api.getProjectList(this.currentLang).subscribe(p=>{
+this.projectList=p
+  })
+  }
+
+
+  onImageError(event: any) {
+    event.target.src = this.regionImage;
+  }
+  goToProject(id:any){
+    this.router.navigate(['/region-details', id]);
+  }
 }

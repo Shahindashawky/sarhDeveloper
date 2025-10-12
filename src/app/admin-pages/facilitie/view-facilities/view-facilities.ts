@@ -10,13 +10,17 @@ import { ApiService } from '../../../services/api-service';
 })
 export class ViewFacilities {
 facilities!: Facilities[];
+facilityImage:any;
 constructor(private api: ApiService) {}
 ngOnInit() {
         this.api.getALLFacilitie().subscribe((r:any)=>{this.facilities=r.data;
           
         })
+       this.facilityImage= this.api.facilityImage
     }
-
+onImageError(event: any) {
+  event.target.src = this.facilityImage;
+}
 EditStatus(facilitieid: any){
 this.api.updatefacilitieStatus(facilitieid).subscribe(r=>{
   console.log('updated status done',r);

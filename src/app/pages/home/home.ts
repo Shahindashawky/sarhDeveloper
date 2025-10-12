@@ -1,6 +1,6 @@
 import { LanguageService } from '../../services/languageservice';
 import { ApiService } from './../../services/api-service';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './home.scss'
 })
 export class Home {
+
   currentLang: 'ar' | 'en' = 'ar';
   visible: boolean = false;
 
@@ -89,6 +90,12 @@ export class Home {
 
 
   }
+scrollToSection(sectionId: string) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
     showDialog() {
         this.visible = true;

@@ -10,7 +10,7 @@ import { ApiService } from '../../../services/api-service';
   styleUrl: './create-construction-update.scss'
 })
 export class CreateConstructionUpdate {
-constructionupdateForm!: FormGroup;
+  constructionupdateForm!: FormGroup;
   imageName: string = 'choose file to upload';
   imageName2: string = 'choose files to upload ';
   main_image!: File;
@@ -37,7 +37,7 @@ constructionupdateForm!: FormGroup;
     this.api.getconstructionUpdatestatus().subscribe((data: any) => {
       this.status = data
     })
-  
+
   }
   initializeForm(): void {
     this.constructionupdateForm = this.fb.group({
@@ -48,30 +48,30 @@ constructionupdateForm!: FormGroup;
       arabic_details: ['', Validators.required],
       english_details: ['', Validators.required],
       gallery_images: [null, Validators.required],
-      
+
 
     });
   }
 
 
-convertData(date: Date | Date[]): string[] {
-  if (!date) return [];
+  convertData(date: Date | Date[]): string[] {
+    if (!date) return [];
 
-  if (date instanceof Date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return [`${year}-${month}-${day}`];
+    if (date instanceof Date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return [`${year}-${month}-${day}`];
+    }
+
+    return date.map((d) => {
+      const dateObj = new Date(d);
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    });
   }
-
-  return date.map((d) => {
-    const dateObj = new Date(d);
-    const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const day = String(dateObj.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  });
-}
 
   onImageChange(event: any): void {
     const fileInput = event.target;
@@ -112,15 +112,15 @@ convertData(date: Date | Date[]): string[] {
         if (newunit.hasOwnProperty(key)) {
           const value = newunit[key];
           if (Array.isArray(value)) {
-  if (key === 'update_date') {
-    formData.append(key, value[0]);
-  } else {
-    value.forEach((item) => formData.append(`${key}[]`, item));
-  }
-}
+            if (key === 'update_date') {
+              formData.append(key, value[0]);
+            } else {
+              value.forEach((item) => formData.append(`${key}[]`, item));
+            }
+          }
 
           if (typeof value === 'string' || typeof value === 'boolean' ||
-  typeof value === 'number') {
+            typeof value === 'number') {
             formData.append(key, String(value));
           } else if (value instanceof File) {
             formData.append(key, value);
@@ -129,15 +129,15 @@ convertData(date: Date | Date[]): string[] {
           }
         }
       }
-       
-      this.api.addConstructionUpdate(formData).subscribe(
-              (res: any) => {
-                  this.constructionupdateForm.reset();
-                this.isLoading = false;
-                console.log("done")
 
-              }
-            );
+      this.api.addConstructionUpdate(formData).subscribe(
+        (res: any) => {
+          this.constructionupdateForm.reset();
+          this.isLoading = false;
+          console.log("done")
+
+        }
+      );
 
     }
   }

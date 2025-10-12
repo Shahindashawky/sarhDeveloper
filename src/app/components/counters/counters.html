@@ -1,0 +1,8 @@
+<section class="stats">
+    @for (item of counters; track item) {
+  <div class="stat animate">
+    <h3>{{ item.value | number }}+</h3>
+    <span>{{ item.label }}</span>
+  </div>
+}
+</section>
