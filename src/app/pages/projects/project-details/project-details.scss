@@ -1,4 +1,4 @@
-.region-page {
+.projects-page {
   background-color: #fafafa;
   min-height: 100vh;
   padding: 3rem 1rem;
@@ -27,13 +27,13 @@
     }
   }
 
-  .region-container {
+  .projects-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
   }
 
-  .region-card {
+  .project-card {
     position: relative;
     border-radius: 15px;
     overflow: hidden;
@@ -76,7 +76,7 @@
         filter: brightness(0.6) contrast(1.1);
       }
 
-      .region-name {
+      .project-name {
         position: absolute;
         bottom: 15px;
         left: 15px;
@@ -91,7 +91,7 @@
   }
 
   [dir='rtl'] & {
-    .region-name {
+    .project-name {
       left: auto;
       right: 15px;
     }

@@ -27,6 +27,8 @@ import { CreateConstructionUpdate } from './admin-pages/construction-update/crea
 import { ViewConstructionUpdate } from './admin-pages/construction-update/view-construction-update/view-construction-update';
 import { EditConstructionUpdate } from './admin-pages/construction-update/edit-construction-update/edit-construction-update';
 import { RegionDetails } from './pages/projects/region-details/region-details';
+import { ProjectDetails } from './pages/projects/project-details/project-details';
+import { ViewProjectDetails } from './pages/projects/project-details/view-project-details/view-project-details';
 
 
 const routes: Routes = [
@@ -38,6 +40,8 @@ const routes: Routes = [
   { path: 'followup', component: Followup },
   { path: 'delivery', component: Delivery },
   { path: 'region-details/:id', component: RegionDetails },
+  { path: 'project-details/:id', component: ProjectDetails },
+  { path: 'view-project-details/:id', component: ViewProjectDetails },
   { path: 'admin-login', component: Login },
 
   {

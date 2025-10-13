@@ -21,7 +21,9 @@ export class App {
       this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if (this.lastUrl !== event.urlAfterRedirects) {
+          if (typeof window !== 'undefined') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         }
         this.lastUrl = event.urlAfterRedirects;
       }

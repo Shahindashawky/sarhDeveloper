@@ -1,21 +1,27 @@
-<section class="projects-page">
+<section class="region-page">
   <div class="container">
     <h2 class="page-title">{{ regionTitle }}</h2>
 
-    <div class="projects-container">
-        @for (project of regionList; track project) {
-      <div class="project-card">
+
+    <div class="region-container">
+        @for (region of regionList; track region) {
+          @if (region.isRegion == true) {
+      <div class="region-card" (click)="goToProject(region.id)">
         <div class="image-wrapper">
           <img
-            [src]="project.main_image || regionImage"
+            [src]="region.main_image || regionImage"
             (error)="onImageError($event)"
             alt="region image"
           />
           <div class="overlay"></div>
-          <span class="project-name">{{ project.name }}</span>
+          <span class="region-name">{{ region.name }}</span>
         </div>
-      </div>
+      </div>}
+          @else {
+  <p>No region found.</p>
+}
     }
     </div>
+
   </div>
 </section>

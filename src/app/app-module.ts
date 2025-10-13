@@ -5,7 +5,7 @@ import { ReactiveFormsModule ,FormsModule} from '@angular/forms';
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { HttpClient, provideHttpClient ,HttpClientModule} from '@angular/common/http';import { AppRoutingModule } from './app-routing-module';
+import { HttpClient, provideHttpClient , withFetch,HttpClientModule} from '@angular/common/http';import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './components/header/header';
 import { Home } from './pages/home/home';
@@ -57,6 +57,8 @@ import { ViewConstructionUpdate } from './admin-pages/construction-update/view-c
 import { EditConstructionUpdate } from './admin-pages/construction-update/edit-construction-update/edit-construction-update';
 import { Counters } from './components/counters/counters';
 import { RegionDetails } from './pages/projects/region-details/region-details';
+import { ProjectDetails } from './pages/projects/project-details/project-details';
+import { ViewProjectDetails } from './pages/projects/project-details/view-project-details/view-project-details';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -94,7 +96,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewConstructionUpdate,
     EditConstructionUpdate,
     Counters,
-    RegionDetails
+    RegionDetails,
+    ProjectDetails,
+    ViewProjectDetails
   ],
   imports: [
     BrowserModule,
@@ -130,7 +134,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthGuard,
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {

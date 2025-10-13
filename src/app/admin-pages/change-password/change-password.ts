@@ -41,7 +41,6 @@ errorMessage: string | null = null;
   this.api.resetPassword(this.resetpasswordForm.value).subscribe({
     next: (res: any) => {
       this.router.navigateByUrl('admin-login').then(() => {
-        // window.location.reload();
       });
     },
     error: (err: HttpErrorResponse) => {

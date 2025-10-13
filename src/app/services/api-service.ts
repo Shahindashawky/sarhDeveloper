@@ -16,7 +16,7 @@ export class ApiService {
 
   regionImage="/images/dummyregion.png";
   facilityImage="/icons/facility-management.png";
-  projectImage="/images/build2.png";
+  projectImage="/images/build2.jpg";
   unitImage="/images/build3.png";
 
   private apiUrl = environment.apiUrl;
@@ -24,7 +24,6 @@ export class ApiService {
   httpFileOption: any;
   token: any;
   auth = false;
-
   private authSubject = new BehaviorSubject<boolean>(false);
   authStatus = this.authSubject.asObservable();
 
@@ -169,6 +168,12 @@ export class ApiService {
   }
     getRegionDetails(rid:any,lang:any){
         return this.http.get<any>(`${this.apiUrl}/region-details/${rid}/?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+      getProjectDetails(pid:any,lang:any){
+        return this.http.get<any>(`${this.apiUrl}/project-details/${pid}/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
