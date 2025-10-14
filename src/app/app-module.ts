@@ -41,6 +41,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { GalleriaModule } from 'primeng/galleria';
+import { StepperModule } from 'primeng/stepper';
 
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -118,6 +119,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TextareaModule,
     DatePickerModule ,
     MenubarModule,
+    StepperModule,
     CarouselModule,
     DialogModule,
     SelectModule,

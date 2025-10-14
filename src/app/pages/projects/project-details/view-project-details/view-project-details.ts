@@ -15,7 +15,7 @@ projectImage = '';
   currentLang: 'ar' | 'en' = 'ar';
   projectId: any;
   project: any;
-  images = signal<string[]>([]);
+images = model<string[]>([]);
 
   constructor(
     private translate: TranslateService,
@@ -39,17 +39,20 @@ projectImage = '';
       this.currentLang = event.lang as 'ar' | 'en';
       this.getProject();
     });
+
+
   }
 
   getProject(): void {
     this.api.getProjectDetails(this.projectId, this.currentLang).subscribe({
       next: (p) => {
         this.project = p;
-        if (Array.isArray(this.project.gallery_images)) {
-          this.images.set(this.project.gallery_images);
-        } else {
-          this.images.set([]);
-        }
+        const gallery = Array.isArray(p.gallery_images) ? p.gallery_images : [];
+    if (p.main_image) {
+      this.images.set([p.main_image, ...gallery]);
+    } else {
+      this.images.set(gallery);
+    }
       },
       error: (err) => {
         console.error('Error loading project details:', err);
@@ -63,5 +66,8 @@ projectImage = '';
     } else {
       console.warn('No PDF available for this project');
     }
+  }
+    onImageError(event: any) {
+    event.target.src = this.projectImage;
   }
 }

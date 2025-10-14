@@ -99,3 +99,15 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--first-color) !important;
     color: white !important;
 }
+.p-step-active .p-step-number {
+    color: var(--fourth-color) !important;
+}
+.p-step-active .p-step-title {
+    color: var(--fourth-color) !important;
+}
+.p-steppanel{
+  color: var(--third-color) !important;
+}
+.p-step:has(~ .p-step-active) .p-stepper-separator {
+    background: var(--fourth-color) !important;
+}
