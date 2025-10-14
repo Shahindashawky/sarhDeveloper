@@ -1,1 +1,83 @@
-<p>view-project-details works!</p>
+  <section class="projects-page">
+
+  <div class="container">
+    <h2 class="page-title">{{ project?.name }}</h2>
+
+    <div class="projects-container">
+ <section class="project-details container py-6">
+  @if (project) {
+    <div class="gallery-section mb-6">
+      <p-galleria
+        [value]="images()"
+        [showThumbnails]="true"
+        [showIndicators]="true"
+        [circular]="true"
+        [autoPlay]="true"
+        [transitionInterval]="4000"
+        [showItemNavigators]="true"
+        [showThumbnailNavigators]="false"
+        containerStyleClass="rounded-2xl overflow-hidden shadow-md"
+      >
+        <ng-template pTemplate="item" let-image>
+          <img [src]="image || projectImage" alt="Project Image" style="width: 100%; height: 400px; object-fit: cover;" />
+        </ng-template>
+
+        <ng-template pTemplate="thumbnail" let-image>
+          <img [src]="image || projectImage" alt="Thumbnail" style="width: 100px; height: 80px; object-fit: cover; border-radius: 8px;" />
+        </ng-template>
+      </p-galleria>
+    </div>
+
+    <div class="details-section">
+      <h2 class="text-3xl font-bold mb-2">{{ project.name }}</h2>
+      <p class="text-gray-500 mb-4">
+        {{ project.status === 'current' ? ('Current Project' | translate) : ('Finished Project' | translate) }}
+      </p>
+
+      <div class="region-chain mb-6">
+        <h3 class="text-xl font-semibold mb-2">{{ 'Regions' | translate }}</h3>
+        <ul class="list-disc ps-5 text-gray-700">
+          @for (region of project['region_chain']; track region.id) {
+            <li>
+              <strong>{{ region.name }}</strong>
+              <span *ngIf="region.features"> - {{ region.features }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="features mb-6">
+        <h3 class="text-xl font-semibold mb-2">{{ 'Facilities' | translate }}</h3>
+        <ul class="list-disc ps-5 text-gray-700">
+          @for (item of project.facilities; track $index) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </div>
+
+      <div class="unit-types">
+        <h3 class="text-xl font-semibold mb-2">{{ 'Unit Types' | translate }}</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          @for (unit of project.unit_types; track unit.id ?? unit.name) {
+            <div class="p-4 border rounded-lg text-center shadow-sm bg-gray-50">
+              <p class="font-medium">{{ unit.name }}</p>
+              <p class="text-gray-500">{{ 'Count' | translate }}: {{ unit.count }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+     <div class="text-center mt-6" *ngIf="project.pdf">
+    <button pButton type="button" label="{{ 'project-details.download-brochure' | translate }}" icon="pi pi-download"
+      class="p-button-rounded p-button-success" (click)="downloadPdf()"></button>
+  </div>
+  } @else {
+    <div class="text-center py-10 text-gray-500">
+      {{ 'Loading project details...' | translate }}
+    </div>
+  }
+</section>
+    </div>
+  </div>
+  </section>
+

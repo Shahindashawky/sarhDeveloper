@@ -3,7 +3,7 @@
     <h2 class="page-title">{{ 'projects' | translate }}</h2>
 
     <div class="projects-container">
-        @for (project of projectList; track project) {
+        @for (project of projectList; track project.id) {
       <div class="project-card" (click)="goToProject(project.id)">
         <div class="image-wrapper">
           <img

@@ -15,7 +15,7 @@
     <h2 class="page-title">{{ regionTitle }}</h2>
 
     <div class="projects-container">
-        @for (project of filteredProjects; track project) {
+        @for (project of filteredProjects; track project.id) {
               @if (project.isRegion == false) {
       <div class="project-card" (click)="goToProject(project.id)">
         <div class="image-wrapper">

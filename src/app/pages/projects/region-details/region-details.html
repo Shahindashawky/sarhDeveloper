@@ -4,7 +4,7 @@
 
 
     <div class="region-container">
-        @for (region of regionList; track region) {
+        @for (region of regionList; track region.id) {
           @if (region.isRegion == true) {
       <div class="region-card" (click)="goToProject(region.id)">
         <div class="image-wrapper">

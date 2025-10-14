@@ -36,9 +36,9 @@ export class Counters {
   }
   count() {
     this.counters = [
-      { label: this.translate.instant('year-exp'), value: 0, target: 10 },
-      { label: this.translate.instant('client'), value: 0, target: 150 },
-      { label: this.translate.instant('project'), value: 0, target: 80 },
+      {id:1, label: this.translate.instant('year-exp'), value: 0, target: 10 },
+      {id:2, label: this.translate.instant('client'), value: 0, target: 150 },
+      {id:3, label: this.translate.instant('project'), value: 0, target: 80 },
     ]
   }
   startCounters() {

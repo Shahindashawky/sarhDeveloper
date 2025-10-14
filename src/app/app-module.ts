@@ -40,6 +40,8 @@ import { CreateRegions } from './admin-pages/region/create-regions/create-region
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { GalleriaModule } from 'primeng/galleria';
+
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -121,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectModule,
     MultiSelectModule,
     ToggleSwitchModule,
+    GalleriaModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
