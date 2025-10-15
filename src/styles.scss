@@ -111,3 +111,17 @@ h1, h2, h3, h4, h5, h6 {
 .p-step:has(~ .p-step-active) .p-stepper-separator {
     background: var(--fourth-color) !important;
 }
+.p-button-text:not(:disabled):hover{
+  background: #fff9ef !important;
+}
+
+.back-btn {
+  margin-bottom: 1rem;
+  color: var(--first-color) !important;
+  font-weight: 500;
+}
+.back-btn:hover {
+  background: transparent;
+  color: var(--first-color) !important;
+  
+}

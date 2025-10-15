@@ -29,6 +29,7 @@ import { EditConstructionUpdate } from './admin-pages/construction-update/edit-c
 import { RegionDetails } from './pages/projects/region-details/region-details';
 import { ProjectDetails } from './pages/projects/project-details/project-details';
 import { ViewProjectDetails } from './pages/projects/project-details/view-project-details/view-project-details';
+import { ViewUnitDetails } from './pages/projects/project-details/view-unit-details/view-unit-details';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'region-details/:id', component: RegionDetails },
   { path: 'project-details/:id', component: ProjectDetails },
   { path: 'view-project-details/:id', component: ViewProjectDetails },
+  { path: 'view-unit-details/:id', component: ViewUnitDetails },
   { path: 'admin-login', component: Login },
 
   {

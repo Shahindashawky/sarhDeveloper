@@ -178,6 +178,19 @@ export class ApiService {
         headers: this.httpOption.headers,
       });
   }
+        getProjectUnits(pid:any,lang:any,typeid:any){
+        return this.http.get<any>(`${this.apiUrl}/project-units/${pid}/?locale=${lang}&unit_type_id=${typeid}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+         getpreviouslist(lang:any){
+        return this.http.get<any>(`${this.apiUrl}/previous-list/?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+  
   //POST
 
   login(data: any) {

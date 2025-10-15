@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '../../../services/api-service';
 import { LanguageService } from '../../../services/languageservice';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-project-details',
@@ -19,7 +20,7 @@ regionTitle:any;
 filteredProjects: any[] = []; 
 selectedProject: any = null; 
 
-  constructor(private translate: TranslateService, private langService: LanguageService,private api:ApiService, private route: ActivatedRoute, private router: Router) { 
+  constructor(private translate: TranslateService, private langService: LanguageService,private api:ApiService, private route: ActivatedRoute, private router: Router, private location: Location) { 
     this.projectImage=this.api.projectImage;
     this.route.params.subscribe((params) => {
       this.regionId = params['id'];
@@ -61,4 +62,7 @@ this.regionTitle=this.projects[0].region[0];
     goToProject(id: any) {
     this.router.navigate(['/view-project-details', id]);
   }
+    goBack() {
+  this.location.back();
+}
 }

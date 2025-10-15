@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/languageservice';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-about',
@@ -13,7 +14,8 @@ export class About {
  visions:any;
  currentLang: 'ar' | 'en' = 'ar';
 
-  constructor(private translate: TranslateService, private langService: LanguageService) { }
+  constructor(private translate: TranslateService, private langService: LanguageService ,  private location: Location
+) { }
 
   ngOnInit(): void {
         this.langService.currentLang$.subscribe(lang => {
@@ -39,4 +41,7 @@ export class About {
     { icon: 'pi pi-globe', title: this.translate.instant('contribution'), text: this.translate.instant('contribution-text') }
   ];
     }
+      goBack() {
+  this.location.back();
+}
 }

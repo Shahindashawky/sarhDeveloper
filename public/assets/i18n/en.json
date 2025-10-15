@@ -64,7 +64,10 @@
   "details":"Details",
   "discription":"Discription",
   "facilities":"Facilities",
-  "Regions":"Regions"
+  "region":"Region",
+  "status":"Status",
+  "type":"Type",
+  "units":"Units"
 
 
 

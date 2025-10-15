@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/languageservice';
 import { ApiService } from '../../services/api-service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-projects',
@@ -15,7 +16,7 @@ regionImage = '';
  currentLang: 'ar' | 'en' = 'ar';
 projectList:any;
 
-  constructor(private translate: TranslateService, private langService: LanguageService,private api:ApiService,private router:Router) { 
+  constructor(private translate: TranslateService, private langService: LanguageService,private api:ApiService,private router:Router, private location: Location) { 
     this.regionImage=this.api.regionImage
   }
 
@@ -42,4 +43,7 @@ this.projectList=p
   goToProject(id:any){
     this.router.navigate(['/region-details', id]);
   }
+        goBack() {
+  this.location.back();
+}
 }

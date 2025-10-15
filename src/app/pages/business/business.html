@@ -1,1 +1,40 @@
-<p>business works!</p>
+<section class="projects-page">
+
+  <div class="container">
+    <button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn" (click)="goBack()"></button>
+
+    <h2 class="page-title">{{ 'business' | translate}}</h2>
+    <div class="filter-section mb-4">
+  <p-select
+    inputId="projectSelect"
+    [options]="projects"
+    optionLabel="name"
+    optionValue="id"
+    [(ngModel)]="selectedProject"
+    (onChange)="onProjectSelect($event)"
+    [placeholder]="'all-project' | translate"
+    [showClear]="true"
+  ></p-select>
+</div>
+    <div class="projects-container">
+        @for (project of filteredProjects; track project.id) {
+              @if (project.isRegion == false) {
+      <div class="project-card" (click)="goToProject(project.id)">
+        <div class="image-wrapper">
+          <img
+            [src]="project.main_image || projectImage"
+            (error)="onImageError($event)"
+            alt="project image"
+          />
+          <div class="overlay"></div>
+          <span class="project-name">{{ project.name }}</span>
+        </div>
+      </div>
+    }
+          @else {
+  <p>No project found.</p>
+}
+    }
+    </div>
+  </div>
+</section>

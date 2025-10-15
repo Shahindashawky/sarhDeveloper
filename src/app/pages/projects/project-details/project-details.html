@@ -1,4 +1,9 @@
 <section class="projects-page">
+
+  <div class="container">
+    <button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn" (click)="goBack()"></button>
+
+    <h2 class="page-title">{{ regionTitle }}</h2>
     <div class="filter-section mb-4">
   <p-select
     inputId="projectSelect"
@@ -11,9 +16,6 @@
     [showClear]="true"
   ></p-select>
 </div>
-  <div class="container">
-    <h2 class="page-title">{{ regionTitle }}</h2>
-
     <div class="projects-container">
         @for (project of filteredProjects; track project.id) {
               @if (project.isRegion == false) {

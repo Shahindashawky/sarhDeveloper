@@ -1,5 +1,7 @@
 <section class="project-page">
+
   <div class="container">
+<button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn" (click)="goBack()"></button>
     <h2 class="page-title">{{ project?.name }}</h2>
 
     @if (project) {
@@ -25,29 +27,16 @@
         <p-step-panels>
           <p-step-panel [value]="1">
             <ng-template #content let-activateCallback="activateCallback">
-              <div class="flex flex-col h-48">
-                <div
-                  class=" ">
-                  {{ project.status}}<br>
-                  {{project.types}}
-                </div>
-              </div>
-              <div class="flex p-3 justify-end">
-                <p-button class="next-btn" [label]="'next' | translate" (onClick)="activateCallback(2)" />
-              </div>
-            </ng-template>
-          </p-step-panel>
-
-          <p-step-panel [value]="2">
-            <ng-template #content let-activateCallback="activateCallback">
-              <div class="flex flex-col h-48">
-                <div
-                  class=" ">
-                                        {{project.description}}
-                   {{ project.region}}
-
-                  <div class="section region-chain">
-                    <h4>{{ 'Regions' | translate }}</h4>
+   
+                       <div class="section">
+                         <h4>{{ 'status' | translate }}</h4>
+                          {{ project.status}} </div>
+                      <div class="section">
+                        <h4>{{ 'type' | translate }}</h4>
+                        {{project.types}}  </div>
+                  
+                  <div class="section">
+                    <h4>{{ 'region' | translate }}</h4>
                     <ul>
 
                       @for (region of project['region_chain']; track region.id) {
@@ -60,6 +49,21 @@
                       }
                     </ul>
                   </div>
+
+             
+              <div class="flex p-3 justify-end">
+                <p-button class="next-btn" [label]="'next' | translate" (onClick)="activateCallback(2)" />
+              </div>
+            </ng-template>
+          </p-step-panel>
+
+          <p-step-panel [value]="2">
+            <ng-template #content let-activateCallback="activateCallback">
+              <div class="flex flex-col h-48">
+                <div
+                  class="section ">
+                  <h4>{{ 'discription' | translate }}</h4>
+                   {{project.description}}
                 </div>
               </div>
               <div class="flex p-3 justify-between">
@@ -94,24 +98,44 @@
       </p-stepper>
     </div>
     <div class="details">
-      <div class="section unit-types">
-        <h4>{{ 'Unit Types' | translate }}</h4>
-        <div class="unit-grid">
-          @for (unit of project.unit_types; track unit.id ?? unit.name) {
-          <div>
-            <p class="unit-name">{{ unit.name }}</p>
-            <p class="unit-count">{{ 'Count' | translate }}: {{ unit.count }}</p>
-          </div>
-          }
-        </div>
-      </div>
-
-      @if (project.pdf) {
+            @if (project.pdf) {
       <div class="download">
         <button pButton type="button" label="{{ 'project-details.download-brochure' | translate }}"
           icon="pi pi-download" (click)="downloadPdf()"></button>
       </div>
       }
+ @if (project.unit_types?.length > 1) {
+      <div class="section">
+        <h3 class="unit-name">{{ 'units' | translate }}</h3>
+        <div class="unit-grid">
+          @for (unit of project.unit_types; track unit.id ?? unit.name) {
+          <div (click)="getUnits(unit.id)">
+            <p>{{ unit.name }}</p>
+          </div>
+          }
+        </div>
+      </div>
+         <div class="unit-container">
+        @for (unit of units; track unit.id) {
+      <div class="unit-featured" (click)="goToUnit(unit.id)">
+              <button class="scroll-top-btn">
+        <i class="pi pi-arrow-up-left"></i>
+      </button>
+
+      <img [src]="unit.image  || unitImage" (error)="onImageError($event)" alt="{{unit.title}}" />
+      <div class="info-box">
+        <h3>{{ unit.name }}</h3>
+        <div class="details">
+          <span><i class="pi pi-th-large"></i> <span class="num">{{ unit.area }}</span> م²</span> |
+          <span><i class="pi pi-bed"></i> <span class="num">{{ unit.rooms }} </span>غرف</span> |
+          <span><i class="pi pi-shower"></i> <span class="num">{{ unit.bathrooms }}</span> حمام</span>
+        </div>
+      </div>
+      </div>
+    }
+    </div>
+    }
+
     </div>
     } @else {
     <div class="loading">{{ 'Loading project details...' | translate }}</div>

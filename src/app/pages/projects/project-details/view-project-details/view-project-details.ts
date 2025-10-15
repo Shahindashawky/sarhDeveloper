@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../../services/languageservice';
 import { ApiService } from '../../../../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-project-details',
@@ -12,18 +13,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ViewProjectDetails {
 projectImage = '';
+unitImage='';
   currentLang: 'ar' | 'en' = 'ar';
   projectId: any;
   project: any;
-images = model<string[]>([]);
+  images = model<string[]>([]);
+  units:any;
 
   constructor(
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute,  private location: Location ,private router:Router
+
   ) {
     this.projectImage = this.api.projectImage;
+    this.unitImage=this.api.unitImage;
     this.route.params.subscribe((params) => {
       this.projectId = params['id'];
     });
@@ -59,7 +64,16 @@ images = model<string[]>([]);
       },
     });
   }
+getUnits(unittypeid:any){
+     if(unittypeid == null){
+      unittypeid = ''
+     }
 
+this.api.getProjectUnits(this.projectId, this.currentLang,unittypeid).subscribe((unit) => {
+   this.units=unit;
+   
+})
+}
   downloadPdf(): void {
     if (this.project?.pdf) {
       window.open(this.project.pdf, '_blank');
@@ -69,5 +83,11 @@ images = model<string[]>([]);
   }
     onImageError(event: any) {
     event.target.src = this.projectImage;
+  }
+  goBack() {
+  this.location.back();
+}
+  goToUnit(id:any){
+    // this.router.navigate(['/view-unit-details', id]);
   }
 }

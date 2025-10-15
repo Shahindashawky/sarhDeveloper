@@ -62,6 +62,7 @@ import { Counters } from './components/counters/counters';
 import { RegionDetails } from './pages/projects/region-details/region-details';
 import { ProjectDetails } from './pages/projects/project-details/project-details';
 import { ViewProjectDetails } from './pages/projects/project-details/view-project-details/view-project-details';
+import { ViewUnitDetails } from './pages/projects/project-details/view-unit-details/view-unit-details';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -101,7 +102,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     Counters,
     RegionDetails,
     ProjectDetails,
-    ViewProjectDetails
+    ViewProjectDetails,
+    ViewUnitDetails
   ],
   imports: [
     BrowserModule,
