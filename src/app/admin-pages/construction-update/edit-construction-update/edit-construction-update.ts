@@ -63,7 +63,7 @@ export class EditConstructionUpdate {
       update_date: [[], Validators.required],
       arabic_details: ['', Validators.required],
       english_details: ['', Validators.required],
-      gallery_images: [null, Validators.required],
+      gallery_images: [null],
 
 
     });

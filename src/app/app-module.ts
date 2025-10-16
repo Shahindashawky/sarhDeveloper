@@ -63,6 +63,7 @@ import { RegionDetails } from './pages/projects/region-details/region-details';
 import { ProjectDetails } from './pages/projects/project-details/project-details';
 import { ViewProjectDetails } from './pages/projects/project-details/view-project-details/view-project-details';
 import { ViewUnitDetails } from './pages/projects/project-details/view-unit-details/view-unit-details';
+import { ConstructionDetails } from './pages/followup/construction-details/construction-details';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -103,7 +104,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegionDetails,
     ProjectDetails,
     ViewProjectDetails,
-    ViewUnitDetails
+    ViewUnitDetails,
+    ConstructionDetails
   ],
   imports: [
     BrowserModule,

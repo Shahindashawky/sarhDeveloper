@@ -190,7 +190,24 @@ export class ApiService {
         headers: this.httpOption.headers,
       });
   }
-  
+      getConstructionUpdate(lang:any){
+        return this.http.get<any>(`${this.apiUrl}/construction-update/?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+        getConstructionDetailsById(cid:any,lang:any){
+        return this.http.get<any>(`${this.apiUrl}/construction-update/${cid}/?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
+          getConstructionDatesById(pid:any,lang:any){
+        return this.http.get<any>(`${this.apiUrl}/construction-dates/${pid}/?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
+  }
   //POST
 
   login(data: any) {

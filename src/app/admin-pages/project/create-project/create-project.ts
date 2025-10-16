@@ -63,7 +63,7 @@ export class CreateProject {
       facilities: ['', Validators.required],
       arabic_description: [''],
       english_description: [''],
-      gallery_images: [null, Validators.required],
+      gallery_images: [null],
       pdf: [null],
 
     });

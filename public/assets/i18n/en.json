@@ -63,11 +63,13 @@
   "back":"Back",
   "details":"Details",
   "discription":"Discription",
-  "facilities":"Facilities",
+  "features":"Features",
   "region":"Region",
   "status":"Status",
   "type":"Type",
-  "units":"Units"
+  "units":"Units",
+  "update":"update"
+
 
 
 

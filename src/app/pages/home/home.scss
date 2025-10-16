@@ -587,7 +587,7 @@ justify-content: end;
     margin-bottom: 1.5rem;
 
     .form-field {
-      flex: 1; // كل واحد ياخد نفس المساحة
+      flex: 1; 
       display: flex;
       flex-direction: column;
 
@@ -662,14 +662,13 @@ justify-content: end;
   }
 }
 
-/* ✅ Responsive */
 @media (max-width: 992px) {
   .search-form {
     .form-grid {
       flex-wrap: wrap;
 
       .form-field {
-        flex: 1 1 calc(50% - 1rem); // اتنين جنب بعض
+        flex: 1 1 calc(50% - 1rem); 
       }
     }
   }
@@ -681,7 +680,7 @@ justify-content: end;
       flex-direction: column;
 
       .form-field {
-        flex: 1 1 100%; // كل واحد ياخد صف كامل
+        flex: 1 1 100%; 
       }
     }
 

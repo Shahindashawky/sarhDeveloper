@@ -71,7 +71,7 @@ export class EditProject {
     this.projectForm = this.fb.group({
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
-      main_image: [null],
+      main_image: [null, Validators.required],
       region_id: [null, Validators.required],
       types: ['', Validators.required],
       status: [null, Validators.required],

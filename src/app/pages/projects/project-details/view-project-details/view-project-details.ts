@@ -88,6 +88,6 @@ this.api.getProjectUnits(this.projectId, this.currentLang,unittypeid).subscribe(
   this.location.back();
 }
   goToUnit(id:any){
-    // this.router.navigate(['/view-unit-details', id]);
+    this.router.navigate(['/view-unit-details', id]);
   }
 }

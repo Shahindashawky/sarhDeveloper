@@ -86,7 +86,7 @@ export class EditUnit {
       arabic_finishing:[''],
       english_floor:[''],
       arabic_floor:[''],
-      gallery_images: [null, Validators.required],
+      gallery_images: [null],
       
 
     });

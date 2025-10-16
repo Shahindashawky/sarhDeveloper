@@ -1,0 +1,52 @@
+<section class="project-page">
+
+    <div class="container">
+        <button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn"
+            (click)="goBack()"></button>
+        <h2 class="page-title">{{ project?.project}}</h2>
+
+        @if (project) {
+        <div class="filter-section mb-4">
+            <p-select inputId="projectSelect" [options]="dates" optionLabel="update_date" optionValue="id"
+                [(ngModel)]="selecteddate" (onChange)="ondateSelect($event)" [placeholder]="'update' | translate"
+                [showClear]="true"></p-select>
+        </div>
+        <img [src]="project.main_image || projectImage" (error)="onImageError($event)" class="image" alt="image" />
+
+        <div class="section">
+            <h4>{{ 'region' | translate }}</h4>
+            <ul>
+
+                @for (region of project['region_chain']; track region.id) {
+                <li>
+                    <strong>{{ region.name }}</strong>
+                </li>
+                }
+            </ul>
+        </div>
+        <div class="section">
+            <h4>{{ 'update' | translate }}</h4>
+            <span class="date">{{project.update_date}}</span>
+
+        </div>
+        <div class="section">
+            <h4>{{ 'description' | translate }}</h4>
+            <p>{{project.details}}</p>
+
+        </div>
+        <p-carousel [value]="project.gallery_images" [numVisible]="3" [numScroll]="3" [circular]="false">
+            <ng-template let-product #item>
+                <div class="border border-surface rounded-border m-2 p-4">
+                    <div class="relative mx-auto">
+                        <img src="{{product || projectImage }}" (error)="onImageError($event)"
+                            class="w-full rounded-border" />
+                    </div>
+
+                </div>
+            </ng-template>
+        </p-carousel>
+        } @else {
+        <div class="loading">{{ 'Loading project details...' | translate }}</div>
+        }
+    </div>
+</section>

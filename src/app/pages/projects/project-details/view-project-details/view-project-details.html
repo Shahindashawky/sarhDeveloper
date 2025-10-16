@@ -22,15 +22,13 @@
         <p-step-list>
           <p-step [value]="1">{{'details' | translate}}</p-step>
           <p-step [value]="2">{{'discription' | translate}}</p-step>
-          <p-step [value]="3">{{'facilities' | translate}}</p-step>
+          <p-step [value]="3">{{'features' | translate}}</p-step>
         </p-step-list>
         <p-step-panels>
           <p-step-panel [value]="1">
             <ng-template #content let-activateCallback="activateCallback">
    
-                       <div class="section">
-                         <h4>{{ 'status' | translate }}</h4>
-                          {{ project.status}} </div>
+
                       <div class="section">
                         <h4>{{ 'type' | translate }}</h4>
                         {{project.types}}  </div>
@@ -78,8 +76,8 @@
               <div class="flex flex-col h-48">
                 <div
                   class=" ">
-                  <div class="section facilities">
-                    <h4>{{ 'facilities' | translate }}</h4>
+                  <div class="section">
+                    <h4>{{ 'features' | translate }}</h4>
                     <ul>
                       @for (item of project.facilities; track $index) {
                       <li>{{ item }}</li>

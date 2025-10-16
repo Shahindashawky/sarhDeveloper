@@ -1,0 +1,181 @@
+.project-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 0.5rem auto 0;
+  background-color: #222;
+  border-radius: 2px;
+}
+
+.image {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 2.5rem;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.image:hover {
+  transform: scale(1.02);
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.section {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.section:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.section h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.section ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  list-style: none;
+  color: #374151;
+  padding: 0;
+}
+
+.section li {
+  font-weight: 500;
+  color: var(--second-color);
+}
+
+.section li::after {
+  content: ',';
+  margin-left: 0.3rem;
+}
+
+.section li:last-child::after {
+  content: '';
+}
+
+
+.section p {
+    color: var(--second-color);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.date {
+  color: var(--first-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.p-carousel {
+  margin-top: 2rem;
+}
+
+
+
+::ng-deep .p-carousel-item:hover {
+  transform: scale(1.03);
+}
+
+::ng-deep .p-carousel-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.loading {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1.2rem;
+  padding: 3rem 0;
+}
+
+@media (max-width: 992px) {
+  .image {
+    max-height: 350px;
+  }
+
+  .section {
+    padding: 1.25rem;
+  }
+
+  .p-carousel-item img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .image {
+    max-height: 300px;
+  }
+
+  .section h4 {
+    font-size: 1.1rem;
+  }
+
+  .p-carousel-item img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 1rem;
+  }
+
+  .section h4 {
+    font-size: 1rem;
+  }
+
+  .section p {
+    font-size: 0.9rem;
+  }
+
+  .p-carousel-item img {
+    height: 150px;
+  }
+}
