@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/languageservice';
 import { ApiService } from './../../services/api-service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
@@ -12,7 +13,12 @@ export class Home {
 
   currentLang: 'ar' | 'en' = 'ar';
   visible: boolean = false;
-
+  prev:any;
+  project:any;
+  lastunit:any;
+  projectimage='';
+  regionimage='';
+   unitimage='';
   propertyTypes = [
     { label: 'شقة', value: 'flat' },
     { label: 'فيلا', value: 'villa' }
@@ -31,33 +37,9 @@ export class Home {
   selectedProperty: any;
   selectedPrice: any;
   selectedLocation: any;
-  projects = [
-    {
-      title: 'النرجس الجديدة',
-      img: '/images/build2.png',
-    },
-    {
-      title: 'نورت هاوس',
-      img: '/images/building.png',
-    },
-    {
-      title: 'بيت الوطن',
-      img: '/images/build3.png',
-    },
-    { title: 'المعادى', img: 'images/build4.png' },
-    { title: 'أكتوبر', img: 'images/build5.png' },
-    { title: 'القاهرة الجديدة', img: 'images/build6.png' },
-  ];
-  projectsReversed = [...this.projects].reverse();
-  featuredProject = {
-    title: 'بيت الوطن',
-    image: '/images/build3.png',
-    location: 'المعادى - القاهرة',
-    type: 'سكنى',
-    area: 120,
-    rooms: 3,
-    baths: 2
-  };
+
+  projectsReversed : any;
+
 
   responsiveOptions = [
     {
@@ -81,14 +63,44 @@ export class Home {
       numScroll: 1,
     },
   ];
-  constructor(private ApiService: ApiService, private langService: LanguageService) { }
+  constructor(private translate: TranslateService,private ApiService: ApiService, private langService: LanguageService) {
+    this.projectimage=this.ApiService.projectImage,
+        this.regionimage=this.ApiService.regionImage,
+        this.unitimage=this.ApiService.unitImage
+
+   }
 
   ngOnInit() {
     this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
+    this.getdata();
+    this.translate.onLangChange.subscribe(() => {
+      this.getdata();
+    });
 
+  }
+  getdata(){
+    this.ApiService.getpreviouslist(this.currentLang).subscribe(p=>{
+      this.prev=p.data
+    })
+    this.ApiService.getProjectList(this.currentLang).subscribe(p=>{
+      this.project=p;
+      this.projectsReversed = [...this.project].reverse();
 
+    })
+    this.ApiService.getlastUnit(this.currentLang).subscribe(u=>{
+      this.lastunit=u
+    })
+  }
+    onImageError(event: any) {
+    event.target.src = this.projectimage;
+  }
+      onImageError2(event: any) {
+    event.target.src = this.regionimage;
+  }
+        onImageError3(event: any) {
+    event.target.src = this.unitimage;
   }
 scrollToSection(sectionId: string) {
   const element = document.getElementById(sectionId);

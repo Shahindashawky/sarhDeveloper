@@ -42,7 +42,7 @@ import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { GalleriaModule } from 'primeng/galleria';
 import { StepperModule } from 'primeng/stepper';
-
+import { DataViewModule } from 'primeng/dataview';
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -129,6 +129,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectModule,
     MultiSelectModule,
     ToggleSwitchModule,
+    DataViewModule,
     GalleriaModule,
     HttpClientModule,
     TranslateModule.forRoot({

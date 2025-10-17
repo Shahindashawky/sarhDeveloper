@@ -68,7 +68,14 @@
   "status":"Status",
   "type":"Type",
   "units":"Units",
-  "update":"update"
+  "update":"update",
+  "facilities":"Facilities",
+  "unitarea":"Area",
+  "bedroom":"Bedroom",
+  "bathroom":"Bathroom",
+  "floor":"Floor",
+  "finishing":"Finishing Type",
+  "price":"Price"
 
 
 

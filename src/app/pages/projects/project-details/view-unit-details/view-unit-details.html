@@ -1,1 +1,119 @@
-<p>view-unit-details works!</p>
+<section class="unit-page">
+
+  <div class="container">
+<button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn" (click)="goBack()"></button>
+    <h2 class="page-title">{{ unit?.name }}</h2>
+
+    @if (unit) {
+
+    <p-galleria [value]="images()" [showThumbnails]="true" [showIndicators]="true" [circular]="true" [autoPlay]="true"
+      [transitionInterval]="3000" [showItemNavigators]="true" [showThumbnailNavigators]="false">
+      <ng-template pTemplate="item" let-image>
+        <img [src]="image || unitImage" (error)="onImageError($event)" alt="unit Image" />
+      </ng-template>
+
+      <ng-template pTemplate="thumbnail" let-image>
+        <img [src]="image || unitImage" (error)="onImageError($event)" alt="Thumbnail" />
+      </ng-template>
+    </p-galleria>
+    <br>
+    <div class="card flex justify-center m-3 p-3">
+      <p-stepper [value]="1" class="basis-[50rem]">
+        <p-step-list>
+          <p-step [value]="1">{{'details' | translate}}</p-step>
+          <p-step [value]="2">{{'discription' | translate}}</p-step>
+          <p-step [value]="3">{{'features' | translate}}</p-step>
+        </p-step-list>
+        <p-step-panels>
+          <p-step-panel [value]="1">
+            <ng-template #content let-activateCallback="activateCallback">
+   <div class="unit-details">
+  <div class="detail-row">
+    <span class="label">{{'unitarea' | translate}}</span>
+    <span class="value">{{unit.area}}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{'type' | translate}}</span>
+    <span class="value">{{unit.type}}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{'project' | translate}}</span>
+    <span class="value">{{unit.project}}  </span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{'bedroom' | translate}}</span>
+    <span class="value">{{unit.rooms}}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{'bathroom' | translate}}</span>
+    <span class="value">{{unit.bathrooms}}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{'floor' | translate}}</span>
+    <span class="value">{{unit.floor}}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">{{'finishing' | translate}}</span>
+    <span class="value">{{unit.finishing}}</span>
+  </div>
+    <div class="detail-row">
+    <span class="label">{{'price' | translate}}</span>
+    <span class="value"> {{unit.price}}</span>
+  </div>
+</div>
+
+
+             
+              <div class="flex p-3 justify-end">
+                <p-button class="next-btn" [label]="'next' | translate" (onClick)="activateCallback(2)" />
+              </div>
+            </ng-template>
+          </p-step-panel>
+
+          <p-step-panel [value]="2">
+            <ng-template #content let-activateCallback="activateCallback">
+              <div class="flex flex-col h-48">
+                <div
+                  class="section ">
+                  <h4>{{ 'discription' | translate }}</h4>
+                   {{unit.description}}
+                </div>
+              </div>
+              <div class="flex p-3 justify-between">
+                <p-button [label]="'back' | translate" severity="secondary" (onClick)="activateCallback(1)" />
+                <p-button class="next-btn" [label]="'next' | translate" (onClick)="activateCallback(3)" />
+              </div>
+            </ng-template>
+          </p-step-panel>
+
+          <p-step-panel [value]="3">
+            <ng-template #content let-activateCallback="activateCallback">
+              <div class="flex flex-col h-48">
+                <div
+                  class=" ">
+                  <div class="section">
+                    <h4>{{ 'features' | translate }}</h4>
+                    <ul>
+                      @for (item of unit.facilities; track $index) {
+                      <li>{{ item }}</li>
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="flex p-3 justify-start">
+                <p-button [label]="'back' | translate" severity="secondary" iconPos="right"
+                  (onClick)="activateCallback(2)" />
+              </div>
+            </ng-template>
+          </p-step-panel>
+        </p-step-panels>
+      </p-stepper>
+    </div>
+
+
+    } @else {
+    <div class="loading">{{ 'Loading unit details...' | translate }}</div>
+    }
+  </div>
+</section>

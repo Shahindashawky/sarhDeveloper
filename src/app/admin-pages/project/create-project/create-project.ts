@@ -125,7 +125,7 @@ export class CreateProject {
             value.forEach((item) => formData.append(`${key}[]`, item));
           }
           if (typeof value === 'string' || typeof value === 'boolean' ||
-  typeof value === 'number') {
+            typeof value === 'number') {
             formData.append(key, String(value));
           } else if (value instanceof File) {
             formData.append(key, value);
@@ -137,13 +137,13 @@ export class CreateProject {
       console.log(newproject);
 
       this.api.addProject(formData).subscribe(
-              (res: any) => {
-                  this.projectForm.reset();
-                this.isLoading = false;
-                console.log("done")
+        (res: any) => {
+          this.projectForm.reset();
+          this.isLoading = false;
+          console.log("done")
 
-              }
-            );
+        }
+      );
 
     }
   }

@@ -61,14 +61,21 @@
   "all-project":"جميع المشاريع",
   "next":"التالى",
   "back":"رجوع",
-  "details":"تفاصيل",
+  "details":"التفاصيل",
   "discription":"الوصف",
   "features":"المميزات",
   "region":"المنطقة",
   "status":"الحاله",
   "type":"النوع",
   "units":"الوحدات",
-  "update":"التحديث"
+  "update":"التحديث",
+  "facilities":"الخدمات المتاحة",
+  "unitarea":"المساحة",
+  "bedroom":"غرفة النوم",
+  "bathroom":"الحمام",
+  "floor":"الطابق",
+  "finishing":"نوع التشطيب",
+  "price":"السعر"
 
 
 

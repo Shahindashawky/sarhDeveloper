@@ -27,8 +27,6 @@
         <p-step-panels>
           <p-step-panel [value]="1">
             <ng-template #content let-activateCallback="activateCallback">
-   
-
                       <div class="section">
                         <h4>{{ 'type' | translate }}</h4>
                         {{project.types}}  </div>
@@ -40,8 +38,11 @@
                       @for (region of project['region_chain']; track region.id) {
                       <li>
                         <strong>{{ region.name }}</strong>
-                        @if (region.features) {
+                        @if (region.features && region.features != 'null') {
                         <span> - {{ region.features }}</span>
+                        }
+                        @else{
+                          <span></span>
                         }
                       </li>
                       }
@@ -79,8 +80,8 @@
                   <div class="section">
                     <h4>{{ 'features' | translate }}</h4>
                     <ul>
-                      @for (item of project.facilities; track $index) {
-                      <li>{{ item }}</li>
+                      @for (item of project['facilities']; track item.id) {
+                      <li>{{ item.name }}</li>
                       }
                     </ul>
                   </div>
@@ -115,10 +116,8 @@
       </div>
          <div class="unit-container">
         @for (unit of units; track unit.id) {
-      <div class="unit-featured" (click)="goToUnit(unit.id)">
-              <button class="scroll-top-btn">
-        <i class="pi pi-arrow-up-left"></i>
-      </button>
+      <div class="unit-featured" >
+              <button class="scroll-top-btn" (click)="goToUnit(unit.id)"> <i class="pi pi-arrow-up-left"></i> </button>
 
       <img [src]="unit.image  || unitImage" (error)="onImageError($event)" alt="{{unit.title}}" />
       <div class="info-box">

@@ -56,7 +56,7 @@
     <h4 class="subtitle">{{'projects' | translate}}</h4>
     <h2 class="title">{{'projectlist' | translate}}</h2>
     <div class="btn-wrapper">
-      <button class="more-btn2" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn'
+      <button class="more-btn2" [routerLink]="['/projects']" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn'
         |
         translate}}</button>
     </div>
@@ -64,34 +64,34 @@
   <div class="projects-section">
 
     <div class="project-featured">
-      <button class="scroll-top-btn">
+      <button class="scroll-top-btn" [routerLink]="['/view-unit-details',lastunit.id]">
         <i class="pi pi-arrow-up-left"></i>
       </button>
 
-      <img [src]="featuredProject.image" alt="{{featuredProject.title}}" />
+      <img [src]="lastunit.main_image" (error)="onImageError3($event)"  />
       <div class="info-box">
-        <h3>{{ featuredProject.title }}</h3>
+        <h3>{{ lastunit.name }}</h3>
         <p class="location">
-          <i class="pi pi-map-marker"></i> {{ featuredProject.location }}
+          <i class="pi pi-map-marker"></i> {{ lastunit.region }}
         </p>
-        <p><i class="pi pi-building"></i> {{ featuredProject.type }}</p>
+        <p><i class="pi pi-building"></i> {{ lastunit.types }}</p>
 
         <div class="details">
-          <span><i class="pi pi-th-large"></i> <span class="num">{{ featuredProject.area }}</span> م²</span> |
-          <span><i class="pi pi-bed"></i> <span class="num">{{ featuredProject.rooms }} </span>غرف</span> |
-          <span><i class="pi pi-shower"></i> <span class="num">{{ featuredProject.baths }}</span> حمام</span>
+          <span><i class="pi pi-th-large"></i> <span class="num">{{ lastunit.area }}</span> م²</span> |
+          <span><i class="pi pi-bed"></i> <span class="num">{{ lastunit.rooms }} </span>غرف</span> |
+          <span><i class="pi pi-shower"></i> <span class="num">{{ lastunit.bathrooms }}</span> حمام</span>
         </div>
       </div>
     </div>
     <div class="projects-carousel">
-      <p-carousel [value]="projects" [numVisible]="2" [numScroll]="2" orientation="vertical" [circular]="true"
+      <p-carousel [value]="project" [numVisible]="2" [numScroll]="2" orientation="vertical" [circular]="true"
         [autoplayInterval]="4000">
 
         <ng-template pTemplate="item" let-project>
-          <div class="project-card">
-            <img [src]="project.img" alt="{{project.title}}" />
+          <div class="project-card" >
+            <img [src]="project.main_image" (error)="onImageError2($event)" />
             <div class="overlay">
-              <h4>{{ project.title }}</h4>
+              <h4>{{ project.name }}</h4>
             </div>
           </div>
         </ng-template>
@@ -104,9 +104,9 @@
 
         <ng-template pTemplate="item" let-project>
           <div class="project-card">
-            <img [src]="project.img" alt="{{project.title}}" />
+            <img [src]="project.main_image" (error)="onImageError2($event)" />
             <div class="overlay">
-              <h4>{{ project.title }}</h4>
+              <h4>{{ project.name }}</h4>
             </div>
           </div>
         </ng-template>
@@ -120,18 +120,18 @@
   <h4 class="subtitle">{{'business' | translate}}</h4>
   <h2 class="title">{{'priv-pro' | translate}}</h2>
   <div class="btn-wrapper">
-    <button class="more-btn2" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn' |
+    <button class="more-btn2" [routerLink]="['/business']" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn' |
       translate}}</button>
   </div>
-  <p-carousel [value]="projects" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
+  <p-carousel [value]="prev" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
     [responsiveOptions]="responsiveOptions" class="project-carousel">
 
     <ng-template pTemplate="item" let-project>
-      <div class="project-card">
-        <img [src]="project.img" [alt]="project.title">
+      <div class="project-card" >
+        <img [src]="project.main_image" (error)="onImageError($event)" >
         <div class="project-info">
-          <h3>{{ project.title }}</h3>
-          <a class="details">{{'moredetails' | translate}}←</a>
+          <h3>{{ project.name }}</h3>
+          <a class="details" [routerLink]="['/view-project-details',project.id]">{{'moredetails' | translate}}←</a>
         </div>
       </div>
     </ng-template>
