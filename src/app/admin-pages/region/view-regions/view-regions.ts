@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Region } from '../../../../model/Region';
 import { ApiService } from '../../../services/api-service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-view-regions',
@@ -11,7 +12,7 @@ import { ApiService } from '../../../services/api-service';
 export class ViewRegions {
 regions!: Region[];
 regionImage:any;
-constructor(private api: ApiService) {}
+constructor(private loadingService:LoadingService,private api: ApiService) {}
 ngOnInit() {
         this.api.getALLRegions().subscribe((r:any)=>{this.regions=r.data;
 

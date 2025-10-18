@@ -4,6 +4,7 @@ import { LanguageService } from '../../../../services/languageservice';
 import { ApiService } from '../../../../services/api-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { LoadingService } from '../../../../services/loading.service';
 
 @Component({
   selector: 'app-view-project-details',
@@ -20,7 +21,7 @@ unitImage='';
   images = model<string[]>([]);
   units:any;
 
-  constructor(
+  constructor(private loadingService:LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
@@ -35,6 +36,7 @@ unitImage='';
   }
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.langService.currentLang$.subscribe((lang) => {
       this.currentLang = lang as 'ar' | 'en';
     });
@@ -49,6 +51,7 @@ unitImage='';
   }
 
   getProject(): void {
+    this.loadingService.show();
     this.api.getProjectDetails(this.projectId, this.currentLang).subscribe({
       next: (p) => {
         this.project = p;
@@ -58,6 +61,7 @@ unitImage='';
     } else {
       this.images.set(gallery);
     }
+    this.loadingService.hide();
       },
       error: (err) => {
         console.error('Error loading project details:', err);

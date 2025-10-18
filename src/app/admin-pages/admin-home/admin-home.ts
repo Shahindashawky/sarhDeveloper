@@ -2,6 +2,7 @@ import { Component, DOCUMENT, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '../../services/api-service';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-admin-home',

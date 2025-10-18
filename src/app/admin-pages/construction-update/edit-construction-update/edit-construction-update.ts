@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Project } from '../../../../model/Project';
 import { ApiService } from '../../../services/api-service';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { LoadingService } from '../../../services/loading.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-edit-construction-update',
@@ -18,15 +21,14 @@ export class EditConstructionUpdate {
   gallery_images!: File[];
   image2!: FileList;
   pdfName: string = '';
-  isLoading: boolean = false;
   project: Project[] = []
   status: any;
   constId!: any;
 
-  constructor(
+  constructor(private loadingService: LoadingService,
     private api: ApiService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,private messageService: MessageService
   ) {
     this.route.params.subscribe((params) => {
       this.constId = params['id'];
@@ -34,14 +36,9 @@ export class EditConstructionUpdate {
 
   }
   ngOnInit() {
+    this.loadingService.show();
     this.initializeForm();
-    this.api.getconstructionUpdateProject().subscribe((data: Project[]) => {
-      this.project = data
-    })
-
-    this.api.getconstructionUpdatestatus().subscribe((data: any) => {
-      this.status = data
-    })
+    this.getdata();
     this.api.getConstructionById(this.constId).subscribe((res: any) => {
       const construction: any = res;
 
@@ -53,6 +50,22 @@ export class EditConstructionUpdate {
         english_details: construction.english_details,
 
       });
+      this.loadingService.hide();
+    })
+  }
+    getdata() {
+    this.loadingService.show();
+    forkJoin({
+      project: this.api.getconstructionUpdateProject(),
+      status: this.api.getconstructionUpdatestatus()
+    }).subscribe({
+      next: (res) => {
+        this.project = res.project;
+        this.status = res.status;
+        this.loadingService.hide();
+      }, error: (err) => {
+        this.loadingService.hide();
+      }
     })
   }
   initializeForm(): void {
@@ -68,7 +81,16 @@ export class EditConstructionUpdate {
 
     });
   }
+  Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
 
   convertData(date: Date | Date[]): string[] {
     if (!date) return [];
@@ -113,7 +135,6 @@ export class EditConstructionUpdate {
 
   editconstructionupdate() {
     if (this.constructionupdateForm.valid) {
-      this.isLoading = true;
       let construction: any = {
         project_id: this.constructionupdateForm.value.project_id,
         main_image: this.main_image,
@@ -149,12 +170,10 @@ export class EditConstructionUpdate {
            this.api.updateconstruction(this.constId ,formData).subscribe(
         (res: any) => {
             this.constructionupdateForm.reset();
-          this.isLoading = false;          
-        console.log('construction updated successfully');          
+        this.showSuccess(res.message)         
         },
   (err) => {
-    console.error("Update failed", err);
-    this.isLoading = false;
+    this.Message(err.error.message)
   }
       );
 

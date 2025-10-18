@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Project } from '../../../../model/Project';
 import { ApiService } from '../../../services/api-service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-view-projects',
@@ -10,10 +11,15 @@ import { ApiService } from '../../../services/api-service';
 })
 export class ViewProjects {
 projects!: Project[];
-constructor(private api: ApiService) {}
+constructor(private loadingService:LoadingService,private api: ApiService) {}
 ngOnInit() {
+  this.loadingService.show();
+       this.getdata();
+    }
+    getdata(){
+       this.loadingService.show();
         this.api.getALLProjects().subscribe((r:any)=>{this.projects=r.data;
-          
+          this.loadingService.hide();
         })
     }
 EditStatus(regionid: any){
@@ -24,7 +30,9 @@ this.api.updateprojectStatus(regionid).subscribe(r=>{
 }
 
 onDelete(projectid: any) {
-  this.api.deleteProjectById(projectid).subscribe(r=>{ })
-
+  this.api.deleteProjectById(projectid).subscribe(r=>{ 
+    this.getdata();
+  })
+ 
 }
 }

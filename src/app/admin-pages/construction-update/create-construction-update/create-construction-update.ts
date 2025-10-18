@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Project } from '../../../../model/Project';
 import { ApiService } from '../../../services/api-service';
+import { MessageService } from 'primeng/api';
+import { LoadingService } from '../../../services/loading.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-create-construction-update',
@@ -21,23 +24,33 @@ export class CreateConstructionUpdate {
   project: Project[] = []
   status: any;
 
-  constructor(
+  constructor(private loadingService: LoadingService,
     private api: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder, private messageService: MessageService
   ) {
 
 
   }
   ngOnInit() {
+    this.loadingService.show();
     this.initializeForm();
-    this.api.getconstructionUpdateProject().subscribe((data: Project[]) => {
-      this.project = data
-    })
+    this.getdata();
 
-    this.api.getconstructionUpdatestatus().subscribe((data: any) => {
-      this.status = data
+  }
+  getdata() {
+    this.loadingService.show();
+    forkJoin({
+      project: this.api.getconstructionUpdateProject(),
+      status: this.api.getconstructionUpdatestatus()
+    }).subscribe({
+      next: (res) => {
+        this.project = res.project;
+        this.status = res.status;
+        this.loadingService.hide();
+      }, error: (err) => {
+        this.loadingService.hide();
+      }
     })
-
   }
   initializeForm(): void {
     this.constructionupdateForm = this.fb.group({
@@ -52,7 +65,16 @@ export class CreateConstructionUpdate {
 
     });
   }
+  Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
 
   convertData(date: Date | Date[]): string[] {
     if (!date) return [];
@@ -125,7 +147,7 @@ export class CreateConstructionUpdate {
           } else if (value instanceof File) {
             formData.append(key, value);
           } else {
-            console.warn(`Unsupported data type for key: ${key}`);
+            formData.append(key, value);
           }
         }
       }
@@ -134,8 +156,10 @@ export class CreateConstructionUpdate {
         (res: any) => {
           this.constructionupdateForm.reset();
           this.isLoading = false;
-          console.log("done")
+          this.showSuccess(res.message)
 
+        }, (error: any) => {
+          this.Message(error.error.message)
         }
       );
 

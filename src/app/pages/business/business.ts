@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '../../services/api-service';
 import { LanguageService } from '../../services/languageservice';
 import { Location } from '@angular/common';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-business',
@@ -18,12 +19,13 @@ export class Business {
   filteredProjects: any[] = [];
   selectedProject: any = null;
 
-  constructor(private translate: TranslateService, private langService: LanguageService, private api: ApiService, private route: ActivatedRoute, private router: Router, private location: Location) {
+  constructor(private loadingService:LoadingService,private translate: TranslateService, private langService: LanguageService, private api: ApiService, private route: ActivatedRoute, private router: Router, private location: Location) {
     this.projectImage = this.api.projectImage;
 
   }
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
@@ -36,10 +38,11 @@ export class Business {
 
 
   getProject() {
+    this.loadingService.show();
     this.api.getpreviouslist(this.currentLang).subscribe(p => {
       this.projects = p.data;
       this.filteredProjects = this.projects;
-      console.log(this.projects);
+      this.loadingService.hide();
       
     })
   }

@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api-service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-change-password',
@@ -21,7 +22,7 @@ errorMessage: string | null = null;
   );
 
 
-    constructor( private api:ApiService,
+    constructor( private api:ApiService,private messageService: MessageService,
     private fb: FormBuilder,private router:Router
     
   ) {}
@@ -34,14 +35,23 @@ errorMessage: string | null = null;
   });
   }
 
+Message(message:any){
+  this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
-
+}
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
  
  onSubmit() {
   this.api.resetPassword(this.resetpasswordForm.value).subscribe({
     next: (res: any) => {
       this.router.navigateByUrl('admin-login').then(() => {
       });
+      this.showSuccess(res.message)
     },
     error: (err: HttpErrorResponse) => {
       this.errorMessage = err.error.message || 'Something went wrong';
@@ -50,7 +60,7 @@ errorMessage: string | null = null;
   }  if (err.error.message) {
     this.resetpasswordForm.get('new_password_confirmation')?.setErrors({ backend: err.error.message });
   }
-      console.log(err.error.message);
+      this.Message(err.error.message)
     }
   });
 }

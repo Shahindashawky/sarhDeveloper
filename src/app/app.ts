@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {  Event, NavigationEnd } from '@angular/router';
+import { LoadingService } from './services/loading.service';
+import { ApiService } from './services/api-service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +13,9 @@ import {  Event, NavigationEnd } from '@angular/router';
 export class App {
     hideLayout = false;
   private lastUrl = '';
-
+  loading:any;
   protected readonly title = signal('sarh-real-estate');
-  constructor(private router: Router) {
+  constructor(private api:ApiService,private router: Router,private loadingService: LoadingService) {
     this.router.events.subscribe(() => {
       const currentUrl = this.router.url;
       this.hideLayout = currentUrl.includes('admin');
@@ -28,5 +30,7 @@ export class App {
         this.lastUrl = event.urlAfterRedirects;
       }
     });
+    this.loading=this.loadingService.loading$
   }
+
 }

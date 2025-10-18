@@ -64,6 +64,7 @@
   <div class="projects-section">
 
     <div class="project-featured">
+      @if(lastunit){
       <button class="scroll-top-btn" [routerLink]="['/view-unit-details',lastunit.id]">
         <i class="pi pi-arrow-up-left"></i>
       </button>
@@ -82,13 +83,14 @@
           <span><i class="pi pi-shower"></i> <span class="num">{{ lastunit.bathrooms }}</span> حمام</span>
         </div>
       </div>
+    }
     </div>
     <div class="projects-carousel">
       <p-carousel [value]="project" [numVisible]="2" [numScroll]="2" orientation="vertical" [circular]="true"
         [autoplayInterval]="4000">
 
         <ng-template pTemplate="item" let-project>
-          <div class="project-card" >
+          <div class="project-card" [routerLink]="['/region-details',project.id]">
             <img [src]="project.main_image" (error)="onImageError2($event)" />
             <div class="overlay">
               <h4>{{ project.name }}</h4>
@@ -103,7 +105,7 @@
         [autoplayInterval]="4000">
 
         <ng-template pTemplate="item" let-project>
-          <div class="project-card">
+          <div class="project-card" [routerLink]="['/region-details',project.id]">
             <img [src]="project.main_image" (error)="onImageError2($event)" />
             <div class="overlay">
               <h4>{{ project.name }}</h4>

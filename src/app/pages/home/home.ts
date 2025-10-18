@@ -2,6 +2,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/languageservice';
 import { ApiService } from './../../services/api-service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { LoadingService } from '../../services/loading.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -63,7 +65,7 @@ export class Home {
       numScroll: 1,
     },
   ];
-  constructor(private translate: TranslateService,private ApiService: ApiService, private langService: LanguageService) {
+  constructor(private loadingService:LoadingService,private translate: TranslateService,private ApiService: ApiService, private langService: LanguageService) {
     this.projectimage=this.ApiService.projectImage,
         this.regionimage=this.ApiService.regionImage,
         this.unitimage=this.ApiService.unitImage
@@ -71,6 +73,7 @@ export class Home {
    }
 
   ngOnInit() {
+    this.loadingService.show();
     this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
@@ -81,17 +84,25 @@ export class Home {
 
   }
   getdata(){
-    this.ApiService.getpreviouslist(this.currentLang).subscribe(p=>{
-      this.prev=p.data
-    })
-    this.ApiService.getProjectList(this.currentLang).subscribe(p=>{
-      this.project=p;
+    this.loadingService.show();
+      forkJoin({
+    prev: this.ApiService.getpreviouslist(this.currentLang),
+    project: this.ApiService.getProjectList(this.currentLang),
+    lastunit: this.ApiService.getlastUnit(this.currentLang)
+  }).subscribe({
+    next: (res) => {
+      this.prev = res.prev.data;
+      this.project = res.project;
       this.projectsReversed = [...this.project].reverse();
-
-    })
-    this.ApiService.getlastUnit(this.currentLang).subscribe(u=>{
-      this.lastunit=u
-    })
+      this.lastunit = res.lastunit;
+      this.loadingService.hide();
+    },
+    error: (err) => {
+      console.error('Error loading data:', err);
+      this.loadingService.hide(); 
+    }
+  });
+    
   }
     onImageError(event: any) {
     event.target.src = this.projectimage;

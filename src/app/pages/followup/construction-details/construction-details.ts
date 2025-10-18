@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LanguageService } from '../../../services/languageservice';
 import { ApiService } from '../../../services/api-service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-construction-details',
@@ -21,7 +22,7 @@ export class ConstructionDetails {
   selecteddate: any = null;
   filteredProjects:any;
 
-  constructor(
+  constructor(private loadingService:LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
@@ -35,6 +36,7 @@ export class ConstructionDetails {
   }
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.langService.currentLang$.subscribe((lang) => {
       this.currentLang = lang as 'ar' | 'en';
     });
@@ -49,12 +51,14 @@ export class ConstructionDetails {
   }
 
   getProject(): void {
+    this.loadingService.show();
     this.api.getConstructionDetailsById(this.constructionId, this.currentLang).subscribe({
       next: (p) => {
         this.project = p;
         this.filteredProjects = this.project;
         this.api.getConstructionDatesById(p.project_id, this.currentLang).subscribe((d) => {
-          this.dates = d
+          this.dates = d;
+          this.loadingService.hide();
 
         }
         )

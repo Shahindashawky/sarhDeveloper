@@ -4,6 +4,7 @@ import { LanguageService } from '../../services/languageservice';
 import { ApiService } from '../../services/api-service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-projects',
@@ -16,11 +17,13 @@ regionImage = '';
  currentLang: 'ar' | 'en' = 'ar';
 projectList:any;
 
-  constructor(private translate: TranslateService, private langService: LanguageService,private api:ApiService,private router:Router, private location: Location) { 
+  constructor(private loadingService:LoadingService,private translate: TranslateService, private langService: LanguageService,private api:ApiService,private router:Router, private location: Location) { 
     this.regionImage=this.api.regionImage
   }
 
   ngOnInit(): void {
+        this.loadingService.show();
+
         this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
@@ -31,8 +34,11 @@ projectList:any;
   }
   
   getProject(){
+            this.loadingService.show();
   this.api.getProjectList(this.currentLang).subscribe(p=>{
 this.projectList=p
+        this.loadingService.hide();
+
   })
   }
 

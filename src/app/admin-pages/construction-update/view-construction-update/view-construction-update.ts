@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../../services/api-service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-view-construction-update',
@@ -9,17 +10,22 @@ import { ApiService } from '../../../services/api-service';
 })
 export class ViewConstructionUpdate {
 constructions!: [];
-constructor(private api: ApiService) {}
+constructor(private loadingService:LoadingService,private api: ApiService) {}
 ngOnInit() {
-
-        this.api.getALLConstructions().subscribe((r:any)=>{this.constructions=r.data;
-          
-        })
+this.loadingService.show();
+ this.getdata();
     }
 
-
+getdata(){
+  this.loadingService.show();
+        this.api.getALLConstructions().subscribe((r:any)=>{this.constructions=r.data;
+          this.loadingService.hide();
+        })
+}
 onDelete(unitid: any) {
-  this.api.deleteConstructionById(unitid).subscribe(r=>{ })
+  this.api.deleteConstructionById(unitid).subscribe(r=>{ 
+     this.getdata();
+  })
 
 }
 }

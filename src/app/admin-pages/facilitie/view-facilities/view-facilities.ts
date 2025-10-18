@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Facilities } from '../../../../model/Facilities';
 import { ApiService } from '../../../services/api-service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-view-facilities',
@@ -11,12 +12,17 @@ import { ApiService } from '../../../services/api-service';
 export class ViewFacilities {
 facilities!: Facilities[];
 facilityImage:any;
-constructor(private api: ApiService) {}
+constructor(private loadingService:LoadingService,private api: ApiService) {}
 ngOnInit() {
-        this.api.getALLFacilitie().subscribe((r:any)=>{this.facilities=r.data;
-          
-        })
+  this.loadingService.show();
+    this.getdata();
        this.facilityImage= this.api.facilityImage
+    }
+    getdata(){
+        this.loadingService.show();
+        this.api.getALLFacilitie().subscribe((r:any)=>{this.facilities=r.data;
+          this.loadingService.hide();
+        })
     }
 onImageError(event: any) {
   event.target.src = this.facilityImage;
@@ -28,6 +34,8 @@ this.api.updatefacilitieStatus(facilitieid).subscribe(r=>{
 })
 }
 onDelete(facilitieid: any) {
-  this.api.deleteFacilitieById(facilitieid).subscribe(f=>{})
+  this.api.deleteFacilitieById(facilitieid).subscribe(f=>{
+    this.getdata();
+  })
 }
 }

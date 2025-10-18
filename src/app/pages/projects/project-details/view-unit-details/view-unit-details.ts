@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ApiService } from '../../../../services/api-service';
+import { LoadingService } from '../../../../services/loading.service';
 @Component({
   selector: 'app-view-unit-details',
   standalone: false,
@@ -17,7 +18,7 @@ export class ViewUnitDetails {
   unit: any;
   images = model<string[]>([]);
 
-  constructor(
+  constructor(private loadingService:LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
@@ -31,6 +32,7 @@ export class ViewUnitDetails {
   }
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.langService.currentLang$.subscribe((lang) => {
       this.currentLang = lang as 'ar' | 'en';
     });
@@ -45,6 +47,7 @@ export class ViewUnitDetails {
   }
 
   getunit(): void {
+    this.loadingService.show();
     this.api.getProjectUnitById(this.unitId, this.currentLang).subscribe({
       next: (u) => {
         this.unit = u;
@@ -54,6 +57,7 @@ export class ViewUnitDetails {
     } else {
       this.images.set(gallery);
     }
+    this.loadingService.hide();
       },
       error: (err) => {
         console.error('Error loading unit details:', err);
