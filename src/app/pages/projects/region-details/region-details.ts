@@ -5,6 +5,7 @@ import { LanguageService } from '../../../services/languageservice';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LoadingService } from '../../../services/loading.service';
+import { forkJoin ,debounceTime, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-region-details',
@@ -29,28 +30,54 @@ export class RegionDetails {
 
   ngOnInit(): void {
     this.loadingService.show();
+
     this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
-    this.api.getProjectList(this.currentLang).subscribe(p => {
-      p.filter((f: any) => f.id == this.regionId).map((a: any) => { this.regionTitle = a.name })
-this.loadingService.hide();
-    })
-    this.getProject();
-    this.translate.onLangChange.subscribe(() => {
-      this.getProject();
+
+    this.loadAllData();
+
+    this.translate.onLangChange
+      .pipe(
+        debounceTime(300),
+        switchMap((event) => {
+     this.currentLang = event.lang as 'ar' | 'en';
+          this.loadingService.show();
+          return forkJoin({
+            regionList: this.api.getRegionDetails(this.regionId, this.currentLang),
+            projectList: this.api.getProjectList(this.currentLang)
+          });
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          this.regionList = res.regionList;
+          const region = res.projectList.find((f: any) => f.id == this.regionId);
+          this.regionTitle = region?.name || '';
+          this.loadingService.hide();
+        },
+        error: (err) => {
+          console.error('Error reloading data after lang change:', err);
+          this.loadingService.hide();
+        }
+      });
+  }
+
+  loadAllData() {
+    this.loadingService.show();
+
+    forkJoin({
+      regionList: this.api.getRegionDetails(this.regionId, this.currentLang),
+      projectList: this.api.getProjectList(this.currentLang)
+    }).subscribe({
+      next: (res) => {
+        this.regionList = res.regionList;
+        const region = res.projectList.find((f: any) => f.id == this.regionId);
+        this.regionTitle = region?.name || '';
+        this.loadingService.hide();
+      }
     });
   }
-
-  getProject() {
-    this.loadingService.show();
-    this.api.getRegionDetails(this.regionId, this.currentLang).subscribe(p => {
-      this.regionList = p;
-      this.loadingService.hide();
-    })
-  }
-
-
   onImageError(event: any) {
     event.target.src = this.regionImage;
   }

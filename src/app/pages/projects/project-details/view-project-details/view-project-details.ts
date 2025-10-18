@@ -1,4 +1,4 @@
-import { Component ,model, signal} from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../../services/languageservice';
 import { ApiService } from '../../../../services/api-service';
@@ -13,23 +13,24 @@ import { LoadingService } from '../../../../services/loading.service';
   styleUrl: './view-project-details.scss'
 })
 export class ViewProjectDetails {
-projectImage = '';
-unitImage='';
+  projectImage = '';
+  unitImage = '';
   currentLang: 'ar' | 'en' = 'ar';
   projectId: any;
   project: any;
   images = model<string[]>([]);
-  units:any;
+  units: any;
+selectedUnitId: number | null = null;
 
-  constructor(private loadingService:LoadingService,
+  constructor(private loadingService: LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
-    private route: ActivatedRoute,  private location: Location ,private router:Router
+    private route: ActivatedRoute, private location: Location, private router: Router
 
   ) {
     this.projectImage = this.api.projectImage;
-    this.unitImage=this.api.unitImage;
+    this.unitImage = this.api.unitImage;
     this.route.params.subscribe((params) => {
       this.projectId = params['id'];
     });
@@ -56,28 +57,27 @@ unitImage='';
       next: (p) => {
         this.project = p;
         const gallery = Array.isArray(p.gallery_images) ? p.gallery_images : [];
-    if (p.main_image) {
-      this.images.set([p.main_image, ...gallery]);
-    } else {
-      this.images.set(gallery);
-    }
-    this.loadingService.hide();
-      },
-      error: (err) => {
-        console.error('Error loading project details:', err);
-      },
+        if (p.main_image) {
+          this.images.set([p.main_image, ...gallery]);
+        } else {
+          this.images.set(gallery);
+        }
+        this.getUnits('');
+        this.loadingService.hide();
+      }
     });
   }
-getUnits(unittypeid:any){
-     if(unittypeid == null){
-      unittypeid = ''
-     }
+  getUnits(unittypeid: any) {
+     this.selectedUnitId = unittypeid;
 
-this.api.getProjectUnits(this.projectId, this.currentLang,unittypeid).subscribe((unit) => {
-   this.units=unit;
-   
-})
-}
+    if (unittypeid == null) {
+      unittypeid = ''
+    }
+    this.api.getProjectUnits(this.projectId, this.currentLang, unittypeid).subscribe((unit) => {
+      this.units = unit;
+
+    })
+  }
   downloadPdf(): void {
     if (this.project?.pdf) {
       window.open(this.project.pdf, '_blank');
@@ -85,13 +85,13 @@ this.api.getProjectUnits(this.projectId, this.currentLang,unittypeid).subscribe(
       console.warn('No PDF available for this project');
     }
   }
-    onImageError(event: any) {
+  onImageError(event: any) {
     event.target.src = this.projectImage;
   }
   goBack() {
-  this.location.back();
-}
-  goToUnit(id:any){
+    this.location.back();
+  }
+  goToUnit(id: any) {
     this.router.navigate(['/view-unit-details', id]);
   }
 }

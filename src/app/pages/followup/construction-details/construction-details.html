@@ -34,6 +34,7 @@
             <p>{{project.details}}</p>
 
         </div>
+        @if(project.gallery_images && project.gallery_images.length > 0){
         <p-carousel [value]="project.gallery_images" [numVisible]="3" [numScroll]="3" [circular]="false">
             <ng-template let-product #item>
                 <div class="border border-surface rounded-border m-2 p-4">
@@ -45,8 +46,7 @@
                 </div>
             </ng-template>
         </p-carousel>
-        } @else {
-        <div class="loading">{{ 'Loading project details...' | translate }}</div>
+    }
         }
     </div>
 </section>

@@ -75,7 +75,9 @@
   "bathroom":"الحمام",
   "floor":"الطابق",
   "finishing":"نوع التشطيب",
-  "price":"السعر"
+  "price":"السعر",
+    "meter":"²م",
+  "rooms":"غرف"
 
 
 

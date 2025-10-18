@@ -38,7 +38,7 @@ export class ConstructionDetails {
   ngOnInit(): void {
     this.loadingService.show();
     this.langService.currentLang$.subscribe((lang) => {
-      this.currentLang = lang as 'ar' | 'en';
+      this.currentLang = lang;
     });
 
     this.getProject();
@@ -58,15 +58,10 @@ export class ConstructionDetails {
         this.filteredProjects = this.project;
         this.api.getConstructionDatesById(p.project_id, this.currentLang).subscribe((d) => {
           this.dates = d;
-          this.loadingService.hide();
-
         }
         )
-
-      },
-      error: (err) => {
-        console.error('Error loading project details:', err);
-      },
+        this.loadingService.hide();
+      }
     });
   }
   getUnits(unittypeid: any) {
@@ -90,7 +85,8 @@ export class ConstructionDetails {
   ondateSelect(event: any) {
     const selectedId = event.value;
    if (selectedId) {
-    this.api.getConstructionDetailsById(1, this.currentLang).subscribe({
+    this.loadingService.show();
+    this.api.getConstructionDetailsById(selectedId, this.currentLang).subscribe({
        next: (update) => {
         this.project.project = update.project;
         this.project.region_chain=update.region_chain;
@@ -98,7 +94,7 @@ export class ConstructionDetails {
           this.project.details = update.details;
           this.project.gallery_images = update.gallery_images;
           this.project.main_image = update.main_image;
-          
+          this.loadingService.hide();
         },
       error: (err) => console.error('Error loading filtered project:', err)
     });

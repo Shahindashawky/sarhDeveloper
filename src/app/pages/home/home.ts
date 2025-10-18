@@ -1,9 +1,9 @@
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/languageservice';
 import { ApiService } from './../../services/api-service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoadingService } from '../../services/loading.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin ,debounceTime,switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -73,14 +73,37 @@ export class Home {
    }
 
   ngOnInit() {
-    this.loadingService.show();
+          this.loadingService.show();
     this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
     this.getdata();
-    this.translate.onLangChange.subscribe(() => {
-      this.getdata();
-    });
+      this.translate.onLangChange.pipe(
+              debounceTime(300),
+              switchMap((event) => {
+      this.currentLang = event.lang as 'ar' | 'en';
+       this.loadingService.show();
+       return forkJoin({
+    prev: this.ApiService.getpreviouslist(this.currentLang),
+    project: this.ApiService.getProjectList(this.currentLang),
+    lastunit: this.ApiService.getlastUnit(this.currentLang)
+  })
+  })
+)
+  .subscribe({
+    next: (res) => {
+      this.prev = res.prev.data;
+      this.project = res.project;
+      this.projectsReversed = [...this.project].reverse();
+      this.lastunit = res.lastunit;
+      this.loadingService.hide();
+    },
+    error: (err) => {
+      console.error('Error loading data:', err);
+      this.loadingService.hide(); 
+    }
+  });
+    
 
   }
   getdata(){

@@ -34,7 +34,7 @@ export class ViewUnitDetails {
   ngOnInit(): void {
     this.loadingService.show();
     this.langService.currentLang$.subscribe((lang) => {
-      this.currentLang = lang as 'ar' | 'en';
+      this.currentLang = lang;
     });
 
     this.getunit();
@@ -51,17 +51,14 @@ export class ViewUnitDetails {
     this.api.getProjectUnitById(this.unitId, this.currentLang).subscribe({
       next: (u) => {
         this.unit = u;
-                const gallery = Array.isArray(u.gallery_images) ? u.gallery_images : [];
+        const gallery = Array.isArray(u.gallery_images) ? u.gallery_images : [];
     if (u.main_image) {
       this.images.set([u.main_image, ...gallery]);
     } else {
       this.images.set(gallery);
     }
     this.loadingService.hide();
-      },
-      error: (err) => {
-        console.error('Error loading unit details:', err);
-      },
+      }
     });
   }
 

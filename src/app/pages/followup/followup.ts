@@ -31,7 +31,8 @@ projectImage = '';
     });
 
     this.getProject();
-    this.translate.onLangChange.subscribe(() => {
+         this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang as 'ar' | 'en';
       this.getProject();
     });
   }

@@ -13,43 +13,44 @@ import { LoadingService } from '../../services/loading.service';
   styleUrl: './projects.scss'
 })
 export class Projects {
-regionImage = '';
- currentLang: 'ar' | 'en' = 'ar';
-projectList:any;
+  regionImage = '';
+  currentLang: 'ar' | 'en' = 'ar';
+  projectList: any;
 
-  constructor(private loadingService:LoadingService,private translate: TranslateService, private langService: LanguageService,private api:ApiService,private router:Router, private location: Location) { 
-    this.regionImage=this.api.regionImage
+  constructor(private loadingService: LoadingService, private translate: TranslateService, private langService: LanguageService, private api: ApiService, private router: Router, private location: Location) {
+    this.regionImage = this.api.regionImage
   }
 
   ngOnInit(): void {
-        this.loadingService.show();
+    this.loadingService.show();
 
-        this.langService.currentLang$.subscribe(lang => {
+    this.langService.currentLang$.subscribe(lang => {
       this.currentLang = lang;
     });
     this.getProject();
-      this.translate.onLangChange.subscribe(() => {
+         this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang as 'ar' | 'en';
       this.getProject();
     });
   }
-  
-  getProject(){
-            this.loadingService.show();
-  this.api.getProjectList(this.currentLang).subscribe(p=>{
-this.projectList=p
-        this.loadingService.hide();
 
-  })
+  getProject() {
+    this.loadingService.show();
+    this.api.getProjectList(this.currentLang).subscribe(p => {
+      this.projectList = p
+      this.loadingService.hide();
+
+    })
   }
 
 
   onImageError(event: any) {
     event.target.src = this.regionImage;
   }
-  goToProject(id:any){
+  goToProject(id: any) {
     this.router.navigate(['/region-details', id]);
   }
-        goBack() {
-  this.location.back();
-}
+  goBack() {
+    this.location.back();
+  }
 }

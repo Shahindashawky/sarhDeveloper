@@ -76,7 +76,11 @@
   color: white;
   transform: translateY(-2px);
 }
-
+.unit-grid div.active-unit {
+  background: var(--first-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
 .unit-name {
   color: var(--first-color);
   padding: 1rem;

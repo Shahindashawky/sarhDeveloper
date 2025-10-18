@@ -108,7 +108,7 @@
         <h3 class="unit-name">{{ 'units' | translate }}</h3>
         <div class="unit-grid">
           @for (unit of project.unit_types; track unit.id ?? unit.name) {
-          <div (click)="getUnits(unit.id)">
+          <div (click)="getUnits(unit.id)" [class.active-unit]="selectedUnitId === unit.id">
             <p>{{ unit.name }}</p>
           </div>
           }
@@ -123,9 +123,9 @@
       <div class="info-box">
         <h3>{{ unit.name }}</h3>
         <div class="details">
-          <span><i class="pi pi-th-large"></i> <span class="num">{{ unit.area }}</span> م²</span> |
-          <span><i class="pi pi-bed"></i> <span class="num">{{ unit.rooms }} </span>غرف</span> |
-          <span><i class="pi pi-shower"></i> <span class="num">{{ unit.bathrooms }}</span> حمام</span>
+          <span><i class="pi pi-th-large"></i> <span class="num">{{ unit.area }}</span> {{'meter' | translate}}</span> |
+          <span><i class="pi pi-bed"></i> <span class="num">{{ unit.rooms }} </span>{{'rooms' | translate}}</span> |
+          <span><i class="pi pi-shower"></i> <span class="num">{{ unit.bathrooms }}</span> {{'bathroom' | translate}}</span>
         </div>
       </div>
       </div>

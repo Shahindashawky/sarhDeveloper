@@ -75,7 +75,10 @@
   "bathroom":"Bathroom",
   "floor":"Floor",
   "finishing":"Finishing Type",
-  "price":"Price"
+  "price":"Price",
+  "meter":"m²",
+  "rooms":"rooms"
+  
 
 
 

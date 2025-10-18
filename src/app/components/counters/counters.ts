@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class Counters {
   counters: any;
-
+  currentLang='ar'
   constructor(private translate: TranslateService
   ) { }
   started = false;
@@ -28,7 +28,8 @@ export class Counters {
 
   ngOnInit(): void {
     this.count()
-    this.translate.onLangChange.subscribe(() => {
+        this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang as 'ar' | 'en';
       this.count()
       this.startCounters();
 
