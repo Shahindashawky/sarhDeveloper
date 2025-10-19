@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { Facilities } from '../../../../model/Facilities';
+import { MessageService } from 'primeng/api';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-edit-facilities',
@@ -11,34 +13,38 @@ import { Facilities } from '../../../../model/Facilities';
   styleUrl: './edit-facilities.scss'
 })
 export class EditFacilities {
-facilitieForm!: FormGroup;
+  facilitieForm!: FormGroup;
   imageName: string = 'choose file to upload';
   main_image!: File;
-  isLoading: boolean = false;
   facilitieId!: string;
 
-  constructor(
+  constructor(private loadingService: LoadingService,
     private fb: FormBuilder,
-    private api:ApiService,
-    private route: ActivatedRoute
+    private api: ApiService,
+    private route: ActivatedRoute, private messageService: MessageService
   ) {
-  this.route.params.subscribe((params) => {
+    this.route.params.subscribe((params) => {
       this.facilitieId = params['id'];
     });
   }
 
   ngOnInit(): void {
- this.initializeForm();
-           this.api.getFaciliteById(this.facilitieId).subscribe((res:any) => {
-         const facilitie:Facilities=res;
- 
-       this.facilitieForm.patchValue({
-       english_name: facilitie.english_name,
-       arabic_name: facilitie.arabic_name    
-         });
-       })
+    this.loadingService.show();
+    this.initializeForm();
+    this.getdata()
   }
+  getdata() {
+    this.loadingService.show();
 
+    this.api.getFaciliteById(this.facilitieId).subscribe((res: any) => {
+      const facilitie: Facilities = res;
+      this.facilitieForm.patchValue({
+        english_name: facilitie.english_name,
+        arabic_name: facilitie.arabic_name
+      });
+      this.loadingService.hide();
+    })
+  }
   initializeForm(): void {
     this.facilitieForm = this.fb.group({
       english_name: ['', Validators.required],
@@ -46,7 +52,16 @@ facilitieForm!: FormGroup;
       main_image: [null, Validators.required],
     });
   }
+  Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
   onFileChange(event: any): void {
     const fileInput = event.target;
     if (fileInput.files && fileInput.files[0]) {
@@ -58,7 +73,6 @@ facilitieForm!: FormGroup;
 
   onSubmit(): void {
     if (this.facilitieForm.valid) {
-      this.isLoading = true;
       let newfacilitie: any = {
         english_name: this.facilitieForm.value.english_name,
         arabic_name: this.facilitieForm.value.arabic_name,
@@ -66,8 +80,8 @@ facilitieForm!: FormGroup;
 
       };
 
-     let formData: any = new FormData();
-           for (const key in newfacilitie) {
+      let formData: any = new FormData();
+      for (const key in newfacilitie) {
         if (newfacilitie.hasOwnProperty(key)) {
           const value = newfacilitie[key];
 
@@ -79,24 +93,23 @@ facilitieForm!: FormGroup;
             for (let i = 0; i < value.length; i++) {
               formData.append(key, value[i]);
             }
-           } else {
-             formData.append(key, value);
+          } else {
+            formData.append(key, value);
 
           }
         }
       }
- this.api.updateFacilitie(this.facilitieId,formData).subscribe(
+      this.api.updateFacilitie(this.facilitieId, formData).subscribe(
         (res: any) => {
-            this.facilitieForm.reset();
-          this.isLoading = false;          
-        console.log('Facilite updated successfully');          
+          this.facilitieForm.reset();
+          this.imageName = "";
+          this.showSuccess(res.message)
         },
-  (err) => {
-    console.error("Update failed", err);
-    this.isLoading = false;
-  }
+        (err) => {
+          this.Message(err.error.message)
+        }
       );
- 
+
     }
   }
 

@@ -76,6 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 .p-button-text.p-button-secondary:not(:disabled):hover{
    background: var(--first-color) !important;
  color: white !important;
+ border: none !important;
 }
 .p-textarea,.p-select,.p-multiselect{
   background: white !important;

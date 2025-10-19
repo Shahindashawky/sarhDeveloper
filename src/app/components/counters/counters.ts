@@ -14,6 +14,15 @@ export class Counters {
   ) { }
   started = false;
 
+  ngOnInit(): void {
+    this.count()
+        this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang as 'ar' | 'en';
+      this.count()
+
+    });
+  }
+  
   @HostListener('window:scroll', [])
   onScroll() {
     const section = document.querySelector('.stats');
@@ -26,15 +35,6 @@ export class Counters {
     }
   }
 
-  ngOnInit(): void {
-    this.count()
-        this.translate.onLangChange.subscribe((event) => {
-      this.currentLang = event.lang as 'ar' | 'en';
-      this.count()
-      this.startCounters();
-
-    });
-  }
   count() {
     this.counters = [
       {id:1, label: this.translate.instant('year-exp'), value: 0, target: 10 },

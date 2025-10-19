@@ -41,7 +41,6 @@ export class Header {
       { label: this.translate.instant('projects'), routerLink: '/projects' },
       { label: this.translate.instant('business'), routerLink: '/business' },
       { label: this.translate.instant('followup'), routerLink: '/followup' },
-      { label: this.translate.instant('delivery'), routerLink: '/delivery' }
     ];
   }
 

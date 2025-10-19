@@ -7,6 +7,10 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../../../services/api-service';
 import { Project } from '../../../../model/Project';
+import { LoadingService } from '../../../services/loading.service';
+import { MessageService } from 'primeng/api';
+import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-create-units',
   standalone: false,
@@ -22,31 +26,39 @@ export class CreateUnits {
   image2!: FileList;
   pdfName: string = '';
   pdf!: File;
-  isLoading: boolean = false;
   project: Project[] = []
   type: any;
   status: any;
 
-  constructor(
+  constructor(private loadingService: LoadingService,
     private api: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder, private messageService: MessageService
   ) {
 
 
   }
   ngOnInit() {
+    this.loadingService.show();
     this.initializeForm();
-    this.api.getunitsProjects().subscribe((data: Project[]) => {
-      this.project = data
-    })
-    this.api.getUnitsType().subscribe((data: any) => {
-      this.type = data
-    })
-    this.api.getUnitsStatus().subscribe((data: any) => {
-      this.status = data
-    })
-  
+    this.getdata();
+
   }
+  getdata() {
+    this.loadingService.show();
+    forkJoin({
+      project: this.api.getunitsProjects(),
+      status: this.api.getUnitsStatus(),
+      type: this.api.getUnitsType()
+    }).subscribe({
+      next: (res) => {
+        this.project = res.project;
+        this.status = res.status;
+        this.type = res.type;
+        this.loadingService.hide();
+      }
+    })
+  }
+
   initializeForm(): void {
     this.unitsForm = this.fb.group({
       english_name: ['', Validators.required],
@@ -57,21 +69,30 @@ export class CreateUnits {
       status: [null, Validators.required],
       arabic_details: [''],
       english_details: [''],
-      area:[''],
-      rooms:[''],
-      bathrooms:[''],
-      price:[''],
-      map_url:[''],
-      english_finishing:[''],
-      arabic_finishing:[''],
-      english_floor:[''],
-      arabic_floor:[''],
+      area: [''],
+      rooms: [''],
+      bathrooms: [''],
+      price: [''],
+      map_url: [''],
+      english_finishing: [''],
+      arabic_finishing: [''],
+      english_floor: [''],
+      arabic_floor: [''],
       gallery_images: [null],
-      
+
 
     });
   }
+  Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
 
 
   onImageChange(event: any): void {
@@ -98,7 +119,6 @@ export class CreateUnits {
 
   createunits() {
     if (this.unitsForm.valid) {
-      this.isLoading = true;
       let newunit: any = {
         project_id: this.unitsForm.value.project_id?.id,
         english_name: this.unitsForm.value.english_name,
@@ -108,15 +128,15 @@ export class CreateUnits {
         status: this.unitsForm.value.status?.id,
         arabic_details: this.unitsForm.value.arabic_details,
         english_details: this.unitsForm.value.english_details,
-        area:this.unitsForm.value.area,
-        rooms:this.unitsForm.value.rooms,
-        bathrooms:this.unitsForm.value.bathrooms,
-        price:this.unitsForm.value.price,
-        map_url:this.unitsForm.value.map_url,
-        english_finishing:this.unitsForm.value.english_finishing,
-        arabic_finishing:this.unitsForm.value.arabic_finishing,
-        english_floor:this.unitsForm.value.english_floor,
-        arabic_floor:this.unitsForm.value.arabic_floor,
+        area: this.unitsForm.value.area,
+        rooms: this.unitsForm.value.rooms,
+        bathrooms: this.unitsForm.value.bathrooms,
+        price: this.unitsForm.value.price,
+        map_url: this.unitsForm.value.map_url,
+        english_finishing: this.unitsForm.value.english_finishing,
+        arabic_finishing: this.unitsForm.value.arabic_finishing,
+        english_floor: this.unitsForm.value.english_floor,
+        arabic_floor: this.unitsForm.value.arabic_floor,
         gallery_images: this.gallery_images,
 
       };
@@ -128,24 +148,26 @@ export class CreateUnits {
             value.forEach((item) => formData.append(`${key}[]`, item));
           }
           if (typeof value === 'string' || typeof value === 'boolean' ||
-  typeof value === 'number') {
+            typeof value === 'number') {
             formData.append(key, String(value));
           } else if (value instanceof File) {
             formData.append(key, value);
           } else {
-            console.warn(`Unsupported data type for key: ${key}`);
+            formData.append(key, value);
           }
         }
       }
 
       this.api.addUnits(formData).subscribe(
-              (res: any) => {
-                  this.unitsForm.reset();
-                this.isLoading = false;
-                console.log("done")
-
-              }
-            );
+        (res: any) => {
+          this.unitsForm.reset();
+          this.imageName = '';
+          this.imageName2 = '';
+          this.showSuccess(res.message)
+        }, (err) => {
+          this.Message(err.error.message)
+        }
+      );
 
     }
   }

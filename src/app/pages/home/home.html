@@ -157,8 +157,8 @@
         <label for="propertyType">نوع العقار</label>
         <p-select [options]="propertyTypes"
                   [(ngModel)]="selectedProperty"
-                  optionLabel="label"
-                  optionValue="value"
+                  optionLabel="arabic_name"
+                  optionValue="id"
                   placeholder="اختر نوع العقار">
         </p-select>
       </div>
@@ -167,8 +167,8 @@
         <label for="price">السعر</label>
         <p-select [options]="prices"
                   [(ngModel)]="selectedPrice"
-                  optionLabel="label"
-                  optionValue="value"
+                  optionLabel="price"
+                  optionValue="id"
                   placeholder="اختر السعر">
         </p-select>
       </div>
@@ -177,8 +177,8 @@
         <label for="location">الموقع</label>
         <p-select [options]="locations"
                   [(ngModel)]="selectedLocation"
-                  optionLabel="label"
-                  optionValue="value"
+                  optionLabel="arabic_name"
+                  optionValue="id"
                   placeholder="اختر الموقع">
         </p-select>
       </div>

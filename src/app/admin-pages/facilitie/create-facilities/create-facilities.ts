@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../../../services/api-service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-facilities',
@@ -13,19 +14,18 @@ import { ApiService } from '../../../services/api-service';
   styleUrl: './create-facilities.scss'
 })
 export class CreateFacilities {
-facilitieForm!: FormGroup;
+  facilitieForm!: FormGroup;
   imageName: string = 'choose file to upload';
   main_image!: File;
-  isLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
-    private api:ApiService
+    private api: ApiService, private messageService: MessageService
   ) {
 
   }
 
   ngOnInit(): void {
- this.initializeForm()
+    this.initializeForm()
   }
 
   initializeForm(): void {
@@ -39,7 +39,6 @@ facilitieForm!: FormGroup;
 
   onSubmit(): void {
     if (this.facilitieForm.valid) {
-      this.isLoading = true;
       let newfacilitie: any = {
         english_name: this.facilitieForm.value.english_name,
         arabic_name: this.facilitieForm.value.arabic_name,
@@ -57,19 +56,20 @@ facilitieForm!: FormGroup;
           } else if (value instanceof File) {
             formData.append(key, value);
           } else {
-            console.warn(`Unsupported data type for key: ${key}`);
+            formData.append(key, value);
           }
         }
       }
- this.api.addFacilitie(formData).subscribe(
+      this.api.addFacilitie(formData).subscribe(
         (res: any) => {
-      
-            this.facilitieForm.reset();
-            console.log('done');
-          this.isLoading = false;
+          this.showSuccess(res.message)
+          this.facilitieForm.reset();
+        },
+        (err: any) => {
+          this.Message(err.error.message)
         }
       );
- 
+
     }
   }
 
@@ -81,6 +81,15 @@ facilitieForm!: FormGroup;
       this.imageName = fileName;
     }
   }
+  Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
 
 }

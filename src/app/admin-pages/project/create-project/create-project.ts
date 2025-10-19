@@ -1,13 +1,15 @@
-import { Component, DOCUMENT, Inject, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../../../services/api-service';
 import { Facilities } from '../../../../model/Facilities';
 import { Region } from '../../../../model/Region';
+import { MessageService } from 'primeng/api';
+import { LoadingService } from '../../../services/loading.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-create-project',
@@ -23,34 +25,43 @@ export class CreateProject {
   gallery_images!: File[];
   image2!: FileList;
   pdfName: string = '';
-  pdf!: File;
-  isLoading: boolean = false;
+  pdf: File| null = null;;
   region: Region[] = []
   type: any;
   statu: any;
   facilite: Facilities[] = [];
 
-  constructor(
+  constructor(private loadingService: LoadingService,
     private api: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder, private messageService: MessageService
   ) {
 
 
   }
   ngOnInit() {
+    this.loadingService.show();
     this.initializeForm();
-    this.api.getProjectRegions().subscribe((data: Region[]) => {
-      this.region = data
+    this.getdata();
+
+  }
+  getdata(){
+     this.loadingService.show();
+    forkJoin({
+      region: this.api.getProjectRegions(),
+      type: this.api.getProjectType(),
+      statu: this.api.getProjectStatus(),
+      facilite: this.api.getProjectFacilities()
+
+    }).subscribe({
+      next: (res) => {
+        this.region = res.region;
+        this.type = res.type;
+        this.statu = res.statu;
+        this.facilite = res.facilite;
+        this.loadingService.hide();
+      }
     })
-    this.api.getProjectType().subscribe((data: any) => {
-      this.type = data
-    })
-    this.api.getProjectStatus().subscribe((data: any) => {
-      this.statu = data
-    })
-    this.api.getProjectFacilities().subscribe((data: Facilities[]) => {
-      this.facilite = data
-    })
+
   }
   initializeForm(): void {
     this.projectForm = this.fb.group({
@@ -63,6 +74,8 @@ export class CreateProject {
       facilities: ['', Validators.required],
       arabic_description: [''],
       english_description: [''],
+      arabic_features: [''],
+      english_features: [''],
       gallery_images: [null],
       pdf: [null],
 
@@ -91,18 +104,35 @@ export class CreateProject {
     }
     this.imageName2 = 'upload now';
   }
-  onPdfChange(event: any): void {
-    const fileInput = event.target;
-    if (fileInput.files && fileInput.files[0]) {
-      this.pdf = fileInput.files[0];
-      const fileName = fileInput.files[0].name;
-      this.pdfName = fileName;
-    }
-  }
+onPdfChange(event: any): void {
+  const fileInput = event.target as HTMLInputElement;
 
+  if (fileInput.files && fileInput.files[0]) {
+    const file = fileInput.files[0];
+    if (file.type !== 'application/pdf') {
+      this.pdf = null;
+      this.pdfName = 'upload pdf';
+      return;
+    }
+
+    this.pdf = file;
+    this.pdfName = file.name;
+  }
+}
+
+
+  Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
   createproject() {
     if (this.projectForm.valid) {
-      this.isLoading = true;
       let newproject: any = {
         region_id: this.projectForm.value.region_id?.id,
         english_name: this.projectForm.value.english_name,
@@ -113,9 +143,9 @@ export class CreateProject {
         facilities: this.projectForm.value.facilities.map((f: any) => f.id),
         arabic_description: this.projectForm.value.arabic_description,
         english_description: this.projectForm.value.english_description,
+        arabic_features: this.projectForm.value.arabic_features,
+        english_features: this.projectForm.value.english_features,
         gallery_images: this.gallery_images,
-        pdf: this.pdf
-
       };
       let formData: any = new FormData();
       for (const key in newproject) {
@@ -123,6 +153,7 @@ export class CreateProject {
           const value = newproject[key];
           if (Array.isArray(value)) {
             value.forEach((item) => formData.append(`${key}[]`, item));
+            continue;
           }
           if (typeof value === 'string' || typeof value === 'boolean' ||
             typeof value === 'number') {
@@ -130,18 +161,23 @@ export class CreateProject {
           } else if (value instanceof File) {
             formData.append(key, value);
           } else {
-            console.warn(`Unsupported data type for key: ${key}`);
-          }
+formData.append(key, value);          }
         }
       }
-      console.log(newproject);
-
+ if (this.pdf) {
+      formData.append('pdf', this.pdf);
+    }
       this.api.addProject(formData).subscribe(
         (res: any) => {
           this.projectForm.reset();
-          this.isLoading = false;
-          console.log("done")
+          this.imageName='';
+          this.imageName2='';
+          this.showSuccess(res.message)
 
+        },
+        (err)=>{
+          console.log(err)
+           this.Message(err.error.message)
         }
       );
 

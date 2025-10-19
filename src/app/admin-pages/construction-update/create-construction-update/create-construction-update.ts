@@ -47,8 +47,6 @@ export class CreateConstructionUpdate {
         this.project = res.project;
         this.status = res.status;
         this.loadingService.hide();
-      }, error: (err) => {
-        this.loadingService.hide();
       }
     })
   }
@@ -155,6 +153,8 @@ export class CreateConstructionUpdate {
       this.api.addConstructionUpdate(formData).subscribe(
         (res: any) => {
           this.constructionupdateForm.reset();
+          this.imageName="";
+          this.imageName2="";
           this.isLoading = false;
           this.showSuccess(res.message)
 

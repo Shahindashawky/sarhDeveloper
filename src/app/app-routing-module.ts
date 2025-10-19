@@ -9,7 +9,6 @@ import { AdminHome } from './admin-pages/admin-home/admin-home';
 import { ChangePassword } from './admin-pages/change-password/change-password';
 import { Business } from './pages/business/business';
 import { Followup } from './pages/followup/followup';
-import { Delivery } from './pages/delivery/delivery';
 import { CreateRegions } from './admin-pages/region/create-regions/create-regions';
 import { CreateFacilities } from './admin-pages/facilitie/create-facilities/create-facilities';
 import { CreateProject } from './admin-pages/project/create-project/create-project';
@@ -41,7 +40,6 @@ const routes: Routes = [
   { path: 'business', component: Business },
   { path: 'followup', component: Followup },
   { path: 'construction-details/:id', component: ConstructionDetails },
-  { path: 'delivery', component: Delivery },
   { path: 'region-details/:id', component: RegionDetails },
   { path: 'project-details/:id', component: ProjectDetails },
   { path: 'view-project-details/:id', component: ViewProjectDetails },
@@ -78,7 +76,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'disabled', 
     })],
   exports: [RouterModule]
 })

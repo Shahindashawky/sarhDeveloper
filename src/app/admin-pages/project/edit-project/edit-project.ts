@@ -5,6 +5,9 @@ import { Region } from '../../../../model/Region';
 import { ApiService } from '../../../services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../../../model/Project';
+import { MessageService } from 'primeng/api';
+import { LoadingService } from '../../../services/loading.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-edit-project',
@@ -20,18 +23,17 @@ export class EditProject {
   gallery_images!: File[];
   image2!: FileList;
   pdfName: string = '';
-  pdf!: File;
-  isLoading: boolean = false;
+  pdf: File| null=null;
   region: Region[] = []
   type: any;
   statu: any;
   facilite: Facilities[] = [];
   projectId!: any;
 
-  constructor(
+  constructor(private loadingService: LoadingService,
     private api: ApiService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,private messageService: MessageService
   ) {
   this.route.params.subscribe((params) => {
       this.projectId = params['id'];
@@ -39,19 +41,9 @@ export class EditProject {
 
   }
   ngOnInit() {
+    this.loadingService.show();
     this.initializeForm();
-    this.api.getProjectRegions().subscribe((data: Region[]) => {
-      this.region = data;
-    })
-    this.api.getProjectType().subscribe((data: any) => {
-      this.type = data
-    })
-    this.api.getProjectStatus().subscribe((data: any) => {
-      this.statu = data
-    })
-    this.api.getProjectFacilities().subscribe((data: Facilities[]) => {
-      this.facilite = data
-    })
+    this.getdata();
       this.api.getProjectById(this.projectId).subscribe((res:any) => {
         const project:Project=res;
 
@@ -64,8 +56,29 @@ export class EditProject {
       facilities: project.facilities.map((f: any) => f.id),
       arabic_description: project.arabic_description,
       english_description: project.english_description,
+       arabic_features: project.arabic_features,
+      english_features: project.english_features,
         });
       })
+  }
+    getdata(){
+     this.loadingService.show();
+    forkJoin({
+      region: this.api.getProjectRegions(),
+      type: this.api.getProjectType(),
+      statu: this.api.getProjectStatus(),
+      facilite: this.api.getProjectFacilities()
+
+    }).subscribe({
+      next: (res) => {
+        this.region = res.region;
+        this.type = res.type;
+        this.statu = res.statu;
+        this.facilite = res.facilite;
+        this.loadingService.hide();
+      }
+    })
+
   }
   initializeForm(): void {
     this.projectForm = this.fb.group({
@@ -78,12 +91,23 @@ export class EditProject {
       facilities: ['', Validators.required],
       arabic_description: [''],
       english_description: [''],
+      arabic_features: [''],
+      english_features: [''],
       gallery_images: [null],
       pdf: [null],
 
     });
   }
+ Message(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
+  }
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  showWarn(message: any) {
+    this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
+  }
 
 
   onImageChange(event: any): void {
@@ -107,17 +131,23 @@ export class EditProject {
     this.imageName2 = 'upload now';
   }
   onPdfChange(event: any): void {
-    const fileInput = event.target;
-    if (fileInput.files && fileInput.files[0]) {
-      this.pdf = fileInput.files[0];
-      const fileName = fileInput.files[0].name;
-      this.pdfName = fileName;
+  const fileInput = event.target as HTMLInputElement;
+
+  if (fileInput.files && fileInput.files[0]) {
+    const file = fileInput.files[0];
+    if (file.type !== 'application/pdf') {
+      this.pdf = null;
+      this.pdfName = 'upload pdf';
+      return;
     }
+
+    this.pdf = file;
+    this.pdfName = file.name;
   }
+}
 
   editproject() {
     if (this.projectForm.valid) {
-      this.isLoading = true;
       let newproject: any = {
         region_id: this.projectForm.value.region_id,
         english_name: this.projectForm.value.english_name,
@@ -128,8 +158,10 @@ export class EditProject {
         facilities: this.projectForm.value.facilities,
         arabic_description: this.projectForm.value.arabic_description,
         english_description: this.projectForm.value.english_description,
+        arabic_features: this.projectForm.value.arabic_features,
+        english_features: this.projectForm.value.english_features,
         gallery_images: this.gallery_images,
-        pdf: this.pdf
+        
 
       };
       let formData: any = new FormData();
@@ -147,17 +179,19 @@ export class EditProject {
         formData.append(key, value);
       }
     }
-console.log(this.projectForm.value);
+ if (this.pdf) {
+      formData.append('pdf', this.pdf);
+    }
 
      this.api.updateProject(this.projectId ,formData).subscribe(
         (res: any) => {
             this.projectForm.reset();
-          this.isLoading = false;          
-        console.log('project updated successfully');          
+            this.imageName='',
+            this.imageName2='';
+            this.showSuccess(res.message)
         },
   (err) => {
-    console.error("Update failed", err);
-    this.isLoading = false;
+  this.Message(err.error.message)
   }
       );
 

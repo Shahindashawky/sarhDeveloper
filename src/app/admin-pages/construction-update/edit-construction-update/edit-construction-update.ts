@@ -63,8 +63,6 @@ export class EditConstructionUpdate {
         this.project = res.project;
         this.status = res.status;
         this.loadingService.hide();
-      }, error: (err) => {
-        this.loadingService.hide();
       }
     })
   }
@@ -170,6 +168,8 @@ export class EditConstructionUpdate {
            this.api.updateconstruction(this.constId ,formData).subscribe(
         (res: any) => {
             this.constructionupdateForm.reset();
+            this.imageName="";
+            this.imageName2="";
         this.showSuccess(res.message)         
         },
   (err) => {

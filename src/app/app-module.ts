@@ -28,7 +28,6 @@ import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
 import { Business } from './pages/business/business';
 import { Followup } from './pages/followup/followup';
-import { Delivery } from './pages/delivery/delivery';
 import { MenubarModule } from 'primeng/menubar';
 import { CarouselModule } from 'primeng/carousel';
 import { DialogModule } from 'primeng/dialog';
@@ -91,7 +90,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateUnits,
     Business,
     Followup,
-    Delivery,
     ViewRegions,
     ViewFacilities,
     ViewProjects,
