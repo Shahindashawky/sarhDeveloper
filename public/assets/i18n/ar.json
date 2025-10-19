@@ -76,8 +76,11 @@
   "floor":"الطابق",
   "finishing":"نوع التشطيب",
   "price":"السعر",
-    "meter":"²م",
-  "rooms":"غرف"
+  "meter":"²م",
+  "rooms":"غرف",
+  "property":"نوع العقار",
+  "looking":"تبحث عن",
+  "location":"الموقع"
 
 
 

@@ -8,7 +8,8 @@
     <div class="hero-buttons">
       <button (click)="showDialog()" pButton class="p-button-rounded p-button-lg search-btn">{{'search-btn' |
         translate}}</button>
-      <button pButton (click)="scrollToSection('aboutsec')" class="p-button-rounded p-button-lg info-btn">{{'learnmore-btn' | translate}}</button>
+      <button pButton (click)="scrollToSection('aboutsec')"
+        class="p-button-rounded p-button-lg info-btn">{{'learnmore-btn' | translate}}</button>
     </div>
   </div>
 
@@ -21,7 +22,7 @@
   </div>
 </section>
 
-<section class="about-section"  id='aboutsec'>
+<section class="about-section" id='aboutsec'>
 
   <div class="about-title">
     {{'about-title1' | translate}}<br />
@@ -56,7 +57,8 @@
     <h4 class="subtitle">{{'projects' | translate}}</h4>
     <h2 class="title">{{'projectlist' | translate}}</h2>
     <div class="btn-wrapper">
-      <button class="more-btn2" [routerLink]="['/projects']" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn'
+      <button class="more-btn2" [routerLink]="['/projects']" [class.rtl]="currentLang === 'ar'"
+        [class.ltr]="currentLang === 'en'">{{'learnmore-btn'
         |
         translate}}</button>
     </div>
@@ -69,7 +71,7 @@
         <i class="pi pi-arrow-up-left"></i>
       </button>
 
-      <img [src]="lastunit.main_image" (error)="onImageError3($event)"  />
+      <img [src]="lastunit.main_image" (error)="onImageError3($event)" />
       <div class="info-box">
         <h3>{{ lastunit.name }}</h3>
         <p class="location">
@@ -83,7 +85,7 @@
           <span><i class="pi pi-shower"></i> <span class="num">{{ lastunit.bathrooms }}</span> حمام</span>
         </div>
       </div>
-    }
+      }
     </div>
     <div class="projects-carousel">
       <p-carousel [value]="project" [numVisible]="2" [numScroll]="2" orientation="vertical" [circular]="true"
@@ -122,15 +124,16 @@
   <h4 class="subtitle">{{'business' | translate}}</h4>
   <h2 class="title">{{'priv-pro' | translate}}</h2>
   <div class="btn-wrapper">
-    <button class="more-btn2" [routerLink]="['/business']" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">{{'learnmore-btn' |
+    <button class="more-btn2" [routerLink]="['/business']" [class.rtl]="currentLang === 'ar'"
+      [class.ltr]="currentLang === 'en'">{{'learnmore-btn' |
       translate}}</button>
   </div>
   <p-carousel [value]="prev" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
     [responsiveOptions]="responsiveOptions" class="project-carousel">
 
     <ng-template pTemplate="item" let-project>
-      <div class="project-card" >
-        <img [src]="project.main_image" (error)="onImageError($event)" >
+      <div class="project-card">
+        <img [src]="project.main_image" (error)="onImageError($event)">
         <div class="project-info">
           <h3>{{ project.name }}</h3>
           <a class="details" [routerLink]="['/view-project-details',project.id]">{{'moredetails' | translate}}←</a>
@@ -144,56 +147,49 @@
   <app-contact></app-contact>
 </section>
 
-<p-dialog header="ابحث على أفضل مكان"
-          [(visible)]="visible"
-          [modal]="true"
-          [dismissableMask]="true"
-          [style]="{width: '60vw', borderRadius:'20px'}">
+<!-- <p-dialog header="ابحث على أفضل مكان" [(visible)]="visible" [modal]="true" [dismissableMask]="true" [style]="{width: '60vw', borderRadius:'20px'}">
 
   <div class="search-form">
     <div class="form-grid">
 
       <div class="form-field">
-        <label for="propertyType">نوع العقار</label>
-        <p-select [options]="propertyTypes"
-                  [(ngModel)]="selectedProperty"
-                  optionLabel="arabic_name"
-                  optionValue="id"
-                  placeholder="اختر نوع العقار">
+        <label for="propertyType">{{'property'| translate}} </label>
+        <p-select [options]="propertyTypes" [(ngModel)]="selectedProperty" optionLabel="arabic_name" optionValue="id">
         </p-select>
       </div>
 
       <div class="form-field">
-        <label for="price">السعر</label>
-        <p-select [options]="prices"
-                  [(ngModel)]="selectedPrice"
-                  optionLabel="price"
-                  optionValue="id"
-                  placeholder="اختر السعر">
+        <label for="price">{{'price'| translate}}</label>
+        <p-select [options]="prices" [(ngModel)]="selectedPrice" optionLabel="price" optionValue="id">
+          <ng-template let-p pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              {{p.label1}} {{ p.min_price }} {{ p.label2}} {{ p.max_price }}
+            </div>
+          </ng-template>
+          <ng-template let-p pTemplate="selectedPrice">
+            {{ p.label1 }} {{ p.min_price }} {{ p.label2 }} {{ p.max_price }}
+          </ng-template>
         </p-select>
       </div>
 
       <div class="form-field">
-        <label for="location">الموقع</label>
-        <p-select [options]="locations"
-                  [(ngModel)]="selectedLocation"
-                  optionLabel="arabic_name"
-                  optionValue="id"
-                  placeholder="اختر الموقع">
+        <label for="location">{{'location'| translate}}</label>
+        <p-select [options]="locations" [(ngModel)]="selectedLocation" optionLabel="arabic_name" optionValue="id">
         </p-select>
       </div>
     </div>
 
     <div class="filter-row">
-      <span class="filter-label">تبحث عن :</span>
+      <span class="filter-label">{{'looking' | translate}}</span>
       <div class="btn-group">
-        <button pButton type="button" class="filter-btn active">سكنى</button>
-        <button pButton type="button" class="filter-btn">تجارى</button>
+        @for(type of projectType; track type.id){
+        <button pButton type="button" [ngClass]="{ 'active': isActive }" (click)="active(type.id)" class="filter-btn">{{type.name}}</button>
+        }
       </div>
     </div>
 
     <div class="btn-search">
-      <button pButton type="button" label="بحث" class="search-btn"></button>
+      <button pButton type="button" class="search-btn">{{'search-btn' | translate}}</button>
     </div>
   </div>
-</p-dialog>
+</p-dialog> -->

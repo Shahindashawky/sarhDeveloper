@@ -23,11 +23,11 @@ export class Home {
   regionimage = '';
   unitimage = '';
   propertyTypes: any;
+  projectType:any;
+  prices:any;
+  isActive=false;
+  selectprojecttype:any;
 
-  prices = [
-    { price: '1,000,000', id: 1,label1:"اقل من",label2:"اكثر من" },
-    { price: '2,000,000', id: 2,label1:"اقل من",label2:"اكثر من"  }
-  ];
 
   locations: any;
 
@@ -65,7 +65,14 @@ export class Home {
     this.projectimage = this.ApiService.projectImage,
       this.regionimage = this.ApiService.regionImage,
       this.unitimage = this.ApiService.unitImage
+  this.prices = [
+    { id: 1,min_price: '',max_price: '1,000,000', label1:"",label2:"اقل من",price:this.translate.instant('price') },
+    { id: 2,min_price: '1,000,000',max_price: '5,000,000', label1:"أكثر من",label2:"اقل من" ,price:this.translate.instant('price')},
+    { id: 3,min_price: '5,000,000',max_price: '10,000,000', label1:"أكثر من",label2:"اقل من" ,price:this.translate.instant('price')},
+    { id: 4,min_price: '10,000,000',max_price: '', label1:"أكثر من",label2:"",price:this.translate.instant('price') },
 
+
+  ];
   }
 
   ngOnInit() {
@@ -100,14 +107,26 @@ export class Home {
 
   }
   getsearchdata() {
-    this.ApiService.getRegions().subscribe(r => {
+
+    this.ApiService.getRegionswithlang(this.currentLang).subscribe(r => {
       this.locations = r;
 
     })
 
-    this.ApiService.getUnitsType().subscribe(t => {
-      this.propertyTypes = t
+    this.ApiService.getUnitsTypewithlang(this.currentLang).subscribe(u => {
+      this.propertyTypes = u
     })
+     
+    this.ApiService.getProjectTypewithlang(this.currentLang).subscribe(t => {
+      this.projectType = t
+    })
+  }
+  active(id:any){
+  this.isActive=true;
+  this.selectprojecttype=id;
+  }
+  search(){
+    
   }
   getdata() {
     this.loadingService.show();

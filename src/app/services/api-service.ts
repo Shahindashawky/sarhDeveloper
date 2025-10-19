@@ -65,6 +65,12 @@ export class ApiService {
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
   }
+    getRegionswithlang(lang:any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/regions?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });;
+  }
   getRegionsexcept(regionId:any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions?exclude_id=${regionId}`);
   }
@@ -125,12 +131,23 @@ export class ApiService {
   getunitsProjects(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/projects`);
   }
-
   getProjectType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-types`);
   }
+  getProjectTypewithlang(lang:any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/project-types?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });;
+  }
   getUnitsType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/unit-types`);
+  }
+   getUnitsTypewithlang(lang:any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/helpers/unit-types?locale=${lang}`,
+      {
+        headers: this.httpOption.headers,
+      });
   }
   getProjectStatus(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-status`);

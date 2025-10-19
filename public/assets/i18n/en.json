@@ -9,7 +9,7 @@
   "quick-link":"Quick Links",
   "call-us":"Call Us",
   "hero-title":"Find Your Dream House By Us",
-  "search-btn":"Learch",
+  "search-btn":"Search",
   "learnmore-btn":"Learn more",
   "who":"Who We Are?",
   "hero-subtitle":"Own your own Home, one property at a time. We are committed to providing the best real estate product according to the required quality standards and on-time delivery.",
@@ -77,7 +77,10 @@
   "finishing":"Finishing Type",
   "price":"Price",
   "meter":"m²",
-  "rooms":"rooms"
+  "rooms":"rooms",
+  "property":"Property type",
+  "looking":"Looking for",
+  "location":"Location"
   
 
 

@@ -129,6 +129,10 @@ h1, h2, h3, h4, h5, h6 {
 .p-carousel-indicator-active .p-carousel-indicator-button {
     background: var(--fourth-color) !important;
 }
-.p-select-list-container {
-    overflow: hidden;
+p-dialog-content {
+    overflow-y: unset !important;
+    
+}
+.p-select-overlay {
+  background: white !important;
 }

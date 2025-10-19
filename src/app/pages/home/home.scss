@@ -579,7 +579,6 @@ justify-content: end;
   }
 }
 
-//dailog
 .search-form {
   padding: 1.5rem;
 
@@ -646,7 +645,7 @@ justify-content: end;
 
   .btn-search {
     display: flex;
-    justify-content: center;
+    justify-content: left;
 
     .search-btn {
       background: var(--first-color);
