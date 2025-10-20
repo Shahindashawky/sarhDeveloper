@@ -17,7 +17,7 @@ export class ViewUnitDetails {
   unitId: any;
   unit: any;
   images = model<string[]>([]);
-
+  ficon:any;
   constructor(private loadingService:LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
@@ -26,6 +26,7 @@ export class ViewUnitDetails {
 
   ) {
     this.unitImage = this.api.unitImage;
+    this.ficon=this.api.facilityIcon;
     this.route.params.subscribe((params) => {
       this.unitId = params['id'];
     });

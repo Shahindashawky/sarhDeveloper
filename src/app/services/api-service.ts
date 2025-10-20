@@ -14,10 +14,11 @@ import { Project } from '../../model/Project';
 
 export class ApiService {
 
-  regionImage="/images/dummyregion.png";
-  facilityImage="/icons/facility-management.png";
-  projectImage="/images/build2.jpg";
-  unitImage="/images/build3.png";
+  regionImage = "/images/dummyregion.png";
+  facilityImage = "/icons/facility-management.png";
+  projectImage = "/images/build2.jpg";
+  unitImage = "/images/build3.png";
+  facilityIcon = "/icons/facility-management.png";
 
   private apiUrl = environment.apiUrl;
   httpOption: any;
@@ -65,13 +66,13 @@ export class ApiService {
   getRegions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions`);
   }
-    getRegionswithlang(lang:any): Observable<any> {
+  getRegionswithlang(lang: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });;
   }
-  getRegionsexcept(regionId:any): Observable<any> {
+  getRegionsexcept(regionId: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/regions?exclude_id=${regionId}`);
   }
   getALLRegions(): Observable<any> {
@@ -92,7 +93,7 @@ export class ApiService {
         headers: this.httpOption.headers,
       });
   }
-    getProjectById(projectID: string): Observable<any> {
+  getProjectById(projectID: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/projects/${projectID}`,
       {
         headers: this.httpFileOption.headers,
@@ -104,7 +105,7 @@ export class ApiService {
         headers: this.httpOption.headers,
       });
   }
-      getUnitById(unitID: string): Observable<any> {
+  getUnitById(unitID: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/units/${unitID}`,
       {
         headers: this.httpFileOption.headers,
@@ -134,7 +135,7 @@ export class ApiService {
   getProjectType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-types`);
   }
-  getProjectTypewithlang(lang:any): Observable<any> {
+  getProjectTypewithlang(lang: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/project-types?locale=${lang}`,
       {
         headers: this.httpOption.headers,
@@ -143,7 +144,7 @@ export class ApiService {
   getUnitsType(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/unit-types`);
   }
-   getUnitsTypewithlang(lang:any): Observable<any> {
+  getUnitsTypewithlang(lang: any): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/unit-types?locale=${lang}`,
       {
         headers: this.httpOption.headers,
@@ -161,78 +162,78 @@ export class ApiService {
   getconstructionUpdateProject(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/projects`);
   }
-   getconstructionUpdatestatus(): Observable<any> {
+  getconstructionUpdatestatus(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/helpers/construction-status`);
   }
-    getALLConstructions(): Observable<any> {
+  getALLConstructions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/constructions`,
       {
         headers: this.httpOption.headers,
       });
   }
-      getConstructionById(constID: string): Observable<any> {
+  getConstructionById(constID: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/dashboard/constructions/${constID}`,
       {
         headers: this.httpFileOption.headers,
       });
   }
 
-  getProjectList(lang:any){
-        return this.http.get<any>(`${this.apiUrl}/project-list?locale=${lang}`,
+  getProjectList(lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/project-list?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-    getRegionDetails(rid:any,lang:any){
-        return this.http.get<any>(`${this.apiUrl}/region-details/${rid}/?locale=${lang}`,
+  getRegionDetails(rid: any, lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/region-details/${rid}/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-      getProjectDetails(pid:any,lang:any){
-        return this.http.get<any>(`${this.apiUrl}/project-details/${pid}/?locale=${lang}`,
+  getProjectDetails(pid: any, lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/project-details/${pid}/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-        getProjectUnits(pid:any,lang:any,typeid:any){
-        return this.http.get<any>(`${this.apiUrl}/project-units/${pid}/?locale=${lang}&unit_type_id=${typeid}`,
+  getProjectUnits(pid: any, lang: any, typeid: any) {
+    return this.http.get<any>(`${this.apiUrl}/project-units/${pid}/?locale=${lang}&unit_type_id=${typeid}`,
       {
         headers: this.httpOption.headers,
       });
   }
-         getpreviouslist(lang:any){
-        return this.http.get<any>(`${this.apiUrl}/previous-list/?locale=${lang}`,
+  getpreviouslist(lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/previous-list/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-      getConstructionUpdate(lang:any){
-        return this.http.get<any>(`${this.apiUrl}/construction-update/?locale=${lang}`,
+  getConstructionUpdate(lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/construction-update/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-        getConstructionDetailsById(cid:any,lang:any){
-        return this.http.get<any>(`${this.apiUrl}/construction-update/${cid}/?locale=${lang}`,
+  getConstructionDetailsById(cid: any, lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/construction-update/${cid}/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-          getConstructionDatesById(pid:any,lang:any){
-        return this.http.get<any>(`${this.apiUrl}/construction-dates/${pid}/?locale=${lang}`,
+  getConstructionDatesById(pid: any, lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/construction-dates/${pid}/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-      getProjectUnitById(uid:any,lang:any){
-        return this.http.get<any>(`${this.apiUrl}/unit-details/${uid}/?locale=${lang}`,
+  getProjectUnitById(uid: any, lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/unit-details/${uid}/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
-        getlastUnit(lang:any){
-        return this.http.get<any>(`${this.apiUrl}/last-unit/?locale=${lang}`,
+  getlastUnit(lang: any) {
+    return this.http.get<any>(`${this.apiUrl}/last-unit/?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
@@ -308,6 +309,24 @@ export class ApiService {
       }
     );
   }
+  search(lang: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/search?locale=${lang}`,
+
+      {
+        headers: this.httpOption.headers,
+      }
+    );
+  }
+  sendContact(lang: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/send-contact?locale=${lang}`,
+
+      {
+        headers: this.httpOption.headers,
+      }
+    );
+  }
   //Put
   updateRegion(regionID: any, region: Region) {
     return this.http.post(
@@ -330,14 +349,14 @@ export class ApiService {
       this.httpFileOption
     );
   }
- updateunit(unitID: any, unit: any) {
+  updateunit(unitID: any, unit: any) {
     return this.http.post(
       `${this.apiUrl}/dashboard/units/${unitID}?_method=PUT`,
       unit,
       this.httpFileOption
     );
   }
-   updateconstruction(constID: any, construction: any) {
+  updateconstruction(constID: any, construction: any) {
     return this.http.post(
       `${this.apiUrl}/dashboard/constructions/${constID}?_method=PUT`,
       construction,
@@ -351,34 +370,34 @@ export class ApiService {
       {
         headers: this.httpOption.headers,
       }
-        );
+    );
   }
-    updatefacilitieStatus(facilitiestatus: any) {
+  updatefacilitieStatus(facilitiestatus: any) {
     return this.http.put(
       `${this.apiUrl}/dashboard/facilities/update-status/${facilitiestatus}`,
       {},
       {
         headers: this.httpOption.headers,
       }
-        );
+    );
   }
-      updateprojectStatus(projectstatus: any) {
+  updateprojectStatus(projectstatus: any) {
     return this.http.put(
       `${this.apiUrl}/dashboard/projects/update-status/${projectstatus}`,
       {},
       {
         headers: this.httpOption.headers,
       }
-        );
+    );
   }
-        updateunitStatus(unitstatus: any) {
+  updateunitStatus(unitstatus: any) {
     return this.http.put(
       `${this.apiUrl}/dashboard/units/update-status/${unitstatus}`,
       {},
       {
         headers: this.httpOption.headers,
       }
-        );
+    );
   }
   //DELETE
   deleteregionById(rID: any) {
@@ -402,14 +421,14 @@ export class ApiService {
       }
     );
   }
-    deleteUnitById(uID: any) {
+  deleteUnitById(uID: any) {
     return this.http.delete(`${this.apiUrl}/dashboard/units/${uID}`,
       {
         headers: this.httpOption.headers,
       }
     );
   }
-   deleteConstructionById(cID: any) {
+  deleteConstructionById(cID: any) {
     return this.http.delete(`${this.apiUrl}/dashboard/constructions/${cID}`,
       {
         headers: this.httpOption.headers,

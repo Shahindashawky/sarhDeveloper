@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { LoadingService } from '../../services/loading.service';
 import { forkJoin, debounceTime, switchMap } from 'rxjs';
 import { ParentRegion } from '../../../model/ParentRegion';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ import { ParentRegion } from '../../../model/ParentRegion';
   styleUrl: './home.scss'
 })
 export class Home {
-
+  searchForm!: FormGroup;
   currentLang: 'ar' | 'en' = 'ar';
   visible: boolean = false;
   prev: any;
@@ -23,18 +24,12 @@ export class Home {
   regionimage = '';
   unitimage = '';
   propertyTypes: any;
-  projectType:any;
-  prices:any;
-  isActive=false;
-  selectprojecttype:any;
-
-
+  projectType: any;
+  minprices: any;
+  maxprices: any;
+  activeIndex: any;
+  selectprojecttype: any;
   locations: any;
-
-  selectedProperty: any;
-  selectedPrice: any;
-  selectedLocation: any;
-
   projectsReversed: any;
 
 
@@ -60,19 +55,28 @@ export class Home {
       numScroll: 1,
     },
   ];
-  constructor(private loadingService: LoadingService, private translate: TranslateService, private ApiService: ApiService, private langService: LanguageService) {
+  constructor(private loadingService: LoadingService,
+    private fb: FormBuilder, private translate: TranslateService, private ApiService: ApiService, private langService: LanguageService) {
     this.loadingService.show();
     this.projectimage = this.ApiService.projectImage,
       this.regionimage = this.ApiService.regionImage,
       this.unitimage = this.ApiService.unitImage
-  this.prices = [
-    { id: 1,min_price: '',max_price: '1,000,000', label1:"",label2:"اقل من",price:this.translate.instant('price') },
-    { id: 2,min_price: '1,000,000',max_price: '5,000,000', label1:"أكثر من",label2:"اقل من" ,price:this.translate.instant('price')},
-    { id: 3,min_price: '5,000,000',max_price: '10,000,000', label1:"أكثر من",label2:"اقل من" ,price:this.translate.instant('price')},
-    { id: 4,min_price: '10,000,000',max_price: '', label1:"أكثر من",label2:"",price:this.translate.instant('price') },
+    this.minprices = [
+      { id: 1, min_price: '5,00,000', label: "أكثر من" },
+      { id: 2, min_price: '1,000,000', label: "أكثر من" },
+      { id: 3, min_price: '5,000,000', label: "أكثر من" },
+      { id: 4, min_price: '10,000,000', label: "أكثر من" },
 
 
-  ];
+    ];
+    this.maxprices = [
+      { id: 1, max_price: '1,000,000', label: "اقل من" },
+      { id: 2, max_price: '5,000,000', label: "اقل من" },
+      { id: 3, max_price: '10,000,000', label: "اقل من" },
+      { id: 4, max_price: '15,000,000', label: "اقل من" },
+
+
+    ];
   }
 
   ngOnInit() {
@@ -82,6 +86,7 @@ export class Home {
     });
     this.getdata();
     this.getsearchdata();
+    this.initializeForm();
     this.translate.onLangChange.pipe(
       debounceTime(300),
       switchMap((event) => {
@@ -106,6 +111,40 @@ export class Home {
 
 
   }
+  initializeForm(): void {
+    this.searchForm = this.fb.group({
+      unit_type_id: [null],
+      min_price: [null],
+      max_price: [null],
+      region_id: [null],
+
+
+    });
+  }
+  onSubmit(): void {
+    if (this.searchForm.valid) {
+      let search: any = {
+        unit_type_id: this.searchForm.value.unit_type_id,
+        min_price: this.searchForm.value.min_price,
+        max_price: this.searchForm.value.max_price,
+        region_id: this.searchForm.value.region_id,
+        project_type_id: this.selectprojecttype,
+
+      };
+
+      let formData: any = new FormData();
+      for (const key in search) {
+        if (search.hasOwnProperty(key)) {
+          const value = search[key];
+          formData.append(key, value);
+        }
+      }
+          console.log(search);
+
+    }
+    
+  }
+
   getsearchdata() {
 
     this.ApiService.getRegionswithlang(this.currentLang).subscribe(r => {
@@ -116,17 +155,17 @@ export class Home {
     this.ApiService.getUnitsTypewithlang(this.currentLang).subscribe(u => {
       this.propertyTypes = u
     })
-     
+
     this.ApiService.getProjectTypewithlang(this.currentLang).subscribe(t => {
       this.projectType = t
     })
   }
-  active(id:any){
-  this.isActive=true;
-  this.selectprojecttype=id;
+  active(id: any) {
+    this.activeIndex = id
+    this.selectprojecttype = id;
   }
-  search(){
-    
+  search() {
+
   }
   getdata() {
     this.loadingService.show();

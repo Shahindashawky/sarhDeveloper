@@ -21,7 +21,7 @@ export class ViewProjectDetails {
   images = model<string[]>([]);
   units: any;
 selectedUnitId: number | null = null;
-
+ficon:any;
   constructor(private loadingService: LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
@@ -31,6 +31,8 @@ selectedUnitId: number | null = null;
   ) {
     this.projectImage = this.api.projectImage;
     this.unitImage = this.api.unitImage;
+        this.ficon=this.api.facilityIcon;
+
     this.route.params.subscribe((params) => {
       this.projectId = params['id'];
     });
@@ -87,6 +89,9 @@ selectedUnitId: number | null = null;
   }
   onImageError(event: any) {
     event.target.src = this.projectImage;
+  }
+    onImageError2(event: any) {
+    event.target.src = this.ficon;
   }
   goBack() {
     this.location.back();

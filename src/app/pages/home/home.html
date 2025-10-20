@@ -147,34 +147,42 @@
   <app-contact></app-contact>
 </section>
 
-<!-- <p-dialog header="ابحث على أفضل مكان" [(visible)]="visible" [modal]="true" [dismissableMask]="true" [style]="{width: '60vw', borderRadius:'20px'}">
-
-  <div class="search-form">
+<p-dialog header="ابحث على أفضل مكان" [(visible)]="visible" [modal]="true" [dismissableMask]="true" [style]="{width: '60vw', borderRadius:'20px'}">
+ <form enctype="multipart/form-data" class="search-form" [formGroup]="searchForm"
+    (ngSubmit)="onSubmit()">
+  
     <div class="form-grid">
 
       <div class="form-field">
         <label for="propertyType">{{'property'| translate}} </label>
-        <p-select [options]="propertyTypes" [(ngModel)]="selectedProperty" optionLabel="arabic_name" optionValue="id">
+        <p-select  [options]="propertyTypes" formControlName="unit_type_id" optionLabel="name" optionValue="id">
         </p-select>
       </div>
 
       <div class="form-field">
         <label for="price">{{'price'| translate}}</label>
-        <p-select [options]="prices" [(ngModel)]="selectedPrice" optionLabel="price" optionValue="id">
+        <p-select [options]="minprices" formControlName="min_price" optionLabel="min_price" optionValue="min_price">
           <ng-template let-p pTemplate="item">
             <div class="flex align-items-center gap-2">
-              {{p.label1}} {{ p.min_price }} {{ p.label2}} {{ p.max_price }}
+              {{p.label}} {{ p.min_price }}
             </div>
           </ng-template>
-          <ng-template let-p pTemplate="selectedPrice">
-            {{ p.label1 }} {{ p.min_price }} {{ p.label2 }} {{ p.max_price }}
+
+        </p-select>
+      </div>
+<div class="form-field">
+        <label for="price">{{'price'| translate}}</label>
+        <p-select [options]="maxprices" formControlName="max_price" optionLabel="max_price" optionValue="max_price">
+          <ng-template let-p pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              {{ p.label}} {{ p.max_price }}
+            </div>
           </ng-template>
         </p-select>
       </div>
-
       <div class="form-field">
         <label for="location">{{'location'| translate}}</label>
-        <p-select [options]="locations" [(ngModel)]="selectedLocation" optionLabel="arabic_name" optionValue="id">
+        <p-select [options]="locations" formControlName="region_id" optionLabel="name" optionValue="id">
         </p-select>
       </div>
     </div>
@@ -183,13 +191,14 @@
       <span class="filter-label">{{'looking' | translate}}</span>
       <div class="btn-group">
         @for(type of projectType; track type.id){
-        <button pButton type="button" [ngClass]="{ 'active': isActive }" (click)="active(type.id)" class="filter-btn">{{type.name}}</button>
+        <button pButton type="button" [ngClass]="{ 'active': activeIndex === type.id }" (click)="active(type.id)" class="filter-btn">{{type.name}}</button>
         }
       </div>
     </div>
 
     <div class="btn-search">
-      <button pButton type="button" class="search-btn">{{'search-btn' | translate}}</button>
+      <button pButton type="submit" class="search-btn">{{'search-btn' | translate}}</button>
     </div>
-  </div>
-</p-dialog> -->
+ 
+  </form>
+</p-dialog>

@@ -11,8 +11,15 @@
                 [(ngModel)]="selecteddate" (onChange)="ondateSelect($event)" [placeholder]="'update' | translate"
                 [showClear]="true"></p-select>
         </div>
-        <img [src]="project.main_image || projectImage" (error)="onImageError($event)" class="image" alt="image" />
+        <div class="image-wrapper">
+            <img [src]="project.main_image || projectImage" (error)="onImageError($event)" class="image" alt="image" />
 
+            <div class="status-badge" [ngClass]="{
+      'under-construction': project.status === 'under-construction',
+      'sold-out': project.status === 'sold'    }">
+                {{ project.status }}
+            </div>
+        </div>
         <div class="section">
             <h4>{{ 'region' | translate }}</h4>
             <ul>
@@ -24,13 +31,16 @@
                 }
             </ul>
         </div>
+        @if(project.status !== "sold"){
+
+        
         <div class="section">
             <h4>{{ 'update' | translate }}</h4>
             <span class="date">{{project.update_date}}</span>
 
         </div>
         <div class="section">
-            <h4>{{ 'description' | translate }}</h4>
+            <h4>{{ 'discription' | translate }}</h4>
             <p>{{project.details}}</p>
 
         </div>
@@ -46,7 +56,8 @@
                 </div>
             </ng-template>
         </p-carousel>
-    }
         }
+        }
+    }
     </div>
 </section>

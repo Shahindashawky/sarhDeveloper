@@ -20,7 +20,6 @@ export class CreateRegions {
   regionForm!: FormGroup;
   imageName: string = 'choose file to upload';
   main_image!: File;
-  isLoading: boolean = false;
   parentregion: ParentRegion[] = [];
 
   constructor(private loadingService: LoadingService,
@@ -70,7 +69,6 @@ export class CreateRegions {
 
   onSubmit(): void {
     if (this.regionForm.valid) {
-      this.isLoading = true;
       let newregion: any = {
         parent_id: this.regionForm.value.parent_id,
         english_name: this.regionForm.value.english_name,

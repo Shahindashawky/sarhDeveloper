@@ -70,3 +70,21 @@
   padding-top: 1rem;
   font-size: 0.9rem;
 }
+.footer-iconTop{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    width: 48px;
+    height: 48px;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 48px;
+    text-align: center;
+    z-index: 100;
+    cursor: pointer;
+    border: none;
+    background: var(--first-color)  center center no-repeat;
+}
+.footer-iconTop:hover{
+    background: var(--fourth-color)  center center no-repeat;
+}

@@ -1,37 +1,32 @@
 <section class="projects-page">
 
   <div class="container">
-    <button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn" (click)="goBack()"></button>
+    <button pButton icon="pi pi-undo" label="{{ 'back' | translate }}" class="p-button-text back-btn"
+      (click)="goBack()"></button>
 
     <h2 class="page-title">{{ 'followup' | translate}}</h2>
     <div class="filter-section mb-4">
-  <p-select
-    inputId="projectSelect"
-    [options]="projects"
-    optionLabel="project"
-    optionValue="id"
-    [(ngModel)]="selectedProject"
-    (onChange)="onProjectSelect($event)"
-    [placeholder]="'all-project' | translate"
-    [showClear]="true"
-  ></p-select>
-</div>
+      <p-select inputId="projectSelect" [options]="projects" optionLabel="project" optionValue="id"
+        [(ngModel)]="selectedProject" (onChange)="onProjectSelect($event)" [placeholder]="'all-project' | translate"
+        [showClear]="true"></p-select>
+    </div>
     <div class="projects-container">
-        @for (project of filteredProjects; track project.id) {
-              
+      @for (project of filteredProjects; track project.id) {
+
       <div class="project-card" (click)="goToProject(project.id)">
         <div class="image-wrapper">
-          <img
-            [src]="project.main_image || projectImage"
-            (error)="onImageError($event)"
-            alt="project image"
-          />
+          <img [src]="project.main_image || projectImage" (error)="onImageError($event)" alt="project image" />
+          <div class="status-badge" [ngClass]="{
+        'under-construction': project.status === 'under-construction',
+        'sold-out': project.status === 'sold'}">
+            {{ project.status }}
+          </div>
           <div class="overlay"></div>
           <span class="project-name">{{ project.project }}</span>
         </div>
       </div>
 
-    }
+      }
     </div>
   </div>
 </section>
