@@ -48,9 +48,9 @@ export class Units {
 
   search(data: any) {
     this.loadingService.show();
-    this.api.search(data, this.currentLang).subscribe({
+    this.api.search(this.currentLang,data).subscribe({
       next: (res: any) => {
-        this.UnitList = res.data;
+        this.UnitList = res;
         this.loadingService.hide();
       },
       error: (err) => {

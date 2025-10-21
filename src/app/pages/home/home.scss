@@ -389,6 +389,10 @@
   margin-top: 1rem;
   gap: 8px;
 }
+.p-dialog-content {
+    overflow-y: unset !important;
+    
+}
 .p-carousel .p-carousel-indicator button {
   width: 12px;
   height: 12px;

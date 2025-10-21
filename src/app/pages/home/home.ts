@@ -61,19 +61,19 @@ export class Home {
     this.projectimage = this.ApiService.projectImage,
       this.regionimage = this.ApiService.regionImage,
       this.unitimage = this.ApiService.unitImage
-    this.minprices = [
-      { id: 1, min_price: '5,00,000', label: "أكثر من" },
-      { id: 2, min_price: '1,000,000', label: "أكثر من" },
-      { id: 3, min_price: '5,000,000', label: "أكثر من" },
-      { id: 4, min_price: '10,000,000', label: "أكثر من" },
+    this.maxprices = [
+      { id: 1, max_price: '5,00,000', label: "أكثر من" },
+      { id: 2, max_price: '1,000,000', label: "أكثر من" },
+      { id: 3, max_price: '5,000,000', label: "أكثر من" },
+      { id: 4, max_price: '10,000,000', label: "أكثر من" },
 
 
     ];
-    this.maxprices = [
-      { id: 1, max_price: '1,000,000', label: "اقل من" },
-      { id: 2, max_price: '5,000,000', label: "اقل من" },
-      { id: 3, max_price: '10,000,000', label: "اقل من" },
-      { id: 4, max_price: '15,000,000', label: "اقل من" },
+    this.minprices = [
+      { id: 1, min_price: '1,000,000', label: "اقل من" },
+      { id: 2, min_price: '5,000,000', label: "اقل من" },
+      { id: 3, min_price: '10,000,000', label: "اقل من" },
+      { id: 4, min_price: '15,000,000', label: "اقل من" },
 
 
     ];

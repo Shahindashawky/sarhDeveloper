@@ -81,7 +81,9 @@
   "property":"Property type",
   "looking":"Looking for",
   "location":"Location",
-  "delivery-specifications":"Delivery specifications"
+  "delivery-specifications":"Delivery specifications",
+  "minprice":"min price",
+  "maxprice":"max price"
   
 
 

@@ -312,17 +312,17 @@ export class ApiService {
   search(lang: any,search:any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/search?locale=${lang}`,
-      {},
+      search,
 
-      { params: search,
+      { 
         headers: this.httpOption.headers,
       }
     );
   }
-  sendContact(lang: any): Observable<any> {
+  sendContact(form:any,lang: any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/send-contact?locale=${lang}`,
-
+          form,
       {
         headers: this.httpOption.headers,
       }

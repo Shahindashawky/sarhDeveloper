@@ -81,7 +81,9 @@
   "property":"نوع العقار",
   "looking":"تبحث عن",
   "location":"الموقع",
-  "delivery-specifications":"مواصفات التسليم"
+  "delivery-specifications":"مواصفات التسليم",
+  "minprice":"أقل سعر",
+  "maxprice":"أكثر سعر"
 
 
 

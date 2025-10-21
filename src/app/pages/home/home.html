@@ -147,7 +147,7 @@
   <app-contact></app-contact>
 </section>
 
-<p-dialog header="ابحث على أفضل مكان" [(visible)]="visible" [modal]="true" [dismissableMask]="true" [style]="{width: '60vw', borderRadius:'20px'}">
+<p-dialog  [(visible)]="visible" [modal]="true" [dismissableMask]="true" [style]="{width: '60vw', borderRadius:'20px'}">
  <form enctype="multipart/form-data" class="search-form" [formGroup]="searchForm"
     (ngSubmit)="onSubmit()">
   
@@ -160,7 +160,7 @@
       </div>
 
       <div class="form-field">
-        <label for="price">{{'price'| translate}}</label>
+        <label for="min_price">{{'minprice'| translate}}</label>
         <p-select [options]="minprices" formControlName="min_price" optionLabel="min_price" optionValue="min_price">
           <ng-template let-p pTemplate="item">
             <div class="flex align-items-center gap-2">
@@ -171,7 +171,7 @@
         </p-select>
       </div>
 <div class="form-field">
-        <label for="price">{{'price'| translate}}</label>
+        <label for="max_price">{{'maxprice'| translate}}</label>
         <p-select [options]="maxprices" formControlName="max_price" optionLabel="max_price" optionValue="max_price">
           <ng-template let-p pTemplate="item">
             <div class="flex align-items-center gap-2">
