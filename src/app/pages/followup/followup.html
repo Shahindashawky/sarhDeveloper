@@ -17,8 +17,8 @@
         <div class="image-wrapper">
           <img [src]="project.main_image || projectImage" (error)="onImageError($event)" alt="project image" />
           <div class="status-badge" [ngClass]="{
-        'under-construction': project.status === 'under-construction',
-        'sold-out': project.status === 'sold'}">
+        'under-construction': project.status_slug === 'under-construction',
+        'sold-out': project.status_slug === 'sold'}">
             {{ project.status }}
           </div>
           <div class="overlay"></div>

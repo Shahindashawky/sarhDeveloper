@@ -4,8 +4,8 @@ import { ApiService } from './../../services/api-service';
 import { Component } from '@angular/core';
 import { LoadingService } from '../../services/loading.service';
 import { forkJoin, debounceTime, switchMap } from 'rxjs';
-import { ParentRegion } from '../../../model/ParentRegion';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -55,7 +55,7 @@ export class Home {
       numScroll: 1,
     },
   ];
-  constructor(private loadingService: LoadingService,
+  constructor(private loadingService: LoadingService, private router:Router,
     private fb: FormBuilder, private translate: TranslateService, private ApiService: ApiService, private langService: LanguageService) {
     this.loadingService.show();
     this.projectimage = this.ApiService.projectImage,
@@ -128,18 +128,20 @@ export class Home {
         min_price: this.searchForm.value.min_price,
         max_price: this.searchForm.value.max_price,
         region_id: this.searchForm.value.region_id,
-        project_type_id: this.selectprojecttype,
+        project_type_id: this.selectprojecttype|| '',
 
       };
 
-      let formData: any = new FormData();
-      for (const key in search) {
-        if (search.hasOwnProperty(key)) {
-          const value = search[key];
-          formData.append(key, value);
-        }
-      }
+      // let formData: any = new FormData();
+      // for (const key in search) {
+      //   if (search.hasOwnProperty(key)) {
+      //     const value = search[key];
+      //     formData.append(key, value);
+      //   }
+      // }
           console.log(search);
+          this.router.navigate(['/units'], { queryParams: search });
+          this.visible = false;
 
     }
     

@@ -28,8 +28,9 @@
           <td class="actions">
             <button pButton icon="pi pi-pencil" [routerLink]="['/admin-home/edit-facilitie',facilitie.id]"
               class="p-button-rounded p-button-text p-button-warn" pTooltip="Edit"></button>
+             <p-confirmdialog  [visible]="visible" (onHide)="visible = false"></p-confirmdialog>
             <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-              (click)="onDelete(facilitie.id)" pTooltip="Delete"></button>
+              (click)="Delete(facilitie.id)" pTooltip="Delete"></button>
           </td>
         </tr>
       </ng-template>

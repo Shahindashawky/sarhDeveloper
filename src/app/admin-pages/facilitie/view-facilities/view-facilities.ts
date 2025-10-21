@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Facilities } from '../../../../model/Facilities';
 import { ApiService } from '../../../services/api-service';
 import { LoadingService } from '../../../services/loading.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-view-facilities',
@@ -13,7 +13,9 @@ import { MessageService } from 'primeng/api';
 export class ViewFacilities {
   facilities!: Facilities[];
   facilityImage: any;
-  constructor(private loadingService: LoadingService, private api: ApiService, private messageService: MessageService) { }
+  visible: boolean = false;
+
+constructor(private confirmationService: ConfirmationService,private loadingService: LoadingService, private api: ApiService, private messageService: MessageService) { }
   ngOnInit() {
     this.loadingService.show();
     this.getdata();
@@ -50,4 +52,43 @@ export class ViewFacilities {
   showWarn(message: any) {
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
   }
+       showInfo(message: any) {
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
+Delete(id: any) {
+   this.visible=true;
+  this.confirmationService.confirm({
+    header: 'Confirm Delete',
+    message: 'Are you sure you want to delete this record?',
+    icon: 'pi pi-exclamation-triangle',
+    rejectLabel: 'Cancel',
+    rejectButtonProps: {
+      label: 'Cancel',
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptButtonProps: {
+      label: 'Delete',
+      severity: 'danger',
+    },
+
+    accept: () => {
+      this.api.deleteFacilitieById(id).subscribe({
+        next: (r: any) => {
+        this.showSuccess(r.message);
+        this.getdata();
+
+        },
+        error: () => {
+          this.confirmationService.close()
+        }
+      });
+    },
+
+    reject: () => {
+      this.showInfo('Deletion cancelled')
+       this.confirmationService.close();
+    },
+  });
+}
 }

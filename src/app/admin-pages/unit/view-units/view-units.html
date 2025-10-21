@@ -37,11 +37,12 @@
               [routerLink]="['/admin-home/edit-unit',unit.id]"
               pTooltip="Edit"
             ></button>
+          <p-confirmdialog  [visible]="visible" (onHide)="visible = false"></p-confirmdialog>
             <button
               pButton
               icon="pi pi-trash"
               class="p-button-rounded p-button-text p-button-danger"
-              (click)="onDelete(unit.id)"
+              (click)="Delete(unit.id)"
               pTooltip="Delete"
             ></button>
           </td>

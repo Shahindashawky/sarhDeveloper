@@ -309,11 +309,12 @@ export class ApiService {
       }
     );
   }
-  search(lang: any): Observable<any> {
+  search(lang: any,search:any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/search?locale=${lang}`,
+      {},
 
-      {
+      { params: search,
         headers: this.httpOption.headers,
       }
     );

@@ -17,8 +17,11 @@ export class ViewUnitDetails {
   unitId: any;
   unit: any;
   images = model<string[]>([]);
-  ficon:any;
-  constructor(private loadingService:LoadingService,
+  ficon: any;
+  projectunits:any;
+  selectedUnitId: number | null = null;
+
+  constructor(private loadingService: LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
@@ -26,7 +29,7 @@ export class ViewUnitDetails {
 
   ) {
     this.unitImage = this.api.unitImage;
-    this.ficon=this.api.facilityIcon;
+    this.ficon = this.api.facilityIcon;
     this.route.params.subscribe((params) => {
       this.unitId = params['id'];
     });
@@ -53,19 +56,35 @@ export class ViewUnitDetails {
       next: (u) => {
         this.unit = u;
         const gallery = Array.isArray(u.gallery_images) ? u.gallery_images : [];
-    if (u.main_image) {
-      this.images.set([u.main_image, ...gallery]);
-    } else {
-      this.images.set(gallery);
-    }
-    this.loadingService.hide();
+        if (u.main_image) {
+          this.images.set([u.main_image, ...gallery]);
+        } else {
+          this.images.set(gallery);
+        }
+        this.getprojectunit(this.unit.project_id,'')        
+        this.loadingService.hide();
       }
     });
   }
+getprojectunit(projectid:any,unittypeid:any){
+    this.selectedUnitId = unittypeid;
 
+    if (unittypeid == null) {
+      unittypeid = ''
+    }
+   this.api.getProjectUnits(projectid, this.currentLang, unittypeid).subscribe((unit) => {
+      this.projectunits = unit;
 
+    })
+}
+  goToUnit(id: any) {
+    this.router.navigate(['/view-unit-details', id]);
+  }
   onImageError(event: any) {
     event.target.src = this.unitImage;
+  }
+  onImageError2(event: any) {
+    event.target.src = this.ficon;
   }
   goBack() {
     this.location.back();

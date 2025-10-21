@@ -30,6 +30,7 @@ import { ProjectDetails } from './pages/projects/project-details/project-details
 import { ViewProjectDetails } from './pages/projects/project-details/view-project-details/view-project-details';
 import { ViewUnitDetails } from './pages/projects/project-details/view-unit-details/view-unit-details';
 import { ConstructionDetails } from './pages/followup/construction-details/construction-details';
+import { Units } from './pages/units/units';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'business', component: Business },
   { path: 'followup', component: Followup },
+  { path: 'units', component: Units },
   { path: 'construction-details/:id', component: ConstructionDetails },
   { path: 'region-details/:id', component: RegionDetails },
   { path: 'project-details/:id', component: ProjectDetails },

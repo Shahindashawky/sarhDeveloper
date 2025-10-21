@@ -88,7 +88,11 @@ table,th,td {
   color: var(--first-color) !important;
 }
 .p-button-danger {
-  color: #ef4444 !important;
+  color: white;
+  .pi{
+      color: #ef4444 !important;
+
+  }
 }
 @media (max-width: 768px) {
   .card {

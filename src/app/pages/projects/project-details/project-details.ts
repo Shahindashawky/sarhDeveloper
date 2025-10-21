@@ -18,7 +18,7 @@ currentLang: 'ar' | 'en' = 'ar';
 projects:any;
 regionId:any;
 regionTitle:any;
-filteredProjects: any[] = []; 
+filteredProjects: any; 
 selectedProject: any = null; 
 
   constructor(private loadingService:LoadingService,private translate: TranslateService, private langService: LanguageService,private api:ApiService, private route: ActivatedRoute, private router: Router, private location: Location) { 
@@ -55,8 +55,16 @@ selectedProject: any = null;
   this.api.getRegionDetails(this.regionId,this.currentLang).subscribe(p=>{
 this.projects=p;
 this.filteredProjects = this.projects;
-this.regionTitle=this.projects[0].region[0];
-this.loadingService.hide();
+if (this.projects?.length) {
+  const firstProject = this.projects[0];
+
+  if (firstProject.region && Array.isArray(firstProject.region) && firstProject.region.length) {
+    this.regionTitle = firstProject.region.at(0);
+  } else {
+    this.regionTitle = '';
+  }
+}
+   this.loadingService.hide();
   })
   }
 

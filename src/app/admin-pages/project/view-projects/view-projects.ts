@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Project } from '../../../../model/Project';
 import { ApiService } from '../../../services/api-service';
 import { LoadingService } from '../../../services/loading.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-view-projects',
@@ -12,7 +12,9 @@ import { MessageService } from 'primeng/api';
 })
 export class ViewProjects {
   projects!: Project[];
-  constructor(private messageService: MessageService, private loadingService: LoadingService, private api: ApiService) { }
+  visible: boolean = false;
+
+constructor(private confirmationService: ConfirmationService,private messageService: MessageService, private loadingService: LoadingService, private api: ApiService) { }
   ngOnInit() {
     this.loadingService.show();
     this.getdata();
@@ -34,6 +36,9 @@ export class ViewProjects {
   showWarn(message: any) {
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
   }
+         showInfo(message: any) {
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
   EditStatus(regionid: any) {
     this.api.updateprojectStatus(regionid).subscribe((r:any) => {
   this.showSuccess(r.message)
@@ -41,10 +46,41 @@ export class ViewProjects {
     })
   }
 
-  onDelete(projectid: any) {
-    this.api.deleteProjectById(projectid).subscribe(r => {
-      this.getdata();
-    })
 
-  }
+  Delete(id: any) {
+   this.visible=true;
+  this.confirmationService.confirm({
+    header: 'Confirm Delete',
+    message: 'Are you sure you want to delete this record?',
+    icon: 'pi pi-exclamation-triangle',
+    rejectLabel: 'Cancel',
+    rejectButtonProps: {
+      label: 'Cancel',
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptButtonProps: {
+      label: 'Delete',
+      severity: 'danger',
+    },
+
+    accept: () => {
+      this.api.deleteProjectById(id).subscribe({
+        next: (r: any) => {
+        this.showSuccess(r.message);
+        this.getdata();
+
+        },
+        error: () => {
+          this.confirmationService.close()
+        }
+      });
+    },
+
+    reject: () => {
+      this.showInfo('Deletion cancelled')
+       this.confirmationService.close();
+    },
+  });
+}
 }

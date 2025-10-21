@@ -33,11 +33,12 @@
               [routerLink]="['/admin-home/edit-construction',construction.id]"
               pTooltip="Edit"
             ></button>
+            <p-confirmdialog  [visible]="visible" (onHide)="visible = false"></p-confirmdialog>
             <button
               pButton
               icon="pi pi-trash"
               class="p-button-rounded p-button-text p-button-danger"
-              (click)="onDelete(construction.id)"
+              (click)="Delete(construction.id)"
               pTooltip="Delete"
             ></button>
           </td>
@@ -46,3 +47,4 @@
     </p-table>
   </div>
 </div>
+

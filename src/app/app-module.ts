@@ -43,6 +43,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { StepperModule } from 'primeng/stepper';
 import { DataViewModule } from 'primeng/dataview';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -66,7 +67,8 @@ import { ViewProjectDetails } from './pages/projects/project-details/view-projec
 import { ViewUnitDetails } from './pages/projects/project-details/view-unit-details/view-unit-details';
 import { ConstructionDetails } from './pages/followup/construction-details/construction-details';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Units } from './pages/units/units';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -106,7 +108,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProjectDetails,
     ViewProjectDetails,
     ViewUnitDetails,
-    ConstructionDetails
+    ConstructionDetails,
+    Units
   ],
   imports: [
     BrowserModule,
@@ -126,6 +129,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DatePickerModule ,
     MenubarModule,
     StepperModule,
+    ConfirmDialogModule,
     CarouselModule,
     ProgressSpinnerModule,
     DialogModule,
@@ -145,6 +149,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     MessageService,
+    ConfirmationService,
     AuthGuard,
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),

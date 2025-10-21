@@ -104,9 +104,8 @@
                       <li>
                          <img 
               [src]="item.main_image || ficon" 
-              alt="{{ item.name || item }}" 
               class="feature-icon" 
-              (error)="onImageError($event)"
+              (error)="onImageError2($event)"
             />
             <span>{{ item.name || item }}</span>
           </li>
@@ -123,10 +122,48 @@
         </p-step-panels>
       </p-stepper>
     </div>
+    <div class="details">
 
+      @if (unit.unit_types?.length > 1) {
+      <div class="section">
+        <h3 class="unit-name">{{ 'units' | translate }}</h3>
+        <div class="unit-grid">
+          @for (u of unit.unit_types; track u.id ?? u.name) {
+          <div (click)="getprojectunit(unit.project_id,u.id)" [class.active-unit]="selectedUnitId === u.id">
+            <p>{{ u.name }}</p>
+          </div>
+          }
+        </div>
+      </div>
+      <div class="unit-container">
+        @for (up of projectunits; track up.id) {
+        <div class="unit-featured">
+          <button class="scroll-top-btn" (click)="goToUnit(up.id)"> <i class="pi pi-arrow-up-left"></i> </button>
+          <div class="status-badge" [ngClass]="{
+        'available': up.status_slug === 'available',
+        'sold-out': up.status_slug === 'sold out',
+        'not-available': up.status_slug === 'not available'
+      }">
+            {{ up.status }}
+          </div>
+          <img [src]="up.image  || unitImage" (error)="onImageError($event)" alt="{{up.title}}" />
+          <div class="info-box">
+            <h3>{{ up.name }}</h3>
+            <div class="details">
+              <span><i class="pi pi-th-large"></i> <span class="num">{{ up.area }}</span> {{'meter' |
+                translate}}</span> |
+              <span><i class="pi pi-bed"></i> <span class="num">{{ up.rooms }} </span>{{'rooms' | translate}}</span> |
+              <span><i class="pi pi-shower"></i> <span class="num">{{ up.bathrooms }}</span> {{'bathroom' |
+                translate}}</span>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      }
 
-    } @else {
-    <div class="loading">{{ 'Loading unit details...' | translate }}</div>
-    }
+    </div>
+<br>
+    } 
   </div>
 </section>
