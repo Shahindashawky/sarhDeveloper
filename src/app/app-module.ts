@@ -44,6 +44,7 @@ import { StepperModule } from 'primeng/stepper';
 import { DataViewModule } from 'primeng/dataview';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -138,6 +139,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToggleSwitchModule,
     DataViewModule,
     GalleriaModule,
+    AnimateOnScrollModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

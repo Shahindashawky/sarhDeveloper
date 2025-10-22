@@ -73,6 +73,10 @@ h1, h2, h3, h4, h5, h6 {
 .p-checkbox-checked .p-checkbox-box {
     border-color: var(--fourth-color) !important;
 }
+.p-button-text.p-button-secondary{
+ border: none !important;
+ outline-style: none !important;
+}
 .p-button-text.p-button-secondary:not(:disabled):hover{
    background: var(--first-color) !important;
  color: white !important;
@@ -136,3 +140,63 @@ h1, h2, h3, h4, h5, h6 {
 .p-select-overlay {
   background: white !important;
 }
+//loading style
+.spinner-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #fff, #f8f8f8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  transition: opacity 0.5s ease;
+}
+
+.logo-spinner img {
+  width: 110px;
+  height: auto;
+  animation: shine 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes shine {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.6); }
+  100% { filter: brightness(1); }
+}
+//animation
+.p-animateonscroll {
+  animation-duration: 1.5s !important; 
+animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1) !important;
+
+}
+@keyframes fadeInRightSoft {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeInRightSoft {
+  animation: fadeInRightSoft 1s ease-out;
+}
+@keyframes fadeInleftSoft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeInleftSoft {
+  animation: fadeInleftSoft 1s ease-out;
+}
+

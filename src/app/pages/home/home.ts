@@ -55,6 +55,7 @@ export class Home {
       numScroll: 1,
     },
   ];
+
   constructor(private loadingService: LoadingService, private router:Router,
     private fb: FormBuilder, private translate: TranslateService, private ApiService: ApiService, private langService: LanguageService) {
     this.loadingService.show();
@@ -132,14 +133,6 @@ export class Home {
 
       };
 
-      // let formData: any = new FormData();
-      // for (const key in search) {
-      //   if (search.hasOwnProperty(key)) {
-      //     const value = search[key];
-      //     formData.append(key, value);
-      //   }
-      // }
-          console.log(search);
           this.router.navigate(['/units'], { queryParams: search });
           this.visible = false;
 
@@ -166,9 +159,7 @@ export class Home {
     this.activeIndex = id
     this.selectprojecttype = id;
   }
-  search() {
-
-  }
+  
   getdata() {
     this.loadingService.show();
     forkJoin({

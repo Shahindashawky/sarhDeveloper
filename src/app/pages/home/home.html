@@ -1,8 +1,9 @@
-<section class="hero">
+<section class="hero" >
   <div class="hero-content">
-    <h1 class="hero-title">
+
+    <h1 class="hero-title" pAnimateOnScroll enterClass="fadein">
       {{'hero-title' | translate}} </h1>
-    <p class="hero-subtitle">
+    <p class="hero-subtitle" pAnimateOnScroll enterClass="fadeinup">
       {{'hero-subtitle' | translate}} </p>
 
     <div class="hero-buttons">
@@ -22,14 +23,14 @@
   </div>
 </section>
 
-<section class="about-section" id='aboutsec'>
+<section class="about-section">
 
-  <div class="about-title">
+  <div class="about-title" pAnimateOnScroll enterClass="fadeInRightSoft">
     {{'about-title1' | translate}}<br />
     <span>{{'about-title2' | translate}}</span>
   </div>
 
-  <div class="about-text">
+  <div class="about-text" pAnimateOnScroll enterClass="fadeInleftSoft">
     <p>
       {{'about-text' | translate}}</p>
   </div>
@@ -41,19 +42,19 @@
 
 <section class="aboutsec2">
   <div class="about-container">
-    <div class="about-box">
+    <div class="about-box"  pAnimateOnScroll enterClass="fadeInRightSoft">
       <h3>{{'ab' | translate}} <span>{{'sarh' | translate}}</span></h3>
       <p>{{'about-sarh' | translate}}</p>
       <button class="more-btn" [routerLink]="['/about']">{{'learnmore-btn' | translate}}</button>
     </div>
-    <div class="about-img" [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
+    <div class="about-img"  [class.rtl]="currentLang === 'ar'" [class.ltr]="currentLang === 'en'">
       <img src="images/building.png" alt="عن سرح" />
     </div>
 
   </div>
 </section>
 <section>
-  <div class="projectssec">
+  <div class="projectssec" pAnimateOnScroll enterClass="zoomIn">
     <h4 class="subtitle">{{'projects' | translate}}</h4>
     <h2 class="title">{{'projectlist' | translate}}</h2>
     <div class="btn-wrapper">
@@ -143,7 +144,7 @@
   </p-carousel>
 </section>
 
-<section class="contact">
+<section class="contact" pAnimateOnScroll enterClass="fadein">
   <app-contact></app-contact>
 </section>
 
