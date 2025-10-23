@@ -176,7 +176,6 @@ formData.append(key, value);          }
 
         },
         (err)=>{
-          console.log(err)
            this.Message(err.error.message)
         }
       );
