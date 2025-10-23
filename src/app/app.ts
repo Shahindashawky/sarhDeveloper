@@ -20,7 +20,7 @@ export class App {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private cdr: ChangeDetectorRef, private api: ApiService, private router: Router, private loadingService: LoadingService) {
     this.loading = this.loadingService.loading$;
-    this.loadingService.show();
+    // this.loadingService.show();
 
 
     this.router.events.subscribe(() => {
@@ -43,6 +43,7 @@ export class App {
       }
     });
   }
+  
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       const loader = document.getElementById('global-loader');
