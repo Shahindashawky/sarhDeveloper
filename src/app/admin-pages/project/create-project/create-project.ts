@@ -25,7 +25,7 @@ export class CreateProject {
   gallery_images!: File[];
   image2!: FileList;
   pdfName: string = '';
-  pdf: File| null = null;;
+  pdf: File | null = null;;
   region: Region[] = []
   type: any;
   statu: any;
@@ -44,8 +44,8 @@ export class CreateProject {
     this.getdata();
 
   }
-  getdata(){
-     this.loadingService.show();
+  getdata() {
+    this.loadingService.show();
     forkJoin({
       region: this.api.getProjectRegions(),
       type: this.api.getProjectType(),
@@ -59,6 +59,10 @@ export class CreateProject {
         this.statu = res.statu;
         this.facilite = res.facilite;
         this.loadingService.hide();
+      },
+      error: (err) => {
+        this.loadingService.hide();
+        this.Message(err);
       }
     })
 
@@ -104,21 +108,21 @@ export class CreateProject {
     }
     this.imageName2 = 'upload now';
   }
-onPdfChange(event: any): void {
-  const fileInput = event.target as HTMLInputElement;
+  onPdfChange(event: any): void {
+    const fileInput = event.target as HTMLInputElement;
 
-  if (fileInput.files && fileInput.files[0]) {
-    const file = fileInput.files[0];
-    if (file.type !== 'application/pdf') {
-      this.pdf = null;
-      this.pdfName = 'upload pdf';
-      return;
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      if (file.type !== 'application/pdf') {
+        this.pdf = null;
+        this.pdfName = 'upload pdf';
+        return;
+      }
+
+      this.pdf = file;
+      this.pdfName = file.name;
     }
-
-    this.pdf = file;
-    this.pdfName = file.name;
   }
-}
 
 
   Message(message: any) {
@@ -151,6 +155,10 @@ onPdfChange(event: any): void {
       for (const key in newproject) {
         if (newproject.hasOwnProperty(key)) {
           const value = newproject[key];
+          if (key === 'pdf' && !(value instanceof File)) continue;
+
+          if (key === 'gallery_images' && !Array.isArray(value)) continue;
+
           if (Array.isArray(value)) {
             value.forEach((item) => formData.append(`${key}[]`, item));
             continue;
@@ -161,22 +169,22 @@ onPdfChange(event: any): void {
           } else if (value instanceof File) {
             formData.append(key, value);
           } else {
-formData.append(key, value);          }
+            formData.append(key, value);
+          }
         }
       }
- if (this.pdf) {
-      formData.append('pdf', this.pdf);
-    }
+
       this.api.addProject(formData).subscribe(
         (res: any) => {
           this.projectForm.reset();
-          this.imageName='';
-          this.imageName2='';
+          this.imageName = '';
+          this.imageName2 = '';
+          this.pdfName = '';
           this.showSuccess(res.message)
 
         },
-        (err)=>{
-           this.Message(err.error.message)
+        (err) => {
+          this.Message(err.error.message);
         }
       );
 

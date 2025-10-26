@@ -64,6 +64,7 @@ export class CreateFacilities {
         (res: any) => {
           this.showSuccess(res.message)
           this.facilitieForm.reset();
+          this.imageName=""
         },
         (err: any) => {
           this.Message(err.error.message)

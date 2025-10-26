@@ -23,7 +23,7 @@ export class EditProject {
   gallery_images!: File[];
   image2!: FileList;
   pdfName: string = '';
-  pdf: File| null=null;
+  pdf: File | null = null;
   region: Region[] = []
   type: any;
   statu: any;
@@ -33,9 +33,9 @@ export class EditProject {
   constructor(private loadingService: LoadingService,
     private api: ApiService,
     private fb: FormBuilder,
-    private route: ActivatedRoute,private messageService: MessageService
+    private route: ActivatedRoute, private messageService: MessageService
   ) {
-  this.route.params.subscribe((params) => {
+    this.route.params.subscribe((params) => {
       this.projectId = params['id'];
     });
 
@@ -44,25 +44,25 @@ export class EditProject {
     this.loadingService.show();
     this.initializeForm();
     this.getdata();
-      this.api.getProjectById(this.projectId).subscribe((res:any) => {
-        const project:Project=res;
+    this.api.getProjectById(this.projectId).subscribe((res: any) => {
+      const project: Project = res;
 
       this.projectForm.patchValue({
-      english_name: project.english_name,
-      arabic_name: project.arabic_name,
-      region_id:project.region_id,
-      types: project.types.map((t: any) => t.id),
-      status: project.status,
-      facilities: project.facilities.map((f: any) => f.id),
-      arabic_description: project.arabic_description,
-      english_description: project.english_description,
-       arabic_features: project.arabic_features,
-      english_features: project.english_features,
-        });
-      })
+        english_name: project.english_name,
+        arabic_name: project.arabic_name,
+        region_id: project.region_id,
+        types: project.types.map((t: any) => t.id),
+        status: project.status,
+        facilities: project.facilities.map((f: any) => f.id),
+        arabic_description: project.arabic_description,
+        english_description: project.english_description,
+        arabic_features: project.arabic_features,
+        english_features: project.english_features,
+      });
+    })
   }
-    getdata(){
-     this.loadingService.show();
+  getdata() {
+    this.loadingService.show();
     forkJoin({
       region: this.api.getProjectRegions(),
       type: this.api.getProjectType(),
@@ -76,6 +76,10 @@ export class EditProject {
         this.statu = res.statu;
         this.facilite = res.facilite;
         this.loadingService.hide();
+      },
+      error: (err) => {
+        this.loadingService.hide();
+        this.Message(err);
       }
     })
 
@@ -98,7 +102,7 @@ export class EditProject {
 
     });
   }
- Message(message: any) {
+  Message(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
 
   }
@@ -131,20 +135,20 @@ export class EditProject {
     this.imageName2 = 'upload now';
   }
   onPdfChange(event: any): void {
-  const fileInput = event.target as HTMLInputElement;
+    const fileInput = event.target as HTMLInputElement;
 
-  if (fileInput.files && fileInput.files[0]) {
-    const file = fileInput.files[0];
-    if (file.type !== 'application/pdf') {
-      this.pdf = null;
-      this.pdfName = 'upload pdf';
-      return;
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      if (file.type !== 'application/pdf') {
+        this.pdf = null;
+        this.pdfName = 'upload pdf';
+        return;
+      }
+
+      this.pdf = file;
+      this.pdfName = file.name;
     }
-
-    this.pdf = file;
-    this.pdfName = file.name;
   }
-}
 
   editproject() {
     if (this.projectForm.valid) {
@@ -161,38 +165,44 @@ export class EditProject {
         arabic_features: this.projectForm.value.arabic_features,
         english_features: this.projectForm.value.english_features,
         gallery_images: this.gallery_images,
-        
+
 
       };
       let formData: any = new FormData();
-   for (const key in newproject) {
-      if (!newproject.hasOwnProperty(key)) continue;
-      const value = newproject[key];
+      for (const key in newproject) {
+        if (newproject.hasOwnProperty(key)) {
+          const value = newproject[key];
+          if (key === 'pdf' && !(value instanceof File)) continue;
 
-      if (Array.isArray(value)) {
-        value.forEach((item, index) => {
-          formData.append(`${key}[${index}]`, item); 
-        });
-      } else if (value instanceof File) {
-        formData.append(key, value);
-      } else if (value !== null && value !== undefined) {
-        formData.append(key, value);
+          if (key === 'gallery_images' && !Array.isArray(value)) continue;
+
+          if (Array.isArray(value)) {
+            value.forEach((item) => formData.append(`${key}[]`, item));
+            continue;
+          }
+          if (typeof value === 'string' || typeof value === 'boolean' ||
+            typeof value === 'number') {
+            formData.append(key, String(value));
+          } else if (value instanceof File) {
+            formData.append(key, value);
+          } else {
+            formData.append(key, value);
+          }
+        }
       }
-    }
- if (this.pdf) {
-      formData.append('pdf', this.pdf);
-    }
 
-     this.api.updateProject(this.projectId ,formData).subscribe(
+
+      this.api.updateProject(this.projectId, formData).subscribe(
         (res: any) => {
-            this.projectForm.reset();
-            this.imageName='',
-            this.imageName2='';
-            this.showSuccess(res.message)
+          this.projectForm.reset();
+          this.imageName = '',
+            this.imageName2 = '';
+          this.pdfName = '';
+          this.showSuccess(res.message)
         },
-  (err) => {
-  this.Message(err.error.message)
-  }
+        (err) => {
+          this.Message(err.error.message)
+        }
       );
 
     }

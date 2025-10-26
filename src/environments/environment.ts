@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://real-state-api-t6f6s.sevalla.app/api'
+  apiUrl: 'https://sarhdevelopment.com/backend/api'
 };
 
 /*

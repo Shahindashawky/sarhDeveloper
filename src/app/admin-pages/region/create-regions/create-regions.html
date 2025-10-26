@@ -15,11 +15,12 @@
     </div>
          <div class="row mb-4">
                   <label class="form-label ps-0">English features <span class="arabic">(المميزات باللغه الانجليزية)</span></label>
-              <textarea rows="5" cols="30" placeholder="English features" pTextarea formControlName="english_features" ></textarea>
+                    <p-editor placeholder="features"  formControlName="english_features" [style]="{ height: '320px' }" />
                 </div>
                      <div class="row mb-4">
                               <label class="form-label ps-0">Arabic features <span class="arabic">(المميزات باللغه العربيه)</span></label>
-              <textarea rows="5" cols="30" placeholder="Arabic features" pTextarea formControlName="arabic_features" ></textarea>
+              <p-editor class="arabic" formControlName="arabic_features" placeholder="مميزات" [style]="{ height: '320px' }" />
+
                 </div>
     <div class="row mb-4">
       <label for="formFile" class="form-label ps-0">Image <span class="arabic">(اضف صوره)</span></label>

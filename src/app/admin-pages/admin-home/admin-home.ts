@@ -22,7 +22,8 @@ export class AdminHome {
   logout(){
     this.api.auth=false;
     this.api.setAuth(false);
-    this.router.navigateByUrl('login');
-    localStorage.removeItem('token')
+    this.router.navigateByUrl('admin-login');
+    localStorage.removeItem('token');
+    localStorage.removeItem('auth')
   }
 }

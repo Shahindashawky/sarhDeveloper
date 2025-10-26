@@ -85,25 +85,37 @@
                 </ng-template>
             </p-multiSelect>
         </div>
-        <div class="row mb-4">
-            <textarea rows="5" cols="30" placeholder="details arabic" pTextarea
-                formControlName="arabic_description"></textarea>
+   <div class="row mb-4">
+            <label class="form-label ps-0">Arabic Details <span class="arabic">(التفاصيل باللغه العربيه)</span></label>
+
+            <p-editor class="arabic" placeholder="التفاصيل" formControlName="arabic_description"
+                [style]="{ height: '320px' }" />
+
         </div>
         <div class="row mb-4">
-            <textarea rows="5" cols="30" placeholder="details english" pTextarea
-                formControlName="english_description"></textarea>
+            <label class="form-label ps-0">ُEnglish Details <span class="arabic">(التفاصيل باللغه
+                    الانجليزيه)</span></label>
+
+            <p-editor placeholder="details" formControlName="english_description" [style]="{ height: '320px' }" />
+
         </div>
         <div class="row mb-4">
-            <textarea rows="5" cols="30" placeholder="features arabic" pTextarea
-                formControlName="english_features"></textarea>
+            <label class="form-label ps-0">Arabic Features<span class="arabic">(المميزات باللغه العربيه)</span></label>
+
+            <p-editor class="arabic" placeholder="مميزات" formControlName="arabic_features"
+                [style]="{ height: '320px' }" />
+
         </div>
         <div class="row mb-4">
-            <textarea rows="5" cols="30" placeholder="features english" pTextarea
-                formControlName="english_features"></textarea>
+
+            <label class="form-label ps-0">English Features<span class="arabic">(المميزات باللغه
+                    الانجليزيه)</span></label>
+
+            <p-editor placeholder="features" formControlName="english_features" [style]="{ height: '320px' }" />
+
         </div>
         <div class="row mb-4">
-            <label for="pdfInput" class="form-label ps-0">PDF<span class="arabic">(اختر نوع المشروع)</span> <span
-                    class="text-danger fw-bold">*</span></label>
+            <label for="pdfInput" class="form-label ps-0">PDF<span class="arabic">(اختر نوع المشروع)</span></label>
             <div class="input-group mb-4 px-0">
                 <div class="input-group file-input-group" data-controller="file-input">
                     <input class="form-control" type="text" [placeholder]="pdfName" readonly

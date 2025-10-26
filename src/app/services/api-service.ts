@@ -38,13 +38,13 @@ export class ApiService {
     this.httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.token}` || '',
+        Authorization: this.token ? `Bearer ${this.token}` : '',
         Accept: 'application/json'
       }),
     };
     this.httpFileOption = {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${this.token}` || '',
+        Authorization: this.token ? `Bearer ${this.token}` : '',
         Accept: 'application/json'
       }),
     };

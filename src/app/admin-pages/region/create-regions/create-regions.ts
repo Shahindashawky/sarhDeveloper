@@ -79,27 +79,31 @@ export class CreateRegions {
       };
 
       let formData: any = new FormData();
-      for (const key in newregion) {
-        if (newregion.hasOwnProperty(key)) {
-          const value = newregion[key];
+     for (const key in newregion) {
+  if (newregion.hasOwnProperty(key)) {
+    const value = newregion[key];
+    if (key === 'main_image' && !(value instanceof File)) {
+      continue;
+    }
 
-          if (key === 'parent_id' && (value === null || value === undefined || value === '')) {
-            continue;
-          }
+    if (key === 'parent_id' && (value === null || value === undefined || value === '')) {
+      continue;
+    }
 
-          if (typeof value === 'string' || typeof value === 'boolean') {
-            formData.append(key, value);
-          } else if (value instanceof File) {
-            formData.append(key, value);
-          } else if (Array.isArray(value)) {
-            for (let i = 0; i < value.length; i++) {
-              formData.append(key, value[i]);
-            }
-          } else {
-            formData.append(key, value);
-          }
-        }
+    if (typeof value === 'string' || typeof value === 'boolean') {
+      formData.append(key, value);
+    } else if (value instanceof File) {
+      formData.append(key, value);
+    } else if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        formData.append(key, value[i]);
       }
+    } else {
+      formData.append(key, value);
+    }
+  }
+}
+
 
       this.api.addRegion(formData).subscribe(
         (res: any) => {

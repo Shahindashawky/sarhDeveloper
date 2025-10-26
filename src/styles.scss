@@ -48,6 +48,9 @@ h1, h2, h3, h4, h5, h6 {
       .p-dialog,.p-checkbox-box,.p-inputtext,.p-multiselect-overlay{
         background-color: white !important;
       }
+          .p-checkbox-checked  .p-checkbox-box{
+        background-color: var(--first-color) !important;
+      }
       .p-select-option,.p-multiselect-option,.p-select-label,.p-textarea,.p-inputtext{
         color: var(--third-color) !important;
       }
@@ -199,4 +202,13 @@ animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1) !important;
 .fadeInleftSoft {
   animation: fadeInleftSoft 1s ease-out;
 }
+.arabic .ql-editor {
+  direction: rtl;
+  text-align: right;
+}
 
+.arabic  .ql-editor li:not(.ql-direction-rtl)::before {
+  margin-inline-end: -0.5rem;
+  margin-inline-start: 0.3rem;
+  text-align: right;
+}
