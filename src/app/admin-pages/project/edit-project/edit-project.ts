@@ -190,7 +190,9 @@ export class EditProject {
           }
         }
       }
-
+      for (let pair of formData.entries()) {
+  console.log(pair[0] + ':', pair[1]);
+}
 
       this.api.updateProject(this.projectId, formData).subscribe(
         (res: any) => {

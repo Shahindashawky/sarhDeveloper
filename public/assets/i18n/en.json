@@ -83,7 +83,8 @@
   "location":"Location",
   "delivery-specifications":"Delivery specifications",
   "minprice":"min price",
-  "maxprice":"max price"
+  "maxprice":"max price",
+  "pdf-download":"download-brochure"
   
 
 

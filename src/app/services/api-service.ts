@@ -185,55 +185,55 @@ export class ApiService {
       });
   }
   getRegionDetails(rid: any, lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/region-details/${rid}/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/region-details/${rid}?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getProjectDetails(pid: any, lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/project-details/${pid}/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/project-details/${pid}?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getProjectUnits(pid: any, lang: any, typeid: any) {
-    return this.http.get<any>(`${this.apiUrl}/project-units/${pid}/?locale=${lang}&unit_type_id=${typeid}`,
+    return this.http.get<any>(`${this.apiUrl}/project-units/${pid}?locale=${lang}&unit_type_id=${typeid}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getpreviouslist(lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/previous-list/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/previous-list?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getConstructionUpdate(lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/construction-update/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/construction-update?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getConstructionDetailsById(cid: any, lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/construction-update/${cid}/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/construction-update/${cid}?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getConstructionDatesById(pid: any, lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/construction-dates/${pid}/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/construction-dates/${pid}?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getProjectUnitById(uid: any, lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/unit-details/${uid}/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/unit-details/${uid}?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });
   }
   getlastUnit(lang: any) {
-    return this.http.get<any>(`${this.apiUrl}/last-unit/?locale=${lang}`,
+    return this.http.get<any>(`${this.apiUrl}/last-unit?locale=${lang}`,
       {
         headers: this.httpOption.headers,
       });

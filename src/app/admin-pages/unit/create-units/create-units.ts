@@ -144,6 +144,7 @@ export class CreateUnits {
       for (const key in newunit) {
         if (newunit.hasOwnProperty(key)) {
           const value = newunit[key];
+          if (key === 'gallery_images' && !Array.isArray(value)) continue;
           if (Array.isArray(value)) {
             value.forEach((item) => formData.append(`${key}[]`, item));
           }

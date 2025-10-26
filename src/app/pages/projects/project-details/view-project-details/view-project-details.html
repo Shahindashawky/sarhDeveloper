@@ -23,8 +23,8 @@
         <p-step-list>
           <p-step [value]="1">{{'details' | translate}}</p-step>
           <p-step [value]="2">{{'discription' | translate}}</p-step>
-          <p-step [value]="3">{{'delivery-specifications' | translate}}</p-step>
-          <p-step [value]="4">{{'features' | translate}}</p-step>
+          <p-step [value]="3">{{'features' | translate}}</p-step>
+          <p-step [value]="4">{{'delivery-specifications' | translate}}</p-step>
         </p-step-list>
         <p-step-panels>
           <p-step-panel [value]="1">
@@ -42,7 +42,8 @@
                   <li>
                     <strong>{{ region.name }}</strong>
                     @if (region.features && region.features != 'null') {
-                    <span> - {{ region.features }}</span>
+                    <span [innerHTML]='region.features'></span>
+
                     }
                     @else{
                     <span></span>
@@ -64,7 +65,7 @@
 
               <div class="section ">
                 <h4>{{ 'discription' | translate }}</h4>
-                {{project.description}}
+                <span [innerHTML]='project.description'></span>
               </div>
 
               <div class="flex p-3 justify-between">
@@ -77,8 +78,10 @@
             <ng-template #content let-activateCallback="activateCallback">
 
               <div class="section">
-                <h4>{{'delivery-specifications' | translate}}</h4>
-                {{project.features}}
+                <h4>{{ 'features' | translate }}</h4>
+
+                <span [innerHTML]='project.features'></span>
+
               </div>
 
               <div class="flex p-3 justify-between">
@@ -90,19 +93,18 @@
           <p-step-panel [value]="4">
             <ng-template #content let-activateCallback="activateCallback">
 
-                  <div class="section">
-                    <h4>{{ 'features' | translate }}</h4>
-                    <ul class="features-list">
-                      @for (item of project['facilities']; track item.id) {
-                      <li>
-                        <img [src]="item.main_image || ficon"  class="feature-icon"
-                          (error)="onImageError2($event)" />
-                        <span>{{ item.name }}</span>
-                      </li>
-                      }
-                    </ul>
-                  </div>
-       
+              <div class="section">
+                <h4>{{'delivery-specifications' | translate}}</h4>
+                <ul class="features-list">
+                  @for (item of project['facilities']; track item.id) {
+                  <li>
+                    <img [src]="item.main_image || ficon" class="feature-icon" (error)="onImageError2($event)" />
+                    <span>{{ item.name }}</span>
+                  </li>
+                  }
+                </ul>
+              </div>
+
               <div class="flex p-3 justify-start">
                 <p-button [label]="'back' | translate" severity="secondary" iconPos="right"
                   (onClick)="activateCallback(2)" />
@@ -113,12 +115,14 @@
       </p-stepper>
     </div>
     <div class="details">
-      @if (project.pdf) {
+      @if(project.pdf){
       <div class="download">
-        <button pButton type="button" label="{{ 'project-details.download-brochure' | translate }}"
-          icon="pi pi-download" (click)="downloadPdf()"></button>
+        <button pButton type="button" label="{{ 'pdf-download' | translate }}" icon="pi pi-download"
+          (click)="downloadPdf()"></button>
       </div>
       }
+
+
       @if (project.unit_types?.length > 1) {
       <div class="section">
         <h3 class="unit-name">{{ 'units' | translate }}</h3>
@@ -141,7 +145,7 @@
       }">
             {{ unit.status }}
           </div>
-          <img [src]="unit.image  || unitImage" (error)="onImageError($event)" alt="{{unit.title}}" />
+          <img [src]="unit.main_image  || unitImage" (error)="onImageError($event)" alt="{{unit.title}}" />
           <div class="info-box">
             <h3>{{ unit.name }}</h3>
             <div class="details">

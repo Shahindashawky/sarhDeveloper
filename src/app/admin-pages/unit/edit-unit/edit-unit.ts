@@ -162,7 +162,7 @@ export class EditUnit {
       for (const key in newunit) {
         if (!newunit.hasOwnProperty(key)) continue;
         const value = newunit[key];
-
+          if (key === 'gallery_images' && !Array.isArray(value)) continue;
         if (Array.isArray(value)) {
           value.forEach((item, index) => {
             formData.append(`${key}[${index}]`, item);
