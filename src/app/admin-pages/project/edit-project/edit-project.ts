@@ -165,6 +165,7 @@ export class EditProject {
         arabic_features: this.projectForm.value.arabic_features,
         english_features: this.projectForm.value.english_features,
         gallery_images: this.gallery_images,
+        pdf: this.pdf
 
 
       };

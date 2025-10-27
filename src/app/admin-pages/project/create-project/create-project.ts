@@ -150,6 +150,7 @@ export class CreateProject {
         arabic_features: this.projectForm.value.arabic_features,
         english_features: this.projectForm.value.english_features,
         gallery_images: this.gallery_images,
+        pdf: this.pdf
       };
       let formData: any = new FormData();
       for (const key in newproject) {
@@ -173,7 +174,9 @@ export class CreateProject {
           }
         }
       }
-
+      for (let pair of formData.entries()) {
+  console.log(pair[0] + ':', pair[1]);
+}
       this.api.addProject(formData).subscribe(
         (res: any) => {
           this.projectForm.reset();

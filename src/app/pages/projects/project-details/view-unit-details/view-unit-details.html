@@ -13,11 +13,11 @@
         <img [src]="image || unitImage" (error)="onImageError($event)" alt="unit Image" />
         <div class="status-badge" [ngClass]="{
         'available': unit.status_slug === 'available',
-        'sold-out': unit.status_slug === 'sold out',
+        'sold-out': unit.status_slug === 'sold',
         'not-available': unit.status_slug === 'not available'
       }">
-            {{ unit.status }}
-          </div>
+          {{ unit.status }}
+        </div>
       </ng-template>
 
       <ng-template pTemplate="thumbnail" let-image>
@@ -27,13 +27,13 @@
     <br>
     @if(unit.status_slug === 'available'){
 
-    
+
     <div class="card flex justify-center m-3 p-3">
       <p-stepper [value]="1" class="basis-[50rem]">
         <p-step-list>
           <p-step [value]="1">{{'details' | translate}}</p-step>
           <p-step [value]="2">{{'discription' | translate}}</p-step>
-          <p-step [value]="3">{{'features' | translate}}</p-step>
+          <p-step [value]="3">{{'delivery-specifications' | translate}}</p-step>
         </p-step-list>
         <p-step-panels>
           <p-step-panel [value]="1">
@@ -83,13 +83,27 @@
 
           <p-step-panel [value]="2">
             <ng-template #content let-activateCallback="activateCallback">
-              <div class="flex flex-col h-48">
-                <div class="section ">
-                  <h4>{{ 'discription' | translate }}</h4>
-                 <span [innerHTML]='unit.description'></span>
+              @if(unit.details){
+              <div class="section ">
+                <h4>{{ 'discription' | translate }}</h4>
+                <span [innerHTML]='unit.description'></span>
 
-                </div>
               </div>
+              }
+              @if(unit.map_url){
+              <div class="section ">
+                <h4>{{ 'project-map' | translate }}</h4>
+                <div class="map">
+                  <iframe
+                    [src]="unit.map_url">
+                  </iframe>
+                </div>
+                </div>
+                }
+
+              
+
+
               <div class="flex p-3 justify-between">
                 <p-button [label]="'back' | translate" severity="secondary" (onClick)="activateCallback(1)" />
                 <p-button class="next-btn" [label]="'next' | translate" (onClick)="activateCallback(3)" />
@@ -99,23 +113,19 @@
 
           <p-step-panel [value]="3">
             <ng-template #content let-activateCallback="activateCallback">
-              
-                
-                  <div class="section">
-                    <h4>{{ 'features' | translate }}</h4>
-                    <ul class="features-list">
-                      @for (item of unit.facilities; track item.id) {
-                      <li>
-                         <img 
-              [src]="item.main_image || ficon" 
-              class="feature-icon" 
-              (error)="onImageError2($event)"
-            />
-            <span>{{ item.name || item }}</span>
-          </li>
-                      }
-                    </ul>
-                 
+
+
+              <div class="section">
+                <h4>{{ 'delivery-specifications' | translate }}</h4>
+                <ul class="features-list">
+                  @for (item of unit.facilities; track item.id) {
+                  <li>
+                    <img [src]="item.main_image || ficon" class="feature-icon" (error)="onImageError2($event)" />
+                    <span>{{ item.name || item }}</span>
+                  </li>
+                  }
+                </ul>
+
               </div>
               <div class="flex p-3 justify-start">
                 <p-button [label]="'back' | translate" severity="secondary" iconPos="right"
@@ -126,7 +136,8 @@
         </p-step-panels>
       </p-stepper>
     </div>
-  }
+
+    }
     <div class="details">
 
       @if (unit.unit_types?.length > 1) {
@@ -146,7 +157,7 @@
           <button class="scroll-top-btn" (click)="goToUnit(up.id)"> <i class="pi pi-arrow-up-left"></i> </button>
           <div class="status-badge" [ngClass]="{
         'available': up.status_slug === 'available',
-        'sold-out': up.status_slug === 'sold out',
+        'sold-out': up.status_slug === 'sold',
         'not-available': up.status_slug === 'not available'
       }">
             {{ up.status }}
@@ -168,7 +179,7 @@
       }
 
     </div>
-<br>
-    } 
+    <br>
+    }
   </div>
 </section>

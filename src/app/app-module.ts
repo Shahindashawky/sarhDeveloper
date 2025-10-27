@@ -45,7 +45,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 // ngx-translate
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -132,9 +133,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     StepperModule,
     ConfirmDialogModule,
     CarouselModule,
+    IconFieldModule,
     ProgressSpinnerModule,
     DialogModule,
     SelectModule,
+    InputIconModule,
     MultiSelectModule,
     ToggleSwitchModule,
     DataViewModule,
