@@ -22,7 +22,7 @@ constructor(private confirmationService: ConfirmationService,private messageServ
   getdata() {
     this.loadingService.show();
     this.api.getALLProjects().subscribe((r: any) => {
-      this.projects = r.data;
+      this.projects = r;
       this.loadingService.hide();
     })
   }

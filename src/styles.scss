@@ -47,6 +47,10 @@ h1, h2, h3, h4, h5, h6 {
       }
       .p-dialog,.p-checkbox-box,.p-inputtext,.p-multiselect-overlay{
         background-color: white !important;
+        color: black !important;
+      }
+      .p-confirmdialog-icon {
+    color: var(--third-color) !important;
       }
           .p-checkbox-checked  .p-checkbox-box{
         background-color: var(--first-color) !important;
