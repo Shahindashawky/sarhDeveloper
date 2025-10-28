@@ -7,15 +7,12 @@
 
     @if (project) {
 
-    <p-galleria [value]="images()" [showThumbnails]="true" [showIndicators]="true" [circular]="true" [autoPlay]="true"
-      [transitionInterval]="3000" [showItemNavigators]="true" [showThumbnailNavigators]="false">
+    <p-galleria  [value]="images()" [showThumbnails]="true" [showIndicators]="true" [circular]="true" [autoPlay]="true"
+      [transitionInterval]="3000" [showItemNavigators]="true" [showThumbnailNavigators]="false" [responsiveOptions]="responsiveOptions">
       <ng-template pTemplate="item" let-image>
         <img [src]="image || projectImage" (error)="onImageError($event)" alt="Project Image" />
       </ng-template>
 
-      <ng-template pTemplate="thumbnail" let-image>
-        <img [src]="image || projectImage" (error)="onImageError($event)" alt="Thumbnail" />
-      </ng-template>
     </p-galleria>
     <br>
     <div class="card flex justify-center m-3 p-3">
@@ -119,7 +116,7 @@
     <div class="details">
       @if(project.pdf){
       <div class="download">
-        <button pButton type="button" label="{{ 'pdf-download' | translate }}" icon="pi pi-download"
+        <button class="download-btn" pButton type="button" label="{{ 'pdf-download' | translate }}" icon="pi pi-download"
           (click)="downloadPdf()"></button>
       </div>
       }

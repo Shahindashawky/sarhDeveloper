@@ -174,9 +174,7 @@ export class CreateProject {
           }
         }
       }
-      for (let pair of formData.entries()) {
-  console.log(pair[0] + ':', pair[1]);
-}
+
       this.api.addProject(formData).subscribe(
         (res: any) => {
           this.projectForm.reset();

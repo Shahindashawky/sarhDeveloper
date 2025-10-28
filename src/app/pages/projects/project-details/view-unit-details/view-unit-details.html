@@ -8,7 +8,7 @@
     @if (unit) {
 
     <p-galleria [value]="images()" [showThumbnails]="true" [showIndicators]="true" [circular]="true" [autoPlay]="true"
-      [transitionInterval]="3000" [showItemNavigators]="true" [showThumbnailNavigators]="false">
+      [transitionInterval]="3000" [showItemNavigators]="true" [showThumbnailNavigators]="false"   [responsiveOptions]="responsiveOptions">
       <ng-template pTemplate="item" let-image>
         <img [src]="image || unitImage" (error)="onImageError($event)" alt="unit Image" />
         <div class="status-badge" [ngClass]="{
@@ -18,10 +18,6 @@
       }">
           {{ unit.status }}
         </div>
-      </ng-template>
-
-      <ng-template pTemplate="thumbnail" let-image>
-        <img [src]="image || unitImage" (error)="onImageError($event)" alt="Thumbnail" />
       </ng-template>
     </p-galleria>
     <br>

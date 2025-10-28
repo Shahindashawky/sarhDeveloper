@@ -71,6 +71,7 @@ import { ConstructionDetails } from './pages/followup/construction-details/const
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Units } from './pages/units/units';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

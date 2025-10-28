@@ -22,6 +22,8 @@ export class ViewProjectDetails {
   units: any;
 selectedUnitId: number | null = null;
 ficon:any;
+  private observer?: MutationObserver;
+
   constructor(private loadingService: LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
@@ -37,7 +39,15 @@ ficon:any;
       this.projectId = params['id'];
     });
   }
+  ngAfterViewInit() {
+    // إعادة تهيئة الواجهة بعد التحميل الأول
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 500);
+  }
 
+  ngOnDestroy() {
+    // تنظيف الـ observer عند تدمير الكمبوننت
+    if (this.observer) this.observer.disconnect();
+  }
   ngOnInit(): void {
     this.loadingService.show();
     this.langService.currentLang$.subscribe((lang) => {
@@ -64,6 +74,7 @@ ficon:any;
         } else {
           this.images.set(gallery);
         }
+        
         this.getUnits('');
         this.loadingService.hide();
       }
@@ -99,4 +110,19 @@ ficon:any;
   goToUnit(id: any) {
     this.router.navigate(['/view-unit-details', id]);
   }
+  responsiveOptions = [
+  {
+    breakpoint: '1024px',
+    numVisible: 5
+  },
+  {
+    breakpoint: '768px',
+    numVisible: 3
+  },
+  {
+    breakpoint: '560px',
+    numVisible: 2
+  }
+];
+
 }
