@@ -2,15 +2,26 @@
   <div class="card">
     <h2 class="title">Units List</h2>
 
-    <p-table
+    <p-table #dt1
       [value]="units"
       [paginator]="true"
       [rows]="5"
       [rowsPerPageOptions]="[5, 10, 20]"
       [tableStyle]="{ 'min-width': '60rem' }"
+      [globalFilterFields]="['english_name','arabic_name','status']"
       responsiveLayout="scroll"
       styleClass="p-datatable-striped p-datatable-gridlines custom-table"
     >
+                <ng-template #caption>
+            <div class="flex">
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" class="ps-5" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </p-iconfield>
+            </div>
+        </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>English Name</th>

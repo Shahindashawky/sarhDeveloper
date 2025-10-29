@@ -8,7 +8,7 @@
       [rows]="5"
       [rowsPerPageOptions]="[5, 10, 20]"
       [tableStyle]="{ 'min-width': '60rem' }"
-      [globalFilterFields]="['status', 'region']"
+      [globalFilterFields]="['english_name','arabic_name','status', 'region']"
       responsiveLayout="scroll"
       styleClass="p-datatable-striped p-datatable-gridlines custom-table"
     >
@@ -18,7 +18,7 @@
                     <p-inputicon>
                         <i class="pi pi-search"></i>
                     </p-inputicon>
-                    <input pInputText type="text" class="ps-5" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="         Search keyword" />
+                    <input pInputText type="text" class="ps-5" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                 </p-iconfield>
             </div>
         </ng-template>

@@ -19,8 +19,8 @@ import { forkJoin } from 'rxjs';
 })
 export class CreateUnits {
   unitsForm!: FormGroup;
-  imageName: string = 'choose file to upload';
-  imageName2: string = 'choose files to upload ';
+  imageName: string = 'choose file to upload by KB';
+  imageName2: string = 'choose files to upload by KB';
   main_image!: File;
   gallery_images!: File[];
   image2!: FileList;
@@ -118,6 +118,11 @@ export class CreateUnits {
 
 
   createunits() {
+ this.unitsForm.markAllAsTouched();
+  if (this.unitsForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.unitsForm.valid) {
       let newunit: any = {
         project_id: this.unitsForm.value.project_id?.id,

@@ -14,7 +14,7 @@ import { LoadingService } from '../../../services/loading.service';
 })
 export class EditFacilities {
   facilitieForm!: FormGroup;
-  imageName: string = 'choose file to upload';
+  imageName: string = 'choose file to upload by KB';
   main_image!: File;
   facilitieId!: string;
 
@@ -49,7 +49,7 @@ export class EditFacilities {
     this.facilitieForm = this.fb.group({
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
-      main_image: [null, Validators.required],
+      main_image: [null],
     });
   }
   Message(message: any) {
@@ -72,6 +72,11 @@ export class EditFacilities {
   }
 
   onSubmit(): void {
+    this.facilitieForm.markAllAsTouched();
+  if (this.facilitieForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.facilitieForm.valid) {
       let newfacilitie: any = {
         english_name: this.facilitieForm.value.english_name,

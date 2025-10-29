@@ -15,8 +15,8 @@ import { forkJoin } from 'rxjs';
 })
 export class EditConstructionUpdate {
   constructionupdateForm!: FormGroup;
-  imageName: string = 'choose file to upload';
-  imageName2: string = 'choose files to upload ';
+  imageName: string = 'choose file to upload by KB';
+  imageName2: string = 'choose files to upload by KB';
   main_image!: File;
   gallery_images!: File[];
   image2!: FileList;
@@ -68,10 +68,10 @@ export class EditConstructionUpdate {
   }
   initializeForm(): void {
     this.constructionupdateForm = this.fb.group({
-      main_image: [null, Validators.required],
+      main_image: [null],
       project_id: [null, Validators.required],
       status: [null, Validators.required],
-      update_date: [[], Validators.required],
+      update_date: [[]],
       arabic_details: ['', Validators.required],
       english_details: ['', Validators.required],
       gallery_images: [null],
@@ -90,16 +90,21 @@ export class EditConstructionUpdate {
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
   }
 
-  convertData(date: Date | Date[]): string[] {
-    if (!date) return [];
+convertData(date: any): string[] {
+  if (!date) return [];
 
-    if (date instanceof Date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return [`${year}-${month}-${day}`];
-    }
+  if (typeof date === 'string') {
+    return [date];
+  }
 
+  if (date instanceof Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return [`${year}-${month}-${day}`];
+  }
+
+  if (Array.isArray(date)) {
     return date.map((d) => {
       const dateObj = new Date(d);
       const year = dateObj.getFullYear();
@@ -108,6 +113,10 @@ export class EditConstructionUpdate {
       return `${year}-${month}-${day}`;
     });
   }
+
+  return [];
+}
+
 
   onImageChange(event: any): void {
     const fileInput = event.target;
@@ -132,6 +141,12 @@ export class EditConstructionUpdate {
 
 
   editconstructionupdate() {
+        this.constructionupdateForm.markAllAsTouched();
+
+  if (this.constructionupdateForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.constructionupdateForm.valid) {
       let construction: any = {
         project_id: this.constructionupdateForm.value.project_id,

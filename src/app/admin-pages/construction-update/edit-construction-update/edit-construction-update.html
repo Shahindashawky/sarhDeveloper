@@ -1,11 +1,12 @@
 <div class="container mb-2 fc">
     <h2 class="row fw-bold">Edit construction-update</h2>
-    <form (ngSubmit)="editconstructionupdate()" [formGroup]="constructionupdateForm" enctype="multipart/form-data" class="row constructionupdateForm">
+    <form (ngSubmit)="editconstructionupdate()" [formGroup]="constructionupdateForm" enctype="multipart/form-data"
+        class="row constructionupdateForm">
 
-               <div class="row mb-4">
+        <div class="row mb-4">
             <label for="type" class="form-label ps-0">Select project <span class="arabic">(اختر المشروع)</span> <span
                     class="text-danger fw-bold">*</span></label>
-              <p-select formControlName="project_id" optionLabel="english_name"  optionValue="id" [options]="project" >
+            <p-select formControlName="project_id" optionLabel="english_name" optionValue="id" [options]="project">
                 <ng-template let-p pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         {{ p.arabic_name }} - {{ p.english_name }}
@@ -33,7 +34,7 @@
         <div class="row mb-4">
             <label for="status" class="form-label ps-0">Status <span class="arabic">(اختر الحالة)</span><span
                     class="text-danger">*</span></label>
-              <p-select formControlName="status" optionLabel="english_name"  optionValue="id" [options]="status" >
+            <p-select formControlName="status" optionLabel="english_name" optionValue="id" [options]="status">
                 <ng-template let-s pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         {{ s.arabic_name }} - {{ s.english_name }}
@@ -44,19 +45,25 @@
         <div class="row mb-4">
             <label for="status" class="form-label ps-0">Update date <span class="arabic">(حدث التاريخ)</span><span
                     class="text-danger">*</span></label>
-            <p-datepicker formControlName="update_date" [showIcon]="true"/>
+            <p-datepicker formControlName="update_date" [showIcon]="true" />
 
         </div>
         <div class="row mb-4">
-              <textarea rows="5" cols="30" placeholder="details arabic" pTextarea formControlName="arabic_details" ></textarea>
-                </div>
+            <label for="arabic_details" class="form-label ps-0">Arabic details <span class="arabic">(التفاصيل باللغه
+                    العربيه)</span><span class="text-danger">*</span></label>
+            <textarea rows="5" cols="30" placeholder="details arabic" pTextarea
+                formControlName="arabic_details"></textarea>
+        </div>
         <div class="row mb-4">
-              <textarea rows="5" cols="30" placeholder="details englidh" pTextarea formControlName="english_details" ></textarea>
+            <label for="english_details" class="form-label ps-0">English details <span class="arabic">(التفاصيل باللغه
+                    الانجليزيه)</span><span class="text-danger">*</span></label>
+            <textarea rows="5" cols="30" placeholder="details english" pTextarea
+                formControlName="english_details"></textarea>
         </div>
 
-
         <div class="row mb-4">
-            <label for="imageInput2" class="form-label ps-0">gallery images <span class="arabic">(اختر صور اخرى)</span></label>
+            <label for="imageInput2" class="form-label ps-0">gallery images <span class="arabic">(اختر صور
+                    اخرى)</span></label>
             <div class="input-group mb-4 px-0">
                 <div class="input-group file-input-group" data-controller="file-input2">
                     <input class="form-control" type="text" [placeholder]="imageName2" readonly

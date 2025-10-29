@@ -21,7 +21,7 @@ constructor(private confirmationService: ConfirmationService,private messageServ
   getdata() {
     this.loadingService.show();
     this.api.getALLUnits().subscribe((r: any) => {
-      this.units = r.data;
+      this.units = r;
       this.loadingService.hide();
     })
   }

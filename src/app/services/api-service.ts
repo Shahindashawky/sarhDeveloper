@@ -1,5 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -88,7 +88,7 @@ export class ApiService {
       });
   }
   getALLProjects(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/projects`,
+    return this.http.get<any>(`${this.apiUrl}/dashboard/projects?paginate=false`,
       {
         headers: this.httpOption.headers,
       });
@@ -100,7 +100,7 @@ export class ApiService {
       });
   }
   getALLUnits(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/dashboard/units`,
+    return this.http.get<any>(`${this.apiUrl}/dashboard/units?paginate=false`,
       {
         headers: this.httpOption.headers,
       });
@@ -309,59 +309,85 @@ export class ApiService {
       }
     );
   }
-  search(lang: any,search:any): Observable<any> {
+  search(lang: any, search: any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/search?locale=${lang}`,
       search,
 
-      { 
+      {
         headers: this.httpOption.headers,
       }
     );
   }
-  sendContact(form:any,lang: any): Observable<any> {
+  sendContact(form: any, lang: any): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/send-contact?locale=${lang}`,
-          form,
+      form,
       {
         headers: this.httpOption.headers,
       }
     );
   }
   //Put
+
   updateRegion(regionID: any, region: Region) {
+    const params = new HttpParams().set('_method', 'PUT');
+
     return this.http.post(
-      `${this.apiUrl}/dashboard/regions/${regionID}?_method=PUT`,
+      `${this.apiUrl}/dashboard/regions/${regionID}`,
       region,
-      this.httpFileOption
+      {
+        headers: this.httpFileOption.headers,
+        params
+      }
     );
   }
   updateFacilitie(facilitieID: any, facilitie: Facilities) {
+    const params = new HttpParams().set('_method', 'PUT');
+
     return this.http.post(
-      `${this.apiUrl}/dashboard/facilities/${facilitieID}?_method=PUT`,
+      `${this.apiUrl}/dashboard/facilities/${facilitieID}`,
       facilitie,
-      this.httpFileOption
+      {
+        headers: this.httpFileOption.headers,
+        params
+      }
     );
   }
   updateProject(projectID: any, project: Project) {
+    const params = new HttpParams().set('_method', 'PUT');
+
     return this.http.post(
-      `${this.apiUrl}/dashboard/projects/${projectID}?_method=PUT`,
+      `${this.apiUrl}/dashboard/projects/${projectID}`,
       project,
-      this.httpFileOption
+      {
+        headers: this.httpFileOption.headers,
+        params
+      }
     );
   }
   updateunit(unitID: any, unit: any) {
+    const params = new HttpParams().set('_method', 'PUT');
+
     return this.http.post(
-      `${this.apiUrl}/dashboard/units/${unitID}?_method=PUT`,
+      `${this.apiUrl}/dashboard/units/${unitID}`,
       unit,
-      this.httpFileOption
+      {
+        headers: this.httpFileOption.headers,
+        params
+      }
     );
   }
   updateconstruction(constID: any, construction: any) {
+    const params = new HttpParams().set('_method', 'PUT');
+
     return this.http.post(
-      `${this.apiUrl}/dashboard/constructions/${constID}?_method=PUT`,
+      `${this.apiUrl}/dashboard/constructions/${constID}`,
       construction,
-      this.httpFileOption
+      {
+        headers: this.httpFileOption.headers,
+        params
+      }
     );
   }
   updateregionStatus(regionstatus: any) {

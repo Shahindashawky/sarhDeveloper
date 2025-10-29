@@ -18,7 +18,7 @@ import { LoadingService } from '../../../services/loading.service';
 })
 export class CreateRegions {
   regionForm!: FormGroup;
-  imageName: string = 'choose file to upload';
+  imageName: string = 'choose file to upload by KB';
   main_image!: File;
   parentregion: ParentRegion[] = [];
 
@@ -68,6 +68,11 @@ export class CreateRegions {
 
 
   onSubmit(): void {
+     this.regionForm.markAllAsTouched();
+  if (this.regionForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.regionForm.valid) {
       let newregion: any = {
         parent_id: this.regionForm.value.parent_id,

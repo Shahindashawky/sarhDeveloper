@@ -19,8 +19,8 @@ import { forkJoin } from 'rxjs';
 })
 export class CreateProject {
   projectForm!: FormGroup;
-  imageName: string = 'choose file to upload';
-  imageName2: string = 'choose files to upload ';
+  imageName: string = 'choose file to upload by KB';
+  imageName2: string = 'choose files to upload by KB';
   main_image!: File;
   gallery_images!: File[];
   image2!: FileList;
@@ -136,6 +136,11 @@ export class CreateProject {
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
   }
   createproject() {
+  this.projectForm.markAllAsTouched();
+  if (this.projectForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.projectForm.valid) {
       let newproject: any = {
         region_id: this.projectForm.value.region_id?.id,

@@ -14,8 +14,8 @@ import { forkJoin } from 'rxjs';
 })
 export class CreateConstructionUpdate {
   constructionupdateForm!: FormGroup;
-  imageName: string = 'choose file to upload';
-  imageName2: string = 'choose files to upload ';
+  imageName: string = 'choose file to upload by KB';
+  imageName2: string = 'choose files to upload by KB';
   main_image!: File;
   gallery_images!: File[];
   image2!: FileList;
@@ -116,6 +116,12 @@ export class CreateConstructionUpdate {
 
 
   createconstructionupdate() {
+    this.constructionupdateForm.markAllAsTouched();
+
+  if (this.constructionupdateForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.constructionupdateForm.valid) {
       this.isLoading = true;
       let newunit: any = {

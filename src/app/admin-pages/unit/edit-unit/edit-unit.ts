@@ -14,8 +14,8 @@ import { forkJoin } from 'rxjs';
 })
 export class EditUnit {
   unitsForm!: FormGroup;
-  imageName: string = 'choose file to upload';
-  imageName2: string = 'choose files to upload ';
+  imageName: string = 'choose file to upload by KB';
+  imageName2: string = 'choose files to upload by KB';
   main_image!: File;
   gallery_images!: File[];
   image2!: FileList;
@@ -81,7 +81,7 @@ export class EditUnit {
     this.unitsForm = this.fb.group({
       english_name: ['', Validators.required],
       arabic_name: ['', Validators.required],
-      main_image: [null, Validators.required],
+      main_image: [null],
       project_id: [null, Validators.required],
       unit_type_id: ['', Validators.required],
       status: [null, Validators.required],
@@ -136,6 +136,11 @@ export class EditUnit {
     this.messageService.add({ severity: 'warn', summary: 'Warn', detail: message });
   }
   editunits() {
+     this.unitsForm.markAllAsTouched();
+  if (this.unitsForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.unitsForm.valid) {
       let newunit: any = {
         project_id: this.unitsForm.value.project_id,

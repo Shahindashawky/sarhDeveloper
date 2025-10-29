@@ -15,7 +15,7 @@ import { MessageService } from 'primeng/api';
 })
 export class CreateFacilities {
   facilitieForm!: FormGroup;
-  imageName: string = 'choose file to upload';
+  imageName: string = 'choose file to upload by KB';
   main_image!: File;
   constructor(
     private fb: FormBuilder,
@@ -38,6 +38,11 @@ export class CreateFacilities {
   }
 
   onSubmit(): void {
+      this.facilitieForm.markAllAsTouched();
+  if (this.facilitieForm.invalid) {
+    this.showWarn('Please fill all required fields.');
+    return;
+  }
     if (this.facilitieForm.valid) {
       let newfacilitie: any = {
         english_name: this.facilitieForm.value.english_name,
