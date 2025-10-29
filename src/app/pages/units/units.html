@@ -15,7 +15,7 @@
       }">
             {{ up.status }}
           </div>
-          <img [src]="up.image  || unitImage" (error)="onImageError($event)" alt="{{up.title}}" />
+          <img [src]="up.main_image  || unitImage" (error)="onImageError($event)" alt="{{up.title}}" />
           <div class="info-box">
             <h3>{{ up.name }}</h3>
             <div class="details">

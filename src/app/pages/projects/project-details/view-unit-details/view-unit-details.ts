@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ApiService } from '../../../../services/api-service';
 import { LoadingService } from '../../../../services/loading.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-view-unit-details',
   standalone: false,
@@ -20,12 +21,13 @@ export class ViewUnitDetails {
   ficon: any;
   projectunits:any;
   selectedUnitId: number | null = null;
+  safeMapUrl!: SafeResourceUrl;
 
   constructor(private loadingService: LoadingService,
     private translate: TranslateService,
     private langService: LanguageService,
     private api: ApiService,
-    private route: ActivatedRoute, private location: Location, private router: Router
+    private route: ActivatedRoute, private location: Location, private router: Router,private sanitizer: DomSanitizer
 
   ) {
     this.unitImage = this.api.unitImage;
@@ -55,6 +57,9 @@ export class ViewUnitDetails {
     this.api.getProjectUnitById(this.unitId, this.currentLang).subscribe({
       next: (u) => {
         this.unit = u;
+        if (this.unit.map_url) {
+      this.safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.unit.map_url);
+    }
         const gallery = Array.isArray(u.gallery_images) ? u.gallery_images : [];
         if (u.main_image) {
           this.images.set([u.main_image, ...gallery]);
@@ -79,6 +84,8 @@ getprojectunit(projectid:any,unittypeid:any){
 }
   goToUnit(id: any) {
     this.router.navigate(['/view-unit-details', id]);
+        this.getunit();
+
   }
   onImageError(event: any) {
     event.target.src = this.unitImage;
